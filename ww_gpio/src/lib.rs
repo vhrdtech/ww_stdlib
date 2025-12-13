@@ -4,17 +4,30 @@ use wire_weaver::prelude::*;
 /// Each pin in a bank is using the same reference voltage, that can be adjusted if bank supports it.
 #[ww_trait]
 trait GpioBank {
+    /// 0. Array of individual pins.
+    ww_impl!(pins[]: Gpio);
+
+    // 1-7. Reserved
+    reserved!();
+    reserved!();
+    reserved!();
+    reserved!();
+    reserved!();
+    reserved!();
+    reserved!();
+
     /// Range or list of available pins, each pin is identified by an u32 index.
     fn available() -> AvailablePins<'i>;
     /// Capabilities that each pin of the bank supports.
     fn capabilities() -> GpioBankCapabilities<'i>;
-    /// Array of individual pins.
-    ww_impl!(pins[]: Gpio);
 
     /// Reference voltage currently in use.
     fn reference_voltage() -> f32;
     /// Set reference voltage to the requested value.
     fn set_reference_voltage(value: f32) -> Result<(), GpioError>;
+
+    /// User-friendly bank name.
+    fn name() -> &'i str;
 }
 
 /// One pin from a GPIO bank.
