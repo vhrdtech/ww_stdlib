@@ -1,8 +1,13 @@
+[workspace.package]
+edition = "2024"
+authors = ["Roman Isaikin <romix.lab@gmail.com>"]
+
 [workspace]
 resolver = "3"
 
 members = [
   "ww_gpio",
+  "ww_dfu",
 ]
 
 [workspace.dependencies]
