@@ -4,6 +4,8 @@ version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
 description = "Firmware update data types and API"
+license.workspace = true
+repository.workspace = true
 
 [dependencies]
 wire_weaver = { workspace = true }
