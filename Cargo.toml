@@ -12,6 +12,7 @@ members = [
   "ww_gpio",
   "ww_dfu",
   "ww_can_bus",
+  "ww_log_bare_metal",
 ]
 
 [workspace.dependencies]
