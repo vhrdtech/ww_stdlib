@@ -1,5 +1,4 @@
-use wire_weaver::prelude::*;
-use wire_weaver::shrink_wrap::Error;
+use shrink_wrap::prelude::*;
 
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
@@ -150,7 +149,7 @@ impl<'i> DeserializeShrinkWrap<'i> for UBits {
         if shifted <= 127 {
             Ok(UBits(shifted + 1))
         } else {
-            Err(Error::SubtypeOutOfRange)
+            Err(ShrinkWrapError::SubtypeOutOfRange)
         }
     }
 }
@@ -178,7 +177,7 @@ impl<'i> DeserializeShrinkWrap<'i> for IBits {
         if shifted <= 126 {
             Ok(IBits(shifted + 2))
         } else {
-            Err(Error::SubtypeOutOfRange)
+            Err(ShrinkWrapError::SubtypeOutOfRange)
         }
     }
 }

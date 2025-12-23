@@ -1,4 +1,4 @@
-use wire_weaver::prelude::*;
+use shrink_wrap::prelude::*;
 use ww_numeric::{NumericAnyType, NumericBaseType};
 use ww_version::{CompactVersion, FullVersion};
 

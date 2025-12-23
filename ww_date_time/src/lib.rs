@@ -3,7 +3,7 @@
 #[cfg(feature = "chrono")]
 use chrono::{Datelike, FixedOffset, NaiveDateTime, Timelike, Utc};
 use core::fmt::{Debug, Formatter};
-use wire_weaver::prelude::*;
+use shrink_wrap::prelude::*;
 
 #[cfg(feature = "chrono")]
 pub use chrono;
