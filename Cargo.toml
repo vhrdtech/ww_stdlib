@@ -30,3 +30,4 @@ members = [
 shrink_wrap = { path = "../shrink_wrap/shrink_wrap", default-features = false }
 wire_weaver = { path = "../wire_weaver/wire_weaver", default-features = false }
 ww_date_time = { version = "0.1.0", path = "./ww_date_time", default-features = false }
+ww_log_bare_metal = { version = "0.1.0", path = "./ww_log_bare_metal", default-features = false }
