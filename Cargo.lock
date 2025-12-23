@@ -160,6 +160,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "hex-literal"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e712f64ec3850b98572bffac52e2c6f282b29fe6c5fa6d42334b30be438d95c1"
+
+[[package]]
 name = "ident_case"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -497,6 +503,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ww_can_bus"
+version = "0.1.0"
+dependencies = [
+ "defmt",
+ "wire_weaver",
+ "ww_numeric",
+ "ww_version",
+]
+
+[[package]]
 name = "ww_dfu"
 version = "0.1.0"
 dependencies = [
@@ -512,10 +528,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "ww_numeric"
+version = "0.1.0"
+dependencies = [
+ "defmt",
+ "wire_weaver",
+]
+
+[[package]]
 name = "ww_version"
 version = "0.1.0"
 dependencies = [
  "defmt",
+ "hex-literal",
  "semver",
  "shrink_wrap",
 ]

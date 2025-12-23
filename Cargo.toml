@@ -8,9 +8,12 @@ repository = "https://github.com/vhrdtech/ww_stdlib"
 resolver = "3"
 
 members = [
+  "ww_version",
   "ww_gpio",
   "ww_dfu",
+  "ww_can_bus",
 ]
 
 [workspace.dependencies]
+shrink_wrap = { path = "../shrink_wrap/shrink_wrap", default-features = false }
 wire_weaver = { path = "../wire_weaver/wire_weaver", default-features = false }
