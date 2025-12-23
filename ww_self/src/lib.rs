@@ -3,7 +3,12 @@ use ww_numeric::{NumericAnyType, NumericBaseType};
 use ww_version::{CompactVersion, FullVersion};
 
 pub struct ApiBundle<'i> {
+    /// API entry point.
     pub root: ApiLevel<'i>,
+    /// Deduplicated array of types collected from all API levels, referred to by [Type::OutOfLine].
+    pub types: RefVec<'i, Type<'i>>,
+    /// Deduplicated array of all external dependencies, referred to by [TypeDefinitionSource::GlobalFull].
+    pub ext_crates: RefVec<'i, FullVersion<'i>>
 }
 
 pub struct ApiLevel<'i> {
@@ -108,12 +113,27 @@ pub enum Type<'i> {
     /// When serializing: must do the reverse operation for all Options and Results that have is_flag_on_stack set to true.
     Flag,
 
-    OutOfLineGlobalTextual {
-        full_version: FullVersion<'i>,
+    /// Type definition from ApiBundle types array.
+    OutOfLine {
+        idx: u32,
     },
-    OutOfLineGlobalNumeric {
-        global_version: Option<CompactVersion>,
-    },
+}
+
+pub struct TypeMeta<'i> {
+    def: Type<'i>,
+    source: TypeDefinitionSource,
+}
+
+pub enum TypeDefinitionSource {
+    /// Type was defined in the same crate as ApiLevel that refers to itl.
+    Local,
+    /// Type was defined in an external crate that have a global ID assigned to it.
+    GlobalCompact(CompactVersion),
+    /// Type was defined in an external crate without global ID. One deduplicated array of names is kept in [ApiBundle].
+    GlobalFull {
+        /// Index into [ApiBundle] ext_crates array.
+        idx: u32
+    }
 }
 
 #[derive_shrink_wrap]
