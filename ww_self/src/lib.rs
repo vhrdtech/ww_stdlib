@@ -2,9 +2,68 @@ use shrink_wrap::prelude::*;
 use ww_numeric::{NumericAnyType, NumericBaseType};
 use ww_version::{CompactVersion, FullVersion};
 
+pub struct ApiBundle<'i> {
+    pub root: ApiLevel<'i>,
+}
+
+pub struct ApiLevel<'i> {
+    pub docs: &'i str,
+    pub ident: &'i str,
+    // pub source_location?
+    pub items: RefVec<'i, ApiItem<'i>>,
+}
+
+pub struct ApiItem<'i> {
+    pub id: UNib32,
+    pub multiplicity: Multiplicity,
+    pub ident: &'i str,
+    pub docs: &'i str,
+    pub kind: ApiItemKind<'i>,
+}
+
+pub enum Multiplicity {
+    Flat,
+    Array, // size bound?
+}
+
+pub enum ApiItemKind<'i> {
+    Method {
+        args: RefVec<'i, Argument<'i>>,
+        return_ty: Option<Type<'i>>,
+    },
+    Property {
+        ty: Type<'i>,
+        access: PropertyAccess,
+    },
+    Stream {
+        ty: Type<'i>,
+        is_up: bool,
+    },
+    Trait {
+        level: RefBox<'i, ApiLevel<'i>>,
+    },
+    Reserved,
+}
+
+pub struct Argument<'i> {
+    pub ident: &'i str,
+    pub ty: Type<'i>,
+}
+
+pub enum PropertyAccess {
+    /// Property is not going to change, observe not available
+    Const,
+    /// Property can only be read, but can change and be observed for changes
+    ReadOnly,
+    /// Property can be read, written and observed for changes
+    ReadWrite,
+    /// Property can only be written
+    WriteOnly,
+}
+
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum Type<'i> {
     /// 1-bit, alignment of one-bit, same as `UB(UBits(1))` but serialized with only 1 nibble because bool is used very often.
@@ -59,7 +118,7 @@ pub enum Type<'i> {
 
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum Value<'i> {
     Bool(bool),
@@ -69,7 +128,7 @@ pub enum Value<'i> {
 }
 
 #[derive_shrink_wrap]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct ItemStruct<'i> {
     pub size: ElementSize,
@@ -78,12 +137,10 @@ pub struct ItemStruct<'i> {
 }
 
 #[derive_shrink_wrap]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct Field<'i> {
     pub ident: &'i str,
     pub ty: RefBox<'i, Type<'i>>,
     pub default: Option<Value<'i>>,
 }
-
-pub struct Api {}

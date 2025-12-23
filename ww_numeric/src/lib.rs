@@ -3,7 +3,7 @@ use shrink_wrap::prelude::*;
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
 #[self_describing]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum NumericBaseType {
     /// 4-bits (nibble), alignment of four-bits
@@ -70,7 +70,7 @@ pub enum NumericBaseType {
 /// Any of the base numeric types plus derived types: subtype, shift-scale.
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum NumericAnyType<'i> {
     Base(NumericBaseType),
@@ -88,7 +88,7 @@ pub enum NumericAnyType<'i> {
 
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum SubTypeKind<'i> {
     ValidRange {
@@ -102,7 +102,7 @@ pub enum SubTypeKind<'i> {
 #[derive_shrink_wrap]
 #[ww_repr(unib32)]
 #[self_describing]
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum NumericValue {
     U4(Nibble),
@@ -128,7 +128,7 @@ pub enum NumericValue {
 
 /// Number of bits in UB number. Serialized as 7-bits and shifted by -1 to represent U1-U128.
 /// Note that only U1-U64 is supported now, but it's not hard to add numbers up to U128.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct UBits(u8);
 
@@ -156,7 +156,7 @@ impl<'i> DeserializeShrinkWrap<'i> for UBits {
 
 /// Number of bits in IB number. Serialized as 7-bits and shifted by -2 to represent I2-I128.
 /// Note that only I2-I64 is supported now, but it's not hard to add numbers up to I128.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub struct IBits(u8);
 

@@ -18,6 +18,12 @@ members = [
   "ww_log_bare_metal",
   "ww_self",
   "ww_global",
+  "ww_board_info",
+  "ww_counters",
+  "ww_spi",
+  "ww_i2c",
+  "ww_uart",
+  "ww_indication",
 ]
 
 [workspace.dependencies]
