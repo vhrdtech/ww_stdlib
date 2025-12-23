@@ -15,6 +15,7 @@ members = [
   "ww_dfu",
   "ww_can_bus",
   "ww_log_bare_metal",
+  "ww_self",
 ]
 
 [workspace.dependencies]
