@@ -8,6 +8,7 @@ repository = "https://github.com/vhrdtech/ww_stdlib"
 resolver = "3"
 
 members = [
+  "ww_client_server",
   "ww_version",
   "ww_date_time",
   "ww_si",
