@@ -10,6 +10,7 @@ resolver = "3"
 members = [
   "ww_version",
   "ww_date_time",
+  "ww_si",
   "ww_gpio",
   "ww_dfu",
   "ww_can_bus",
