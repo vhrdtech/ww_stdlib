@@ -1,14 +1,15 @@
-# nucleo_h743zi2
+# Nucleo H743ZI2 examples
+
+> This is an example project with several binaries for the Nucleo H743ZI2 board. This project uses `embassy` and
+> `embassy-usb` so it can easily be adapted to other STM32H7 boards or different families.
+
+![Board
+photo](https://www.st.com/bin/ecommerce/api/image.PF264741.en.feature-description-include-personalized-no-cpn-medium.jpg)
 
 ## Environment setup
 
-## RAM linking
-
-## TODO
-* Inspect all the generated files and TODO items in them
-* Double check memory.x configuration
-
 ## MCU Info
+
 * Family: STM32H7
 * Line: STM32H743/753
 * Die: DIE450
@@ -17,6 +18,7 @@
     * STM32H743ZITx: LQFP144 (144 pins)
 
 ## Documentation
+
 * [STM32H742, STM32H743/753 and STM32H750 Value line advanced Arm-based 32-bit MCUs (reference_manual / DM00314099)](http://www.st.com/resource/en/reference_manual/DM00314099.pdf)
 * [STM32F7 Series and STM32H7 Series Cortex-M7 processor programming manual (programming_manual / DM00237416)](http://www.st.com/resource/en/programming_manual/DM00237416.pdf)
 * [32-bit Arm Cortex-M7 480MHz MCUs, up to 2MB Flash, up to 1MB RAM, 46 com. and analog interfaces (datahseet / DM00387108)](http://www.st.com/resource/en/datasheet/DM00387108.pdf)
