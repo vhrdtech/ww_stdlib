@@ -21,6 +21,6 @@ async fn main() -> Result<()> {
     // takes 940ms on USB Full Speed, see mode_parallel example for a vast improvement over this
     // 361ms on USB High Speed
     println!("took {} ms", now.elapsed().as_millis());
-    device.disconnect_and_exit().await?;
+    device.disconnect().await?;
     Ok(())
 }
