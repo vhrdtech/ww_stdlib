@@ -14,3 +14,6 @@ description = "Checks that every public trait of this repository's crates has an
 syn.workspace = true
 toml.workspace = true
 ww_global.workspace = true
+
+[lints]
+workspace = true

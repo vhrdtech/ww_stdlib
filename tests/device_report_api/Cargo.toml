@@ -31,3 +31,6 @@ ww_firmware_info.workspace = true
 ww_log.workspace = true
 ww_uid.workspace = true
 ww_user_info.workspace = true
+
+[lints]
+workspace = true

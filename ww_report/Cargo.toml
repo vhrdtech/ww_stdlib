@@ -31,3 +31,6 @@ ww_user_info = { workspace = true, features = ["std"] }
 [dev-dependencies]
 embassy-futures.workspace = true
 serde_json.workspace = true
+
+[lints]
+workspace = true

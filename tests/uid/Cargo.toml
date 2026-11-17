@@ -16,3 +16,6 @@ wire_weaver = { workspace = true, features = ["std"] }
 wire_weaver_client.workspace = true
 ww_client_server.workspace = true
 ww_uid = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

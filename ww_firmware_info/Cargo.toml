@@ -44,3 +44,6 @@ ww_api = { workspace = true, default-features = false }
 ww_date_time = { workspace = true, default-features = false }
 ww_si = { workspace = true, default-features = false, features = ["time", "counting"] }
 ww_version = { workspace = true, default-features = false }
+
+[lints]
+workspace = true

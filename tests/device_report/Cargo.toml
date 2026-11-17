@@ -32,3 +32,6 @@ ww_si = { workspace = true, features = ["std"] }
 ww_stream = { workspace = true, features = ["std"] }
 ww_uid = { workspace = true, features = ["std"] }
 ww_user_info = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

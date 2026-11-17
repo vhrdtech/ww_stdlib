@@ -19,3 +19,6 @@ wire_weaver = { workspace = true, features = ["std"] }
 wire_weaver_client.workspace = true
 ww_i2c = { workspace = true, features = ["std"] }
 ww_si = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

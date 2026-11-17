@@ -20,3 +20,6 @@ defmt = ["dep:defmt", "ww_api/defmt", "ww_si/defmt"]
 defmt = { workspace = true, optional = true }
 ww_api = { workspace = true }
 ww_si = { workspace = true, default-features = false, features = ["counting", "information"] }
+
+[lints]
+workspace = true

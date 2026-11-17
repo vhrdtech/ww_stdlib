@@ -19,3 +19,6 @@ ww_client_server.workspace = true
 ww_sd = { workspace = true, features = ["std"] }
 ww_si = { workspace = true, features = ["std"] }
 ww_stream = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

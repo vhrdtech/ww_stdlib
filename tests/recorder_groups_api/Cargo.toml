@@ -18,3 +18,6 @@ std = ["ww_api/std", "ww_recorder/std"]
 [dependencies]
 ww_api.workspace = true
 ww_recorder.workspace = true
+
+[lints]
+workspace = true

@@ -11,3 +11,6 @@ description = "Checks every API crate of ww_stdlib against its api_snapshots/ (T
 [dev-dependencies]
 wire_weaver_evolution = { workspace = true, features = ["source"] }
 ww_snapshots.workspace = true
+
+[lints]
+workspace = true

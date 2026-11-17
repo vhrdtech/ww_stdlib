@@ -28,3 +28,6 @@ ww_adc = { workspace = true, default-features = false }
 ww_api = { workspace = true, default-features = false }
 ww_logic_analyzer = { workspace = true, default-features = false }
 ww_si = { workspace = true, default-features = false, features = ["time", "electrical"] }
+
+[lints]
+workspace = true

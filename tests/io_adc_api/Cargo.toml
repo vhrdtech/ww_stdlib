@@ -18,3 +18,6 @@ std = ["ww_api/std", "ww_adc/std"]
 [dependencies]
 ww_adc.workspace = true
 ww_api.workspace = true
+
+[lints]
+workspace = true

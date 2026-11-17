@@ -25,3 +25,6 @@ ww_i2c = { workspace = true, features = ["std"] }
 ww_i2c_hl.workspace = true
 ww_si = { workspace = true, features = ["std"] }
 ww_stream = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

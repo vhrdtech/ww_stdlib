@@ -18,3 +18,6 @@ std = ["ww_api/std", "ww_can_bus/std"]
 [dependencies]
 ww_api.workspace = true
 ww_can_bus = { workspace = true, features = ["xl"] }
+
+[lints]
+workspace = true

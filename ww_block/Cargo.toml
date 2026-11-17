@@ -21,3 +21,6 @@ defmt = { workspace = true, optional = true }
 ww_api.workspace = true
 ww_crc.workspace = true
 ww_si = { workspace = true, default-features = false, features = ["time", "information", "counting"] }
+
+[lints]
+workspace = true

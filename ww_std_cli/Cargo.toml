@@ -46,3 +46,6 @@ user_info_api.workspace = true
 wire_weaver_cli = { workspace = true, features = ["test-support"] }
 ww_client_server.workspace = true
 ww_user_info = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

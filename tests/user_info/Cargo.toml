@@ -17,3 +17,6 @@ wire_weaver_client.workspace = true
 ww_client_server.workspace = true
 ww_error = { workspace = true, features = ["std"] }
 ww_user_info = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

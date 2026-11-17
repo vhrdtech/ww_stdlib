@@ -28,3 +28,6 @@ ww_settings.workspace = true
 [dev-dependencies]
 embassy-futures.workspace = true
 ww_board_info = { path = ".", features = ["host"] }
+
+[lints]
+workspace = true

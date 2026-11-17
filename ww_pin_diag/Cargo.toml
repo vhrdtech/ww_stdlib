@@ -28,3 +28,6 @@ ww_api = { workspace = true, default-features = false }
 ww_gpio = { workspace = true, default-features = false }
 ww_interned = { workspace = true, default-features = false }
 ww_si = { workspace = true, default-features = false, features = ["counting"] }
+
+[lints]
+workspace = true

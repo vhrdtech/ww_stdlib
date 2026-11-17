@@ -20,3 +20,6 @@ ww_si = { workspace = true, features = ["std"] }
 
 [build-dependencies]
 ww_firmware_info = { workspace = true, features = ["build"] }
+
+[lints]
+workspace = true

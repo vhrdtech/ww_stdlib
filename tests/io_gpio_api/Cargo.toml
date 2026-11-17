@@ -18,3 +18,6 @@ std = ["ww_api/std", "ww_gpio/std"]
 [dependencies]
 ww_api.workspace = true
 ww_gpio.workspace = true
+
+[lints]
+workspace = true

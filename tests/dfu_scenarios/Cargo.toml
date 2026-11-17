@@ -25,3 +25,6 @@ ww_framer.workspace = true
 ww_link.workspace = true
 ww_si.workspace = true
 ww_stream = { workspace = true, features = ["std"] }
+
+[lints]
+workspace = true

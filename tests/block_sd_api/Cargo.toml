@@ -19,3 +19,6 @@ std = ["ww_api/std", "ww_block/std", "ww_sd/std"]
 ww_api.workspace = true
 ww_block.workspace = true
 ww_sd.workspace = true
+
+[lints]
+workspace = true

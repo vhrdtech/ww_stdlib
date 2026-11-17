@@ -25,3 +25,6 @@ tracing-subscriber.workspace = true
 [[example]]
 name = "defmt_log"
 path = "examples/defmt_log.rs"
+
+[lints]
+workspace = true

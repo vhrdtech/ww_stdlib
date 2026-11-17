@@ -22,3 +22,6 @@ xl = []
 defmt = { workspace = true, optional = true }
 ww_api = { workspace = true, default-features = false }
 ww_si = { workspace = true, default-features = false, features = ["time", "electrical", "dimensionless", "information", "counting"] }
+
+[lints]
+workspace = true

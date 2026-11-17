@@ -28,3 +28,6 @@ path = "examples/blocking.rs"
 [[example]]
 name = "uart_simple"
 path = "examples/simple.rs"
+
+[lints]
+workspace = true
