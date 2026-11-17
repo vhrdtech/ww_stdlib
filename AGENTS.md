@@ -31,6 +31,7 @@ crate follows: typed numbers (never a bare integer with its unit in the name), e
 | `ww_std_cli/` | the `ww` commands of these APIs (board, counters, dfu, pins, report, ...); they register themselves |
 | `tests/<name>` + `tests/<name>_api` | one integration-test crate per API with its fixture API crate |
 | `tests/stdlib_evolution` | every crate against its `api_snapshots/`, one test per crate (TOOL-31) |
+| `tests/nucleo_g0b1re_fixture` | a deployed firmware's API on these crates against its frozen old-format snapshots (EVO-70) |
 | `tests/global_ids` | every public trait has an id in the `ww_global` ledger (API-20) |
 | `examples/` | paired `<name>_api` and `<name>` crates: all_gpio, defmt_log, uart |
 | `examples_mcu/` | board firmware using these APIs (QEMU Cortex-M3, Nucleo H743ZI2, STM32H725IG, RP2350): each its own workspace |
@@ -58,6 +59,7 @@ just lint             # fmt, cargo sort -w -g, typos, clippy and rustdoc -D warn
 just check            # the board examples
 just api-check        # `ww api check` of every crate with api_snapshots/
 just save-snapshots   # `ww api save` of every crate with api_snapshots/ (--force for an unpublished version)
+just refresh-fixture-pins  # `ww api refresh-pins` of the nucleo_g0b1re_api fixture; save-snapshots calls it
 just dfu-transcripts  # regenerate the ww_dfu scenario transcripts the docs include
 ```
 
@@ -78,7 +80,9 @@ of `wire_weaver_cli` plus this repository's. It is never installed.
   line: a wire break needs WireWeaver's evolution rules (`docs/evolution/rules.md` there), not only a version bump.
 - Every public `#[ww_trait]` has an id in `ww_global`'s ledger (in ww_base) or is listed in its `no_id`;
   `tests/global_ids` checks it. A new trait claims its id there first.
-- Pinned signatures and snapshots are written by the tool, never by hand.
+- Pinned signatures and snapshots are written by the tool, never by hand. The `nucleo_g0b1re_api` fixture is never
+  saved again: its pins follow these crates through `just refresh-fixture-pins`. Its `ww_timebase::Clock` pin has a
+  copy in wire_weaver (`tests/stdlib_evolution/pins/`): when it changes, copy the refreshed file there.
 
 ## Proper fixes, never a lost capability
 

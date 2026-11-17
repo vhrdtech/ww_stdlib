@@ -17,5 +17,6 @@ the repository.
 
 - Dependencies by git: `shrink_wrap` from romixlab/shrink_wrap, `exact_units` from romixlab/exact_units, the base crates from vhrdtech/ww_base and the framework from vhrdtech/wire_weaver; `Cargo.lock` pins each commit.
 - `tests/stdlib_evolution` and `tests/global_ids` check the crates of this repository; the snapshots they refer to come from the checkouts `Cargo.lock` pins (TOOL-31, API-20).
+- `tests/nucleo_g0b1re_fixture`: the frozen `nucleo_g0b1re_api` evolution fixture and its tests, from wire_weaver; `just refresh-fixture-pins` refreshes its pins (EVO-70).
 - `just api-check` and `just save-snapshots` run `ww api check` and `ww api save` over every crate with `api_snapshots/`, through `ww_std_cli`'s never-installed `ww` example.
 
