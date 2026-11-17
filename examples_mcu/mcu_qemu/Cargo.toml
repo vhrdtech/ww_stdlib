@@ -1,0 +1,409 @@
+[package]
+name = "mcu_qemu"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+# `f32` is on by default (bins use float quantities); the no-float group of the no-f64 guard (TEST-33) builds with
+# `--no-default-features`, as a firmware that doesn't opt into floats does
+default = ["f32"]
+f32 = ["ww_si/f32"]
+# the units budget (TEST-27) with only the plain cases / only the Fixed cases, to compare the flash of the two
+only-plain = []
+only-fixed = []
+# the flash budget servers (TEST-30) with `use_async = true` and sync handlers, as Donguru's
+flash-async = []
+# the no-f64 guard (TEST-33) with a 64-bit number type enabled too, as usb_io_fw's firmware has
+guard-u64 = ["ww_si/u64"]
+# counted streams and credit sinks (qemu-counted-stream, qemu-global-paths); the flash and dispatch budgets build
+# without it, as a firmware with only plain streams does
+streams = [
+    "ww_client_server/streams",
+    "ww_stream/streams",
+    "dep:counted_stream_api",
+    "dep:global_paths_api",
+    "dep:ww_timebase",
+    "dep:ww_date_time",
+]
+
+[dependencies]
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+cortex-m-semihosting = "0.6"
+panic-semihosting = { version = "0.7", features = ["exit"] }
+static_cell = "2.1"
+
+wire_weaver = { path = "../../wire_weaver", default-features = false, features = ["defmt"] }
+ww_client_server = { path = "../../ww_client_server", default-features = false }
+ww_stream = { path = "../../ww_stream", default-features = false }
+ww_framer = { path = "../../ww_framer" }
+ww_link = { path = "../../ww_link" }
+# for its table-* features (the CRC-32 of ww_link's UDP framing), e.g. `--features ww_crc/table-256`
+ww_crc = { path = "../../ww_crc" }
+ww_bus_slave = { path = "../../ww_bus_slave" }
+ww_i2c = { path = "../../ww_stdlib/ww_i2c", default-features = false }
+ww_spi = { path = "../../ww_stdlib/ww_spi", default-features = false }
+ww_si = { path = "../../ww_stdlib/ww_si", default-features = false, features = ["electrical", "angle", "dimensionless", "information", "counting", "time", "i32", "u32"] }
+counted_stream_api = { path = "../../tests/counted_stream_api", default-features = false, optional = true }
+bounded_api = { path = "../../tests/bounded_api", default-features = false }
+foc_observe_api = { path = "../../examples/foc_observe_api", default-features = false }
+global_paths_api = { path = "../../tests/global_paths_api", default-features = false, optional = true }
+flash_budget_api = { path = "../../tests/flash_budget_api", default-features = false }
+# `qemu-global-paths`'s GlobalCompact match case needs a trait with a real ww_global id; ww_timebase is framework (R5)
+ww_timebase = { path = "../../ww_timebase", default-features = false, optional = true }
+# named by the code qemu-global-paths generates: ww_timebase::Clock's types use it
+ww_date_time = { path = "../../ww_stdlib/ww_date_time", default-features = false, optional = true }
+# KeyEvent of the qemu-flash-keyed server's `keys` stream (SRV-62)
+ww_keyed = { path = "../../ww_stdlib/ww_keyed", default-features = false }
+
+# Cortex-M0 has no compare-and-swap: ww_stream's atomics go through critical sections there (the units budget is also
+# built for thumbv6m, TEST-27)
+[target.thumbv6m-none-eabi.dependencies]
+portable-atomic = { version = "1", default-features = false, features = ["critical-section"] }
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+
+# to solve "can't find crate for test on IntelliJ"
+[[bin]]
+name = "qemu-framer-rx"
+path = "src/bin/framer_rx.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-counted-stream"
+path = "src/bin/counted_stream.rs"
+test = false
+doctest = false
+bench = false
+required-features = ["streams"]
+
+[[bin]]
+name = "qemu-global-paths"
+path = "src/bin/global_paths.rs"
+test = false
+doctest = false
+bench = false
+required-features = ["streams"]
+
+[[bin]]
+name = "qemu-bounded"
+path = "src/bin/bounded.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-series-encode-cpu-smallest"
+path = "src/bin/series_encode_cpu_smallest.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-series-encode-cpu-fixed-delta"
+path = "src/bin/series_encode_cpu_fixed_delta.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-series-encode-cpu-fixed-dod"
+path = "src/bin/series_encode_cpu_fixed_dod.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-batch-cpu"
+path = "src/bin/batch_cpu.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-series-encode-cpu-delta-packed"
+path = "src/bin/series_encode_cpu_delta_packed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-series-encode-baseline"
+path = "src/bin/series_encode_baseline.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-shared-clock-delta-packed"
+path = "src/bin/shared_clock_delta_packed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-shared-clock-raw-plain"
+path = "src/bin/shared_clock_raw_plain.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-memcpy-columns"
+path = "src/bin/memcpy_columns.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-dyn-prefix-quantity"
+path = "src/bin/dyn_prefix_quantity.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-dyn-prefix-fixed"
+path = "src/bin/dyn_prefix_fixed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-dyn-prefix-auto"
+path = "src/bin/dyn_prefix_auto.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-store-columns"
+path = "src/bin/store_columns.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-foc-observe"
+path = "src/bin/foc_observe.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-bit-io"
+path = "src/bin/bit_io.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-bus-slave"
+path = "src/bin/bus_slave.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-unit-budget"
+path = "src/bin/unit_budget.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-no-f64-guard"
+path = "src/bin/no_f64_guard.rs"
+test = false
+doctest = false
+bench = false
+
+# the profile of the shipped firmware (usb_stm32h725ig's release): the units budget (TEST-27) is measured at it
+[profile.fw-z]
+inherits = "release"
+codegen-units = 1
+lto = "fat"
+opt-level = "z"
+
+# the same at opt-level 3, to see what `z` costs in speed
+[profile.fw-3]
+inherits = "fw-z"
+opt-level = 3
+
+# the same at opt-level "s", as some firmware ships (usb_io_fw): fw_budget builds it only with `--profiles fw-s`
+[profile.fw-s]
+inherits = "fw-z"
+opt-level = "s"
+
+# exact_units (its own repository) takes shrink_wrap from wire_weaver by git: use the one here, so there is one
+[patch."https://github.com/vhrdtech/wire_weaver"]
+shrink_wrap = { path = "../../shrink_wrap/shrink_wrap" }
+
+[[bin]]
+name = "qemu-flash-floor"
+path = "src/bin/flash_floor.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-dispatch-requests"
+path = "src/bin/dispatch_requests.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-base-only"
+path = "src/bin/flash_base_only.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-calls8"
+path = "src/bin/flash_calls8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-calls16"
+path = "src/bin/flash_calls16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-calls-args8"
+path = "src/bin/flash_calls_args8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-calls-args16"
+path = "src/bin/flash_calls_args16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-props8"
+path = "src/bin/flash_props8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-props16"
+path = "src/bin/flash_props16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-streams8"
+path = "src/bin/flash_streams8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-streams16"
+path = "src/bin/flash_streams16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-typed8"
+path = "src/bin/flash_typed8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-typed16"
+path = "src/bin/flash_typed16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-maxlen8"
+path = "src/bin/flash_maxlen8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-maxlen16"
+path = "src/bin/flash_maxlen16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-observed"
+path = "src/bin/flash_observed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-batched"
+path = "src/bin/flash_batched.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-batched-no-samples"
+path = "src/bin/flash_batched_no_samples.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-globals8"
+path = "src/bin/flash_globals8.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-globals16"
+path = "src/bin/flash_globals16.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-arrayed"
+path = "src/bin/flash_arrayed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-flash-keyed"
+path = "src/bin/flash_keyed.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-si-convert"
+path = "src/bin/si_convert.rs"
+test = false
+doctest = false
+bench = false
+
+[[bin]]
+name = "qemu-rtt-scan"
+path = "src/bin/rtt_scan.rs"
+test = false
+doctest = false
+bench = false
