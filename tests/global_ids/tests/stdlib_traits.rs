@@ -100,10 +100,10 @@ fn every_stdlib_trait_has_an_id() {
         }
     }
     // the ledger also lists traits of other repositories (the framework's): only this repository's crates here
-    for name in NO_ID
-        .iter()
-        .filter(|name| name.split_once("::").is_some_and(|(c, _)| crates.contains(c)))
-    {
+    for name in NO_ID.iter().filter(|name| {
+        name.split_once("::")
+            .is_some_and(|(c, _)| crates.contains(c))
+    }) {
         assert!(
             traits.contains(*name),
             "no_id lists `{name}`, which is not a public ww_trait in ww_stdlib"
