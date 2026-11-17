@@ -2,6 +2,13 @@
 
 [![CI](https://github.com/vhrdtech/ww_stdlib/actions/workflows/ci.yml/badge.svg)](https://github.com/vhrdtech/ww_stdlib/actions/workflows/ci.yml)
 
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vhrdtech/wire_weaver/master/docs/assets/wire_weaver_logo-dark.png">
+  <img src="https://raw.githubusercontent.com/vhrdtech/wire_weaver/master/docs/assets/wire_weaver_logo.png" alt="WireWeaver logo" width="480"/>
+</picture>
+</p>
+
 > The [WireWeaver](https://github.com/vhrdtech/wire_weaver) standard library: ready-made API traits and types for
 > devices and the hosts that talk to them.
 
