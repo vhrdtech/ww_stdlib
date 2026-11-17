@@ -20,3 +20,7 @@ the repository.
 - `tests/nucleo_g0b1re_fixture`: the frozen `nucleo_g0b1re_api` evolution fixture and its tests, from wire_weaver; `just refresh-fixture-pins` refreshes its pins (EVO-70).
 - `just api-check` and `just save-snapshots` run `ww api check` and `ww api save` over every crate with `api_snapshots/`, through `ww_std_cli`'s never-installed `ww` example.
 
+### Fixes
+
+- `ww_std_cli`: follows `wire_weaver_cli` dropping the global `--monitor` / `--capture` flags and `GlobalFlags::DeviceAndTap`.
+

@@ -376,7 +376,7 @@ fn run_command(run: Run<'_>) -> BoxFuture<'_, Result<Ran>> {
 
 inventory::submit! {
     CommandDef::new("dfu", 120, command, run_command)
-        .globals(&[("", GlobalFlags::DeviceAndTap), ("rp", GlobalFlags::Device), ("stm32", GlobalFlags::Device)])
+        .globals(&[("", GlobalFlags::Device), ("rp", GlobalFlags::Device), ("stm32", GlobalFlags::Device)])
         .connection(connection)
         .forwards(&[FLASH])
 }

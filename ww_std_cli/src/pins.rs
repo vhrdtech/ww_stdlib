@@ -664,7 +664,7 @@ fn run_command(run: Run<'_>) -> BoxFuture<'_, Result<Ran>> {
 
 inventory::submit! {
     CommandDef::new("pins", 180, command, run_command)
-        .globals(&[("", GlobalFlags::DeviceAndTap)])
+        .globals(&[("", GlobalFlags::Device)])
         .connection(|_| Ok(Connection::Device(DeviceUse::FULL)))
         .log_level(|_| LevelFilter::WARN)
 }
