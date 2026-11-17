@@ -1,0 +1,18 @@
+# https://github.com/crate-ci/typos/blob/master/docs/reference.md
+
+[files]
+# generated hex dumps of the ww_dfu scenario tests
+# superseded definitions are named by their signature in hex (EVO-68)
+extend-exclude = ["tests/dfu_scenarios/transcripts/", "**/api_snapshots/superseded/"]
+
+[default.extend-words]
+# ser = serialize (ser/des)
+ser = "ser"
+# STM32 high speed internal oscillator
+hsi = "hsi"
+# GPIO output type (push-pull / open-drain)
+ot = "ot"
+# SD card status AKE_SEQ_ERROR (authentication key exchange)
+ake = "ake"
+# the ratatui crate (terminal UI)
+ratatui = "ratatui"
