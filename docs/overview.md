@@ -29,9 +29,10 @@ using `ww_gpio` on both ends is what lets tools of unrelated projects recognize 
 agreeing on anything else: `ww info` reads the firmware info of any device that has it, wherever it sits in the API.
 
 All crates are `no_std` by default; the `std` feature adds owned types (`..Owned`, `String` instead of `&str`) for
-host code. Most of them live under `ww_stdlib/` in this repo (canonical home: `vhrdtech/ww_stdlib`); the framework
-crates `ww_self`, `ww_global`, `ww_client_server` and `ww_timebase` live in the `wire_weaver` repo root, each still
-versioned on its own.
+host code. The API crates live in the [`ww_stdlib`](https://github.com/vhrdtech/ww_stdlib) repository, the base
+types (`ww_si`, `ww_numeric`, `ww_version`, `ww_error`, `ww_date_time`) and `ww_global` in
+[`ww_base`](https://github.com/vhrdtech/ww_base), and the framework crates `ww_self`, `ww_client_server` and
+`ww_timebase` in [`wire_weaver`](https://github.com/vhrdtech/wire_weaver), each still versioned on its own.
 
 ## Picking crates
 
@@ -63,8 +64,8 @@ queried at runtime, one `configure()` call per bus, common errors, typed `ww_si`
   block capture
 * [`ww_pwm`](ww_pwm.md) — `Pwm`, `PwmCapture`: PWM outputs, pulse and frequency measurement
 * [`ww_onewire`](ww_onewire.md) — `OneWire`: reset, ROM search, addressed transactions, strong pull-up
-* [`ww_timebase`](ww_timebase.md) — `Clock`: device time, clock sync (master/slave), time of day (repo root, not
-  `ww_stdlib/`)
+* [`ww_timebase`](ww_timebase.md) — `Clock`: device time, clock sync (master/slave), time of day (in
+  `wire_weaver`)
 * [`ww_logic_analyzer`](ww_logic_analyzer.md) — `LogicAnalyzer`, `LogicStream`: timestamped capture of many digital
   channels
 * [`ww_signal_generator`](ww_signal_generator.md) — `PatternGenerator`, `WaveformGenerator`: digital pattern
@@ -118,12 +119,12 @@ Used by the codegen and introspection; an API crate rarely depends on these dire
 * [`ww_version`](ww_version.md) — `Version`, `FullVersion` (SemVer, with pre and build strings), `CompactVersion`
   (a global type id and the version numbers): how an API is identified on the wire
 * [`ww_client_server`](ww_client_server.md) — `Request`, `Event`, `Error`: the protocol every generated server and
-  client speaks underneath a device's own API (repo root, not `ww_stdlib/`)
+  client speaks underneath a device's own API (in `wire_weaver`)
 * [`ww_self`](ww_self.md) — `ApiBundle`, `ApiLevel`, `Type`, `Value`: WireWeaver's model of an API and its types,
-  for introspection and dynamic access (repo root, not `ww_stdlib/`)
+  for introspection and dynamic access (in `wire_weaver`)
 
-`ww_global` (the global type id registry, see [addressing](../api/addressing.md)) is the other framework crate in the
-`wire_weaver` repo root; it has no page of its own.
+`ww_global` (the global type id registry, see [addressing](../api/addressing.md)) lives in `ww_base`; it has no page
+of its own.
 
 ## Host-side `_hl` crates
 

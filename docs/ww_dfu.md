@@ -123,4 +123,4 @@ The other combinations make no sense, which is why they have no code:
 - [One-slot scenarios](ww_dfu_one_slot.md): 1S (*Parcel*) and 1L (*Pit stop*), step by step and bulk.
 - [Transcripts and chunky](ww_dfu_internals.md): how the recorded exchanges are made and checked, and the chunky
   records (descriptor, plan, manifest) `ww_dfu` carries.
-- The code of the API itself: [`ww_stdlib/ww_dfu/src/lib.rs`](https://github.com/vhrdtech/wire_weaver/blob/master/ww_stdlib/ww_dfu/src/lib.rs).
+- The code of the API itself: [`ww_dfu/src/lib.rs`](https://github.com/vhrdtech/ww_stdlib/blob/main/ww_dfu/src/lib.rs).
