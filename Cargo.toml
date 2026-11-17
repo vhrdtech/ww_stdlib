@@ -1,6 +1,8 @@
 [workspace]
 resolver = "3"
 members = [
+    "examples/*",
+    "tests/*",
     "ww_adc",
     "ww_block",
     "ww_board_info",
@@ -32,8 +34,6 @@ members = [
     "ww_uart",
     "ww_uid",
     "ww_user_info",
-    "examples/*",
-    "tests/*",
 ]
 # the bare-metal board examples and the crash symbolizer's test firmware, each a workspace of its own (nightly)
 exclude = ["examples_mcu", "ww_report/tests/crash_fw"]
