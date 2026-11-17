@@ -1,5 +1,6 @@
-# The compiler every build of the root workspace uses (examples_mcu/* and the crash symbolizer's test firmware pin
-# their own nightly).
+# The compiler every build of the root workspace uses, and of examples_mcu/rp2 below it (its target); the other
+# board examples and the crash symbolizer's test firmware pin their own nightly.
 [toolchain]
 channel = "1.99.0"
 components = ["clippy", "rustfmt"]
+targets = ["thumbv8m.main-none-eabihf"]

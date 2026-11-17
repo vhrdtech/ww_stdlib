@@ -33,6 +33,7 @@ check:
     cd examples_mcu/mcu_qemu && cargo check
     cd examples_mcu/nucleo_h743zi2 && cargo check && cargo check --features streams
     cd examples_mcu/usb_stm32h725ig && cargo check && cargo check --features streams
+    cd examples_mcu/rp2 && cargo check --features usb_log
 
 # Format, manifests, spelling, clippy and rustdoc as CI runs them, warnings are errors; then `just api-check`
 lint:
@@ -40,6 +41,7 @@ lint:
     cd examples_mcu/mcu_qemu && cargo fmt --check
     cd examples_mcu/nucleo_h743zi2 && cargo fmt --check
     cd examples_mcu/usb_stm32h725ig && cargo fmt --check
+    cd examples_mcu/rp2 && cargo fmt --check
     cd ww_report/tests/crash_fw && cargo fmt --check
     cargo sort -w -g --check
     typos
