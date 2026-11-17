@@ -35,9 +35,8 @@ members = [
     "ww_uid",
     "ww_user_info",
 ]
-# the bare-metal board examples and the crash symbolizer's test firmware, each a workspace of its own (nightly);
-# tests/nucleo_g0b1re_fixture until its test crate exists
-exclude = ["examples_mcu", "tests/nucleo_g0b1re_fixture", "ww_report/tests/crash_fw"]
+# the bare-metal board examples and the crash symbolizer's test firmware, each a workspace of its own (nightly)
+exclude = ["examples_mcu", "ww_report/tests/crash_fw"]
 
 [workspace.package]
 version = "0.5.0"

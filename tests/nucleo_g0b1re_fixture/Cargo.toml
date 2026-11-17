@@ -1,0 +1,16 @@
+[package]
+name = "nucleo_g0b1re_fixture"
+version = "0.1.0"
+publish = false
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Checks the frozen nucleo_g0b1re_api fixture, a deployed firmware's API on the stdlib crates, against its old-format snapshots (EVO-70): a compatible stdlib change passes it, a break fails it."
+
+[dev-dependencies]
+wire_weaver_evolution = { workspace = true, features = ["source"] }
+ww_snapshots.workspace = true
+
+[lints]
+workspace = true

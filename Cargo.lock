@@ -2659,6 +2659,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "nucleo_g0b1re_fixture"
+version = "0.1.0"
+dependencies = [
+ "wire_weaver_evolution",
+ "ww_snapshots",
+]
+
+[[package]]
 name = "num-bigint"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
