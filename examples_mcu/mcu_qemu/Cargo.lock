@@ -18,15 +18,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
-name = "atomic-waker"
-version = "1.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
-dependencies = [
- "portable-atomic",
-]
-
-[[package]]
 name = "bare-metal"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -40,12 +31,6 @@ name = "bitfield"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "46afbd2983a5d5a7bd740ccb198caf5b82f45c40c09c0eed36052d91cb92e719"
-
-[[package]]
-name = "bitflags"
-version = "1.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
@@ -63,13 +48,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2f6c7dbe95a6ed67ad9f18e57daf93a2f034c524b99fd2b76d18fdfeb6660aa"
 dependencies = [
  "hybrid-array",
-]
-
-[[package]]
-name = "bounded_api"
-version = "0.1.0"
-dependencies = [
- "ww_api",
 ]
 
 [[package]]
@@ -160,13 +138,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "counted_stream_api"
-version = "0.1.0"
-dependencies = [
- "ww_api",
-]
-
-[[package]]
 name = "cpufeatures"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -174,21 +145,6 @@ checksum = "8b2a41393f66f16b0823bb79094d54ac5fbd34ab292ddafb9a0456ac9f87d201"
 dependencies = [
  "libc",
 ]
-
-[[package]]
-name = "crc"
-version = "3.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5eb8a2a1cd12ab0d987a5d5e825195d372001a4094a0376319d5a0ad71c1ba0d"
-dependencies = [
- "crc-catalog",
-]
-
-[[package]]
-name = "crc-catalog"
-version = "2.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "217698eaf96b4a3f0bc4f3662aaa55bdf913cd54d7204591faa790070c6d0853"
 
 [[package]]
 name = "critical-section"
@@ -237,37 +193,6 @@ dependencies = [
  "darling_core",
  "quote",
  "syn 3.0.3",
-]
-
-[[package]]
-name = "defmt"
-version = "1.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2953bfe4f93bbd20cc71198842756f77d161884c99ebbabc41d80231ded88d1"
-dependencies = [
- "bitflags 1.3.2",
- "defmt-macros",
-]
-
-[[package]]
-name = "defmt-macros"
-version = "1.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bad9c72e7ca2137e0dc3813245a0d282fd6daad32fd800af018306a9169b5fe8"
-dependencies = [
- "defmt-parser",
- "proc-macro2",
- "quote",
- "syn 2.0.119",
-]
-
-[[package]]
-name = "defmt-parser"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "10d60334b3b2e7c9d91ef8150abfb6fa4c1c39ebbcf4a81c2e346aad939fee3e"
-dependencies = [
- "thiserror",
 ]
 
 [[package]]
@@ -321,37 +246,11 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 [[package]]
 name = "exact_units"
 version = "0.1.0"
-source = "git+https://github.com/romixlab/exact_units#4512b29640fa631c7149e5ffafabc46108c20536"
+source = "git+https://github.com/romixlab/exact_units#6f582740fe94185277d36e4718b2dd45be33ebf5"
 dependencies = [
- "defmt",
  "libm",
  "serde",
  "shrink_wrap",
-]
-
-[[package]]
-name = "flash_budget_api"
-version = "0.1.0"
-dependencies = [
- "ww_api",
- "ww_keyed",
- "ww_si",
-]
-
-[[package]]
-name = "foc_observe_api"
-version = "0.1.0"
-dependencies = [
- "ww_api",
- "ww_si",
-]
-
-[[package]]
-name = "global_paths_api"
-version = "0.1.0"
-dependencies = [
- "ww_api",
- "ww_timebase",
 ]
 
 [[package]]
@@ -419,30 +318,14 @@ checksum = "ecbdfe44b1bd960b68170b417450a628c43f7cf56bb3c5317e61cb230ee7f226"
 name = "mcu_qemu"
 version = "0.1.0"
 dependencies = [
- "bounded_api",
  "cortex-m",
  "cortex-m-rt",
  "cortex-m-semihosting",
- "counted_stream_api",
- "flash_budget_api",
- "foc_observe_api",
- "global_paths_api",
  "panic-semihosting",
- "portable-atomic",
- "static_cell",
- "wire_weaver",
  "ww_bus_slave",
- "ww_client_server",
- "ww_crc",
- "ww_date_time",
- "ww_framer",
  "ww_i2c",
- "ww_keyed",
- "ww_link",
  "ww_si",
  "ww_spi",
- "ww_stream",
- "ww_timebase",
 ]
 
 [[package]]
@@ -547,15 +430,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a89322df9ebe1c1578d689c92318e070967d1042b512afbe49518723f4e6d5cd"
 
 [[package]]
-name = "portable-atomic"
-version = "1.15.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "05c8b63e8d9609db387f0324918f81d68fe27748f084ef092fb35954d0539a85"
-dependencies = [
- "critical-section",
-]
-
-[[package]]
 name = "proc-macro-crate"
 version = "3.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -617,7 +491,7 @@ version = "0.12.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81116b9531d61eabc41aeb228e4b6b2435bcca3233b98cf3b3077d4e6e9debb3"
 dependencies = [
- "bitflags 2.13.1",
+ "bitflags",
  "once_cell",
  "serde",
  "serde_derive",
@@ -725,8 +599,8 @@ dependencies = [
 [[package]]
 name = "shrink_wrap"
 version = "0.2.0"
+source = "git+https://github.com/romixlab/shrink_wrap#26a7987c5aa9fa3c6a5c8fb2049b5aecbd162da1"
 dependencies = [
- "defmt",
  "either",
  "paste",
  "serde",
@@ -736,6 +610,7 @@ dependencies = [
 [[package]]
 name = "shrink_wrap_derive"
 version = "0.2.0"
+source = "git+https://github.com/romixlab/shrink_wrap#26a7987c5aa9fa3c6a5c8fb2049b5aecbd162da1"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -748,15 +623,6 @@ name = "stable_deref_trait"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
-
-[[package]]
-name = "static_cell"
-version = "2.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0530892bb4fa575ee0da4b86f86c667132a94b74bb72160f58ee5a4afec74c23"
-dependencies = [
- "portable-atomic",
-]
 
 [[package]]
 name = "strsim"
@@ -794,26 +660,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
-]
-
-[[package]]
-name = "thiserror"
-version = "2.0.20"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f"
-dependencies = [
- "thiserror-impl",
-]
-
-[[package]]
-name = "thiserror-impl"
-version = "2.0.20"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 3.0.3",
 ]
 
 [[package]]
@@ -983,8 +829,8 @@ dependencies = [
 [[package]]
 name = "wire_weaver"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
- "defmt",
  "exact_units",
  "shrink_wrap",
  "ww_api",
@@ -994,6 +840,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver_core"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "anyhow",
  "cargo_toml",
@@ -1021,6 +868,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver_derive"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "anyhow",
  "convert_case",
@@ -1038,6 +886,7 @@ dependencies = [
 [[package]]
 name = "ww_api"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "shrink_wrap",
  "wire_weaver_derive",
@@ -1057,50 +906,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "ww_client_server"
-version = "0.2.0"
-dependencies = [
- "wire_weaver",
- "ww_error",
- "ww_global",
- "ww_si",
-]
-
-[[package]]
-name = "ww_crc"
-version = "0.5.0"
-dependencies = [
- "crc",
-]
-
-[[package]]
-name = "ww_date_time"
-version = "0.1.0"
-dependencies = [
- "exact_units",
- "shrink_wrap",
-]
-
-[[package]]
 name = "ww_error"
 version = "0.1.0"
+source = "git+https://github.com/vhrdtech/ww_base#fbddc7e13b577a6f876aa1e5a4698eafc85eba8c"
 dependencies = [
- "defmt",
  "shrink_wrap",
  "ww_si",
-]
-
-[[package]]
-name = "ww_framer"
-version = "0.5.0"
-dependencies = [
- "shrink_wrap",
- "ww_crc",
 ]
 
 [[package]]
 name = "ww_global"
 version = "0.2.0"
+source = "git+https://github.com/vhrdtech/ww_base#fbddc7e13b577a6f876aa1e5a4698eafc85eba8c"
 dependencies = [
  "convert_case",
  "serde_json",
@@ -1116,26 +933,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "ww_keyed"
-version = "0.1.0"
-dependencies = [
- "shrink_wrap",
-]
-
-[[package]]
-name = "ww_link"
-version = "0.5.0"
-dependencies = [
- "shrink_wrap",
- "wire_weaver",
- "ww_framer",
- "ww_global",
- "ww_version",
-]
-
-[[package]]
 name = "ww_lz4"
 version = "0.1.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "lz4_flex",
 ]
@@ -1143,8 +943,8 @@ dependencies = [
 [[package]]
 name = "ww_numeric"
 version = "0.3.0"
+source = "git+https://github.com/vhrdtech/ww_base#fbddc7e13b577a6f876aa1e5a4698eafc85eba8c"
 dependencies = [
- "defmt",
  "serde",
  "shrink_wrap",
 ]
@@ -1152,6 +952,7 @@ dependencies = [
 [[package]]
 name = "ww_self"
 version = "0.3.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "anyhow",
  "exact_units",
@@ -1167,8 +968,8 @@ dependencies = [
 [[package]]
 name = "ww_si"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/ww_base#fbddc7e13b577a6f876aa1e5a4698eafc85eba8c"
 dependencies = [
- "defmt",
  "exact_units",
  "shrink_wrap",
  "ww_numeric",
@@ -1177,6 +978,7 @@ dependencies = [
 [[package]]
 name = "ww_snapshots"
 version = "0.5.0"
+source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
 dependencies = [
  "anyhow",
  "elsa",
@@ -1198,30 +1000,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "ww_stream"
-version = "0.5.0"
-dependencies = [
- "atomic-waker",
- "portable-atomic",
- "wire_weaver",
- "ww_client_server",
- "ww_si",
-]
-
-[[package]]
-name = "ww_timebase"
-version = "0.1.0"
-dependencies = [
- "ww_api",
- "ww_date_time",
- "ww_si",
-]
-
-[[package]]
 name = "ww_version"
 version = "0.2.0"
+source = "git+https://github.com/vhrdtech/ww_base#fbddc7e13b577a6f876aa1e5a4698eafc85eba8c"
 dependencies = [
- "defmt",
  "hex",
  "semver 1.0.28",
  "serde",
