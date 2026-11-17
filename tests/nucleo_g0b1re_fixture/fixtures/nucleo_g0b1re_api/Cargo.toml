@@ -1,6 +1,8 @@
 # nucleo_g0b1re_template's API crate at 0.4.0 (its release 0.1.8), with its snapshots saved by the wire_weaver of
-# 94a6b3a, before ItemEnum::future_version (EVO-10): an old-format snapshot for tests/check.rs (EVO-13). The git
-# dependencies are paths into this repository; the crate is read from source, never built.
+# 94a6b3a, before ItemEnum::future_version (EVO-10): an old-format snapshot for the tests of
+# tests/nucleo_g0b1re_fixture (EVO-13, EVO-70). The stdlib crates are paths into this repository, the framework
+# crates come from wire_weaver by git as the workspace's Cargo.lock pins them; the crate is read from source, never
+# built.
 # STD-16 (16 Nov 2026): `Settings::led_at_boot` and `reset` lost their `CommonError` error type in the source, and the
 # 0.4.0 snapshot's two items were edited the same way by hand, keeping its format; no tool writes the old format.
 
@@ -40,19 +42,19 @@ defmt = [
 
 [dependencies]
 defmt = { version = "1.1", optional = true }
-ww_api = { path = "../../../../ww_api", default-features = false }
+ww_api = { git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
 # the device contract (`device`): stdlib traits generic host tools know
 # FirmwareInfo, LastReset; `std` reads every architecture's fault record
-ww_firmware_info = { path = "../../../../ww_stdlib/ww_firmware_info", default-features = false, features = ["cortex-m"] }
-ww_board_info = { path = "../../../../ww_stdlib/ww_board_info", default-features = false }
-ww_uid = { path = "../../../../ww_stdlib/ww_uid", default-features = false }
+ww_firmware_info = { path = "../../../../ww_firmware_info", default-features = false, features = ["cortex-m"] }
+ww_board_info = { path = "../../../../ww_board_info", default-features = false }
+ww_uid = { path = "../../../../ww_uid", default-features = false }
 # UserInfo: the unit's name, kept in the firmware's settings store
-ww_user_info = { path = "../../../../ww_stdlib/ww_user_info", default-features = false }
-ww_counters = { path = "../../../../ww_stdlib/ww_counters", default-features = false }
-ww_log = { path = "../../../../ww_stdlib/ww_log", default-features = false }
-ww_dfu = { path = "../../../../ww_stdlib/ww_dfu", default-features = false }
+ww_user_info = { path = "../../../../ww_user_info", default-features = false }
+ww_counters = { path = "../../../../ww_counters", default-features = false }
+ww_log = { path = "../../../../ww_log", default-features = false }
+ww_dfu = { path = "../../../../ww_dfu", default-features = false }
 # PinDiag: raw access to the free pins for pin tests (`ww pins tui`)
-ww_pin_diag = { path = "../../../../ww_stdlib/ww_pin_diag", default-features = false }
+ww_pin_diag = { path = "../../../../ww_pin_diag", default-features = false }
 # `leds` and `clock`: LD4's indication, the clock a host steers onto UTC
-ww_indication = { path = "../../../../ww_stdlib/ww_indication", default-features = false }
-ww_timebase = { path = "../../../../ww_timebase", default-features = false }
+ww_indication = { path = "../../../../ww_indication", default-features = false }
+ww_timebase = { git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
