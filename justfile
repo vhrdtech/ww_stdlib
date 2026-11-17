@@ -60,6 +60,14 @@ api-check:
 save-snapshots *args:
     cargo build -q -p ww_std_cli --example ww_stdlib
     for crate in */api_snapshots; do {{ ww }} api save "$(dirname $crate)" {{ args }} || exit 1; done
+    # the frozen fixture that follows these crates by path: its pins follow too (EVO-70)
+    just refresh-fixture-pins
+
+# Refresh the pinned signatures of the nucleo_g0b1re_api evolution fixture to these crates' current source, keeping
+# its old snapshot format (EVO-70). Refused on a wire break, unless --accept-breaking.
+refresh-fixture-pins *args:
+    cargo build -q -p ww_std_cli --example ww_stdlib
+    {{ ww }} api refresh-pins tests/nucleo_g0b1re_fixture/fixtures/nucleo_g0b1re_api {{ args }}
 
 # Regenerate the ww_dfu scenario transcripts (tests/dfu_scenarios/transcripts, included by docs/ww_dfu_ab.md and ww_dfu_one_slot.md)
 dfu-transcripts:
