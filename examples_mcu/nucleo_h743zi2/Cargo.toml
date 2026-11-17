@@ -24,32 +24,18 @@ embassy-executor = { version = "0.10", features = [
 embassy-time = { version = "0.5.0", features = ["defmt", "defmt-timestamp-uptime", "tick-hz-32_768"] }
 embassy-sync = { version = "0.8", features = ["defmt"] }
 embassy-usb = { version = "0.6", features = ["defmt"] }
-embassy-futures = "0.1"
 static_cell = "2.1"
 
-blinky_api = { path = "../../examples/blinky_api", default-features = false }
 all_gpio_api = { path = "../../examples/all_gpio_api", default-features = false, optional = true }
-settings_api = { path = "../../examples/settings_api", default-features = false, features = ["defmt"], optional = true }
-wire_weaver_usb_embassy = { path = "../../mcu/wire_weaver_usb_embassy" }
-wire_weaver = { path = "../../wire_weaver", default-features = false, features = ["defmt"] }
-ww_client_server = { path = "../../ww_client_server", default-features = false }
-ww_settings = { path = "../../ww_settings/ww_settings", default-features = false, features = ["defmt"], optional = true }
-ww_stream = { path = "../../ww_stream", default-features = false, optional = true }
-ww_gpio = { path = "../../ww_stdlib/ww_gpio", default-features = false, optional = true }
-ww_si = { path = "../../ww_stdlib/ww_si", default-features = false, features = ["electrical", "f32"] }
+wire_weaver_usb_embassy = { git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver = { git = "https://github.com/vhrdtech/wire_weaver", default-features = false, features = ["defmt"] }
+ww_client_server = { git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_stream = { git = "https://github.com/vhrdtech/wire_weaver", default-features = false, optional = true }
+ww_gpio = { path = "../../ww_gpio", default-features = false, optional = true }
 
 [features]
-# settings_api::SettingsDemo kept in flash through ww_settings, for the settings bin
-settings = ["dep:settings_api", "dep:ww_settings"]
 # counted streams (ww_gpio's `event`): the all-gpio bin
 streams = ["ww_client_server/streams", "ww_stream/streams", "dep:all_gpio_api", "dep:ww_stream", "dep:ww_gpio"]
-
-[[bin]]
-name = "nucleo-h743zi2-blinky"
-path = "src/bin/blinky.rs"
-test = false
-doctest = false
-bench = false
 
 [[bin]]
 name = "nucleo-h743zi2-all-gpio"
@@ -58,21 +44,6 @@ test = false
 doctest = false
 bench = false
 required-features = ["streams"]
-
-[[bin]]
-name = "nucleo-h743zi2-no-introspect"
-path = "src/bin/no_introspect.rs"
-test = false
-doctest = false
-bench = false
-
-[[bin]]
-name = "nucleo-h743zi2-settings"
-path = "src/bin/settings.rs"
-required-features = ["settings"]
-test = false
-doctest = false
-bench = false
 
 # see for more info: https://docs.rust-embedded.org/book/unsorted/speed-vs-size.html
 # cargo build/run
@@ -131,7 +102,3 @@ debug = false
 debug-assertions = false
 opt-level = 0
 overflow-checks = false
-
-# exact_units (its own repository) takes shrink_wrap from wire_weaver by git: use the one here, so there is one
-[patch."https://github.com/vhrdtech/wire_weaver"]
-shrink_wrap = { path = "../../shrink_wrap/shrink_wrap" }
