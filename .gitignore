@@ -1,0 +1,6 @@
+target/
+.DS_Store
+.idea/
+**/*.rs.bk
+# the ww_dfu scenario tests write what they saw next to a transcript that differs
+tests/dfu_scenarios/transcripts/*.actual.md

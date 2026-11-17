@@ -1,0 +1,173 @@
+[workspace]
+resolver = "3"
+members = [
+    "ww_adc",
+    "ww_block",
+    "ww_board_info",
+    "ww_bus_slave",
+    "ww_can_bus",
+    "ww_counters",
+    "ww_defmt_logger",
+    "ww_dfu",
+    "ww_firmware_info",
+    "ww_gpio",
+    "ww_gpio_hl",
+    "ww_i2c",
+    "ww_i2c_hl",
+    "ww_indication",
+    "ww_interned",
+    "ww_log",
+    "ww_logic_analyzer",
+    "ww_memory",
+    "ww_onewire",
+    "ww_pin_diag",
+    "ww_pin_probe",
+    "ww_pwm",
+    "ww_recorder",
+    "ww_report",
+    "ww_sd",
+    "ww_signal_generator",
+    "ww_spi",
+    "ww_std_cli",
+    "ww_uart",
+    "ww_uid",
+    "ww_user_info",
+    "examples/*",
+    "tests/*",
+]
+# the bare-metal board examples and the crash symbolizer's test firmware, each a workspace of its own (nightly)
+exclude = ["examples_mcu", "ww_report/tests/crash_fw"]
+
+[workspace.package]
+version = "0.5.0"
+authors = ["Roman Isaikin <romix.lab@gmail.com>"]
+edition = "2024"
+rust-version = "1.88"
+repository = "https://github.com/vhrdtech/ww_stdlib"
+license = "MIT"
+
+[workspace.dependencies]
+anyhow = "1"
+clap = "4.5"
+clap_complete = "4.6"
+cnt_core = "0.5"
+cnt_view = "0.5"
+console = "0.16"
+crossterm = "0.29"
+defmt = "1.1"
+defmt-decoder = "1.1"
+embassy-futures = "0.1"
+embedded-hal = "1.0"
+embedded-hal-async = "1.0"
+embedded-storage-async = "0.4.2"
+# commands of the ww command line register themselves from their own crate and module
+inventory = "0.3"
+nusb = { version = "0.2", features = ["tokio"] }
+ratatui = "0.30"
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.11"
+syn = { version = "3", features = ["full", "extra-traits"] }
+thiserror = "2"
+tokio = "1.54"
+toml = "1"
+toml_edit = "0.25"
+tracing-subscriber = "0.3"
+
+# exact_units, the layer-2 base crates and the framework crates live in their own repositories, taken by git:
+# Cargo.lock pins each commit (`cargo update -p NAME` moves it)
+exact_units = { version = "0.1.0", git = "https://github.com/romixlab/exact_units", default-features = false }
+ww_crc = { version = "0.5.0", git = "https://github.com/vhrdtech/ww_base" }
+ww_date_time = { version = "0.1.0", git = "https://github.com/vhrdtech/ww_base", default-features = false }
+ww_error = { version = "0.1.0", git = "https://github.com/vhrdtech/ww_base", default-features = false }
+ww_global = { version = "0.2.0", git = "https://github.com/vhrdtech/ww_base" }
+ww_numeric = { version = "0.3.0", git = "https://github.com/vhrdtech/ww_base", default-features = false }
+ww_si = { version = "0.5.0", git = "https://github.com/vhrdtech/ww_base", default-features = false }
+ww_version = { version = "0.2.0", git = "https://github.com/vhrdtech/ww_base", default-features = false }
+
+# wire_weaver: the framework runtime, the API description, the client and the shared test fixtures
+tests_common = { version = "0.1.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+wire_weaver_cli = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_client = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_core = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_evolution = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_api = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_client_server = { version = "0.2.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_device = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_framer = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_link = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_lz4 = { version = "0.1.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_self = { version = "0.3.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_settings = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_snapshots = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_stream = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+
+# the crates of this repository, each with its own version (the helpers and host tools follow [workspace.package])
+ww_adc = { version = "0.3.0", path = "./ww_adc", default-features = false }
+ww_block = { version = "0.1.0", path = "./ww_block", default-features = false }
+ww_board_info = { version = "0.3.0", path = "./ww_board_info", default-features = false }
+ww_bus_slave = { version = "0.5.0", path = "./ww_bus_slave" }
+ww_can_bus = { version = "0.1.0", path = "./ww_can_bus", default-features = false }
+ww_counters = { version = "0.1.0", path = "./ww_counters", default-features = false }
+ww_defmt_logger = { version = "0.5.0", path = "./ww_defmt_logger" }
+ww_dfu = { version = "0.1.0", path = "./ww_dfu", default-features = false }
+ww_firmware_info = { version = "0.1.0", path = "./ww_firmware_info", default-features = false }
+ww_gpio = { version = "0.1.0", path = "./ww_gpio", default-features = false }
+ww_gpio_hl = { version = "0.1.0", path = "./ww_gpio_hl" }
+ww_i2c = { version = "0.1.0", path = "./ww_i2c", default-features = false }
+ww_i2c_hl = { version = "0.1.0", path = "./ww_i2c_hl" }
+ww_indication = { version = "0.1.0", path = "./ww_indication", default-features = false }
+ww_interned = { version = "0.1.0", path = "./ww_interned", default-features = false }
+ww_log = { version = "0.1.0", path = "./ww_log", default-features = false }
+ww_logic_analyzer = { version = "0.1.0", path = "./ww_logic_analyzer", default-features = false }
+ww_onewire = { version = "0.1.0", path = "./ww_onewire", default-features = false }
+ww_pin_diag = { version = "0.1.0", path = "./ww_pin_diag", default-features = false }
+ww_pin_probe = { version = "0.5.0", path = "./ww_pin_probe" }
+ww_pwm = { version = "0.1.0", path = "./ww_pwm", default-features = false }
+ww_recorder = { version = "0.1.0", path = "./ww_recorder", default-features = false }
+ww_report = { version = "0.5.0", path = "./ww_report" }
+ww_sd = { version = "0.1.0", path = "./ww_sd", default-features = false }
+ww_spi = { version = "0.1.0", path = "./ww_spi", default-features = false }
+ww_uart = { version = "0.1.0", path = "./ww_uart", default-features = false }
+ww_uid = { version = "0.1.0", path = "./ww_uid", default-features = false }
+ww_user_info = { version = "0.1.0", path = "./ww_user_info", default-features = false }
+
+# examples and test fixtures, not published
+all_gpio_api = { version = "0.1.0", path = "./examples/all_gpio_api" }
+block_sd_api = { version = "0.1.0", path = "./tests/block_sd_api" }
+board_info_api = { version = "0.1.0", path = "./tests/board_info_api" }
+counters_api = { version = "0.1.0", path = "./tests/counters_api" }
+defmt_log_api = { version = "0.1.0", path = "./examples/defmt_log_api", default-features = false }
+device_report_api = { version = "0.1.0", path = "./tests/device_report_api" }
+dfu_api = { version = "0.1.0", path = "./tests/dfu_api" }
+dfu_app_api = { version = "0.1.0", path = "./tests/dfu_app_api" }
+dfu_lean_app_api = { version = "0.1.0", path = "./tests/dfu_lean_app_api" }
+dfu_updater_api = { version = "0.1.0", path = "./tests/dfu_updater_api" }
+firmware_info_api = { version = "0.1.0", path = "./tests/firmware_info_api" }
+indication_api = { version = "0.1.0", path = "./tests/indication_api" }
+io_adc_api = { version = "0.1.0", path = "./tests/io_adc_api" }
+io_can_api = { version = "0.1.0", path = "./tests/io_can_api" }
+io_can_group_api = { version = "0.1.0", path = "./tests/io_can_group_api" }
+io_gpio_api = { version = "0.1.0", path = "./tests/io_gpio_api" }
+io_i2c_api = { version = "0.1.0", path = "./tests/io_i2c_api" }
+io_onewire_api = { version = "0.1.0", path = "./tests/io_onewire_api" }
+io_pwm_api = { version = "0.1.0", path = "./tests/io_pwm_api" }
+io_spi_api = { version = "0.1.0", path = "./tests/io_spi_api" }
+io_uart_api = { version = "0.1.0", path = "./tests/io_uart_api" }
+log_defmt_api = { version = "0.1.0", path = "./tests/log_defmt_api" }
+pin_diag_api = { version = "0.1.0", path = "./tests/pin_diag_api" }
+recorder_groups_api = { version = "0.1.0", path = "./tests/recorder_groups_api" }
+uart_api = { version = "0.1.0", path = "./examples/uart_api" }
+uid_api = { version = "0.1.0", path = "./tests/uid_api" }
+user_info_api = { version = "0.1.0", path = "./tests/user_info_api" }
+
+[workspace.lints.rust]
+unused_lifetimes = "warn"
+
+[workspace.lints.clippy]
+dbg_macro = "warn"
+
+[profile.deploy]
+inherits = "release"
+incremental = true
