@@ -1,15 +1,11 @@
-//! Every `ww_stdlib` crate checked against its own `api_snapshots/` (docs/evolution/checker_tool.md), one test per
-//! crate, from this crate rather than each stdlib crate's own `tests/evolution.rs` (TOOL-31): the
-//! `wire_weaver_evolution` dev-dependency turns on wide number features in shared deps (`ww_numeric`, `exact_units`)
-//! through cargo's feature unification, which broke a narrow feature-set test of `ww_si` or `ww_numeric` run as
-//! `cargo test -p <crate> --no-default-features --features ..` when the dependency sat on the crate itself. Kept
-//! here instead, where nothing needs those crates narrow. `WW_API_SAVE=1 cargo test -p stdlib_evolution --test
-//! evolution <crate>` saves that crate's current version's snapshot (`ww api save ww_stdlib/<crate>` does the
-//! same, or `ww api save <crate>` for one at the repo root). `ww_link` is checked here too: its link setup
-//! payloads (`DeviceInfo`, `LinkSetup`, ...) are on its wire line, whose line is the link generation of the frozen
-//! hello (EVO-71), so a break there asks for `w2.0` and the hello follows. `ww_client_server` and `ww_timebase`
-//! left `ww_stdlib/` for the repo root (R5) but are still checked here, as `ww_link` is. `ww_global` and `ww_tap`
-//! are checked here too, and consecutive saved versions of every crate.
+//! Every crate of this repository checked against its own `api_snapshots/` (the evolution checker of
+//! `wire_weaver_evolution`), one test per crate, from this crate rather than each crate's own `tests/evolution.rs`
+//! (TOOL-31): the `wire_weaver_evolution` dev-dependency turns on wide number features in shared deps (`ww_numeric`,
+//! `exact_units`) through cargo's feature unification, which would break a narrow feature-set test of a crate that
+//! took it itself. `WW_API_SAVE=1 cargo test -p stdlib_evolution --test evolution <crate>` saves that crate's
+//! current version's snapshot (`ww api save <crate>` does the same). Consecutive saved versions of every crate are
+//! checked too. The snapshots of the crates these depend on (exact_units, the base crates, the framework) are read
+//! from their checkouts that `Cargo.lock` pins.
 
 use std::path::{Path, PathBuf};
 use wire_weaver_evolution::Check;
@@ -20,7 +16,7 @@ use ww_snapshots::ww_self::{ApiBundleOwned, ApiLevelLocationOwned, TypeLocationO
 use ww_snapshots::ww_version::{FullVersionOwned, VersionOwned};
 
 fn check(name: &str) {
-    check_at(&Path::new("ww_stdlib").join(name));
+    check_at(Path::new(name));
 }
 
 /// The crate at `path`, relative to the repository root.
@@ -38,63 +34,43 @@ fn check_at(path: &Path) {
     .assert();
 }
 
-#[test]
-fn ww_link() {
-    check_at(Path::new("ww_link"));
-}
-
-#[test]
-fn ww_global() {
-    check_at(Path::new("ww_global"));
-}
-
-#[test]
-fn ww_tap() {
-    check_at(Path::new("ww_tap"));
-}
-
 /// The repository root.
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
 }
 
-/// The crates whose `api_snapshots/` are saved here: ww_global, ww_tap, ww_link, ww_timebase, ww_client_server and
-/// the stdlib.
+/// The crates of this repository with `api_snapshots/`.
 fn crate_dirs() -> Vec<PathBuf> {
-    let root = root();
-    let mut crate_dirs = vec![
-        root.join("ww_global"),
-        root.join("ww_tap"),
-        root.join("ww_link"),
-        root.join("ww_timebase"),
-        root.join("ww_client_server"),
-    ];
-    for entry in std::fs::read_dir(root.join("ww_stdlib")).unwrap() {
-        let path = entry.unwrap().path();
-        if path.join("Cargo.toml").exists() {
-            crate_dirs.push(path);
-        }
-    }
+    let mut crate_dirs: Vec<PathBuf> = std::fs::read_dir(root())
+        .unwrap()
+        .map(|entry| entry.unwrap().path())
+        .filter(|path| path.join("Cargo.toml").exists() && path.join("api_snapshots").is_dir())
+        .collect();
+    crate_dirs.sort();
     crate_dirs
 }
 
-/// A resolver over [crate_dirs] and exact_units' checkout (the one `Cargo.lock` pins, whose `api_snapshots/` ww_si's
-/// snapshots refer to), and nothing else: no cache, no network.
+/// A resolver over [crate_dirs] and the checkouts `Cargo.lock` pins of the other crates with `api_snapshots/`
+/// (exact_units, the base crates, the framework), whose snapshots these refer to, and nothing else: no cache, no
+/// network.
 fn resolver() -> Resolver {
     let mut sources = ww_snapshots::cargo::CargoSources::default();
     sources.entry_dir = Some(root());
-    let exact_units: Vec<PathBuf> = sources
+    let root = root().canonicalize().unwrap();
+    let dependencies: Vec<(String, PathBuf)> = sources
         .locked_package_dirs()
         .unwrap()
         .into_iter()
-        .filter(|(name, _, _)| name == "exact_units")
-        .map(|(_, _, dir)| dir)
+        .map(|(name, _, dir)| (name, dir))
+        .filter(|(_, dir)| dir.join("api_snapshots").is_dir())
+        .filter(|(_, dir)| !dir.canonicalize().is_ok_and(|dir| dir.starts_with(&root)))
         .collect();
     assert!(
-        !exact_units.is_empty(),
+        dependencies.iter().any(|(name, _)| name == "exact_units"),
         "exact_units is not in Cargo's sources"
     );
-    Resolver::new().with_crate_dirs(crate_dirs().into_iter().chain(exact_units))
+    let dependencies = dependencies.into_iter().map(|(_, dir)| dir);
+    Resolver::new().with_crate_dirs(crate_dirs().into_iter().chain(dependencies))
 }
 
 /// Consecutive versions in each crate's `api_snapshots/` follow the rules: every crate of [crate_dirs].
@@ -142,28 +118,13 @@ fn ww_can_bus() {
 }
 
 #[test]
-fn ww_client_server() {
-    check_at(Path::new("ww_client_server"));
-}
-
-#[test]
 fn ww_counters() {
     check("ww_counters");
 }
 
 #[test]
-fn ww_date_time() {
-    check("ww_date_time");
-}
-
-#[test]
 fn ww_dfu() {
     check("ww_dfu");
-}
-
-#[test]
-fn ww_error() {
-    check("ww_error");
 }
 
 #[test]
@@ -217,11 +178,6 @@ fn ww_memory() {
 }
 
 #[test]
-fn ww_numeric() {
-    check("ww_numeric");
-}
-
-#[test]
 fn ww_onewire() {
     check("ww_onewire");
 }
@@ -247,11 +203,6 @@ fn ww_sd() {
 }
 
 #[test]
-fn ww_si() {
-    check("ww_si");
-}
-
-#[test]
 fn ww_signal_generator() {
     check("ww_signal_generator");
 }
@@ -259,11 +210,6 @@ fn ww_signal_generator() {
 #[test]
 fn ww_spi() {
     check("ww_spi");
-}
-
-#[test]
-fn ww_timebase() {
-    check_at(Path::new("ww_timebase"));
 }
 
 #[test]
@@ -279,11 +225,6 @@ fn ww_uid() {
 #[test]
 fn ww_user_info() {
     check("ww_user_info");
-}
-
-#[test]
-fn ww_version() {
-    check("ww_version");
 }
 
 /// Every skipped trait and type in a saved snapshot is found in the snapshot of its crate, with the same signature.
@@ -399,12 +340,10 @@ fn parse_superseded(path: &Path) -> (ApiBundleOwned, Kind, String, Vec<u8>) {
 }
 
 /// Signatures saved before INT-13 stay known: a plain struct (`ww_date_time::DateTime`, as `ww_board_info` 0.1.0
-/// refers to it) and a trait using a unit marker that has a definition since (`ww_timebase::Clock`, `ww_si::Second`,
-/// as the nucleo_g0b1re_api fixture refers to it). Deployed devices refer to these definitions by signature. Both
-/// definitions changed many times since (ww_si's wire lines, exact_units' moves, EVO-22, EVO-58, ...): since EVO-68 a
-/// refresh in place keeps the definition it replaces, which keeps a pinned signature known. The pins are read from the
-/// files that hold them, `ww_board_info` 0.1.0's snapshot and the fixture's, which `just refresh-fixture-pins`
-/// refreshes (EVO-70): no signature bytes are written here by hand.
+/// refers to it). Deployed devices refer to this definition by signature. It changed since (EVO-22, EVO-58, ...):
+/// since EVO-68 a refresh in place keeps the definition it replaces, which keeps a pinned signature known. The pin is
+/// read from the file that holds it, `ww_board_info` 0.1.0's snapshot (EVO-70): no signature bytes are written here
+/// by hand. The same check of a trait with a unit marker (`ww_timebase::Clock`) is wire_weaver's.
 #[test]
 fn signatures_from_before_marker_definitions() {
     let resolver = resolver();
@@ -445,28 +384,6 @@ fn signatures_from_before_marker_definitions() {
         Kind::Type,
         date_time,
         "DateTime",
-        &signature,
-        &pinned,
-    );
-
-    let timebase = snapshot_of("ww_timebase");
-    let idx = timebase
-        .traits
-        .iter()
-        .position(|t| matches!(t, ApiLevelLocationOwned::InLine { level, .. } if level.trait_name == "Clock"))
-        .unwrap();
-    let signature = trait_signatures(timebase, idx as u32, &resolve).unwrap();
-    // an old-format snapshot, read for the one pin
-    let fixture = root().join(
-        "wire_weaver_evolution/tests/fixtures/nucleo_g0b1re_api/api_snapshots/nucleo_g0b1re_api_0_4_0.ron",
-    );
-    let text = std::fs::read_to_string(&fixture).unwrap();
-    let pinned = pinned_in(&text, "trait_name: \"Clock\"");
-    stays_known(
-        &resolver,
-        Kind::Trait,
-        timebase,
-        "Clock",
         &signature,
         &pinned,
     );
