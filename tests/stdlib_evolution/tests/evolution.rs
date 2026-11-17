@@ -389,18 +389,6 @@ fn signatures_from_before_marker_definitions() {
     );
 }
 
-/// The signature bytes of the reference `head` (`trait_name: "Clock"`) in the RON of a snapshot.
-fn pinned_in(text: &str, head: &str) -> Vec<u8> {
-    let start = text.find(head).unwrap_or_else(|| panic!("no {head}"));
-    let list = &text[start..];
-    let list = &list[list.find('[').unwrap() + 1..list.find(']').unwrap()];
-    list.split(',')
-        .map(str::trim)
-        .filter(|n| !n.is_empty())
-        .map(|n| n.parse().unwrap())
-        .collect()
-}
-
 /// The definition `pinned` names (a signature with docs, as every reference was before EVO-69) is the snapshot's own
 /// (`signatures`), or one an in-place refresh of the snapshot replaced and kept (EVO-68): a device naming it is still
 /// understood.
