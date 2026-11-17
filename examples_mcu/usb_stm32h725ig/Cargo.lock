@@ -1921,7 +1921,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "defmt 1.1.1",
  "exact_units",
@@ -1933,7 +1933,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver_core"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "anyhow",
  "cargo_toml",
@@ -1961,7 +1961,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver_derive"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "anyhow",
  "convert_case",
@@ -1979,7 +1979,7 @@ dependencies = [
 [[package]]
 name = "wire_weaver_usb_embassy"
 version = "0.2.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "defmt 1.1.1",
  "embassy-futures",
@@ -1992,7 +1992,7 @@ dependencies = [
 [[package]]
 name = "ww_api"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "shrink_wrap",
  "wire_weaver_derive",
@@ -2003,7 +2003,7 @@ dependencies = [
 [[package]]
 name = "ww_client_server"
 version = "0.2.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "wire_weaver",
  "ww_error",
@@ -2022,7 +2022,7 @@ dependencies = [
 [[package]]
 name = "ww_device"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "defmt 1.1.1",
  "embassy-futures",
@@ -2048,7 +2048,7 @@ dependencies = [
 [[package]]
 name = "ww_framer"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "shrink_wrap",
  "ww_crc",
@@ -2075,7 +2075,7 @@ dependencies = [
 [[package]]
 name = "ww_link"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "defmt 1.1.1",
  "shrink_wrap",
@@ -2088,7 +2088,7 @@ dependencies = [
 [[package]]
 name = "ww_lz4"
 version = "0.1.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "lz4_flex",
 ]
@@ -2106,7 +2106,7 @@ dependencies = [
 [[package]]
 name = "ww_self"
 version = "0.3.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "anyhow",
  "exact_units",
@@ -2133,7 +2133,7 @@ dependencies = [
 [[package]]
 name = "ww_snapshots"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "anyhow",
  "elsa",
@@ -2149,7 +2149,7 @@ dependencies = [
 [[package]]
 name = "ww_stream"
 version = "0.5.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "atomic-waker",
  "portable-atomic",
@@ -2161,7 +2161,7 @@ dependencies = [
 [[package]]
 name = "ww_tap"
 version = "0.1.0"
-source = "git+https://github.com/vhrdtech/wire_weaver#6287f71d35f5c58394cbf781f4f2bb16a4c0778b"
+source = "git+https://github.com/vhrdtech/wire_weaver#eb8fb392d2b412a2535a43958240e89d36bd4437"
 dependencies = [
  "wire_weaver",
 ]
