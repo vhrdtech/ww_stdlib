@@ -4,8 +4,8 @@ level: advanced
 
 # I2C and SPI slave engine
 
-A device that implements the `slave` group of [`ww_i2c`](../std_library/ww_i2c.md#slave-mode) or
-[`ww_spi`](../std_library/ww_spi.md#slave-mode) stands in for a chip on another master's bus. What it answers, when
+A device that implements the `slave` group of [`ww_i2c`](ww_i2c.md#slave-mode) or
+[`ww_spi`](ww_spi.md#slave-mode) stands in for a chip on another master's bus. What it answers, when
 a host update takes effect, what happens when the host is too slow and what each event says is fixed by the API;
 the `ww_bus_slave` crate does all of it, so a firmware only wires its peripheral's interrupts to it. It is `no_std`,
 sans-IO and needs no allocator.
