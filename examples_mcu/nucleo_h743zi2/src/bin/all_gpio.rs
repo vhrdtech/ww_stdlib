@@ -15,14 +15,12 @@ use panic_probe as _;
 use static_cell::StaticCell;
 use stm32_metapac::gpio::vals::{Idr, Moder, Odr, Ospeedr, Ot, Pupdr};
 use wire_weaver::prelude::*;
-use wire_weaver_usb_embassy::{
-    LinkConfig, UsbBuffers, UsbDevice, UsbServer, UsbTimings, usb_init,
-};
-use ww_stream::tx::Counted;
+use wire_weaver_usb_embassy::{LinkConfig, UsbBuffers, UsbDevice, UsbServer, UsbTimings, usb_init};
 use ww_gpio::{
     BankCapabilities, BankConfig, GpioError, Index, IoLevel, IoPinEnabledEvents, Level, Mode,
     PinCapabilities, Pull, Speed,
 };
+use ww_stream::tx::Counted;
 
 bind_interrupts!(struct Irqs {
     OTG_FS => usb::InterruptHandler<USB_OTG_FS>;
@@ -57,8 +55,7 @@ impl WireWeaverAsyncApiBackend for ServerState {
         data: &[u8],
         scratch: &'a mut [u8],
     ) -> Result<&'a [u8], shrink_wrap::Error> {
-        self.process_request_bytes(data, scratch, out, medium)
-            .await
+        self.process_request_bytes(data, scratch, out, medium).await
     }
 
     fn version(&self) -> FullVersion<'_> {
@@ -318,7 +315,10 @@ impl ServerState {
     }
 
     /// One state for every pin: the stream never opens on this board.
-    async fn stream_port_pin_event(&mut self, _index: [ww_client_server::ResourceIndex; 2]) -> &mut Counted {
+    async fn stream_port_pin_event(
+        &mut self,
+        _index: [ww_client_server::ResourceIndex; 2],
+    ) -> &mut Counted {
         &mut self.pin_events
     }
 
@@ -326,7 +326,6 @@ impl ServerState {
         self.stream_sessions = self.stream_sessions.wrapping_add(1);
         self.stream_sessions
     }
-
 
     async fn port_pin_set_mode(
         &mut self,
@@ -336,8 +335,7 @@ impl ServerState {
         initial: Option<Level>,
     ) -> RpcResult<Result<(), wire_weaver::Error<'_, GpioError>>> {
         if let Some(initial) = initial {
-            self.port_pin_set_output_level(_cx, index, initial)
-                .await;
+            self.port_pin_set_output_level(_cx, index, initial).await;
         }
         let bank_idx = index[0].get().0 as usize;
         let pin_idx = index[1].get().0 as usize;
@@ -388,7 +386,12 @@ impl ServerState {
         Ready(mode)
     }
 
-    async fn set_port_pin_pull(&mut self, _cx: &mut Context<'_, impl EventOut>, index: [ww_client_server::ResourceIndex; 2], pull: Pull) -> SetResult<wire_weaver::Error<'_, GpioError>> {
+    async fn set_port_pin_pull(
+        &mut self,
+        _cx: &mut Context<'_, impl EventOut>,
+        index: [ww_client_server::ResourceIndex; 2],
+        pull: Pull,
+    ) -> SetResult<wire_weaver::Error<'_, GpioError>> {
         let bank_idx = index[0].get().0 as usize;
         let pin_idx = index[1].get().0 as usize;
         let pull = match pull {
@@ -403,7 +406,11 @@ impl ServerState {
         Set
     }
 
-    async fn get_port_pin_pull(&mut self, _cx: &mut Context<'_, impl EventOut>, index: [ww_client_server::ResourceIndex; 2]) -> GetResult<Pull, wire_weaver::Error<'_, GpioError>> {
+    async fn get_port_pin_pull(
+        &mut self,
+        _cx: &mut Context<'_, impl EventOut>,
+        index: [ww_client_server::ResourceIndex; 2],
+    ) -> GetResult<Pull, wire_weaver::Error<'_, GpioError>> {
         let bank_idx = index[0].get().0 as usize;
         let pin_idx = index[1].get().0 as usize;
         let pull = self.bank[bank_idx].pupdr().read().pupdr(pin_idx);
@@ -416,7 +423,12 @@ impl ServerState {
         Value(pull)
     }
 
-    async fn set_port_pin_speed(&mut self, _cx: &mut Context<'_, impl EventOut>, index: [ww_client_server::ResourceIndex; 2], speed: Speed) -> SetResult<wire_weaver::Error<'_, GpioError>> {
+    async fn set_port_pin_speed(
+        &mut self,
+        _cx: &mut Context<'_, impl EventOut>,
+        index: [ww_client_server::ResourceIndex; 2],
+        speed: Speed,
+    ) -> SetResult<wire_weaver::Error<'_, GpioError>> {
         let bank_idx = index[0].get().0 as usize;
         let pin_idx = index[1].get().0 as usize;
         let speed = match speed {
@@ -432,7 +444,11 @@ impl ServerState {
         Set
     }
 
-    async fn get_port_pin_speed(&mut self, _cx: &mut Context<'_, impl EventOut>, index: [ww_client_server::ResourceIndex; 2]) -> GetResult<Speed, wire_weaver::Error<'_, GpioError>> {
+    async fn get_port_pin_speed(
+        &mut self,
+        _cx: &mut Context<'_, impl EventOut>,
+        index: [ww_client_server::ResourceIndex; 2],
+    ) -> GetResult<Speed, wire_weaver::Error<'_, GpioError>> {
         let bank_idx = index[0].get().0 as usize;
         let pin_idx = index[1].get().0 as usize;
         let speed = self.bank[bank_idx].ospeedr().read().ospeedr(pin_idx);
@@ -445,14 +461,18 @@ impl ServerState {
         Value(speed)
     }
 
-
     async fn port_pin_capabilities(
         &mut self,
         _cx: &mut Context<'_, impl EventOut>,
         index: [ww_client_server::ResourceIndex; 2],
     ) -> RpcResult<PinCapabilities<'_>> {
         let pin = index[1].get().0 as u8;
-        self.pin_name = [b'P', BANK_LETTERS[index[0].get().0 as usize], b'0' + pin % 10, 0];
+        self.pin_name = [
+            b'P',
+            BANK_LETTERS[index[0].get().0 as usize],
+            b'0' + pin % 10,
+            0,
+        ];
         let len = if pin >= 10 {
             self.pin_name[2] = b'1';
             self.pin_name[3] = b'0' + pin - 10;
@@ -462,7 +482,13 @@ impl ServerState {
         };
         Ready(PinCapabilities {
             modes: MaxLen::new_unchecked(RefVec::Slice {
-                slice: &[Mode::PushPullOutput, Mode::OpenDrainOutput, Mode::Input, Mode::HighZ, Mode::Analog],
+                slice: &[
+                    Mode::PushPullOutput,
+                    Mode::OpenDrainOutput,
+                    Mode::Input,
+                    Mode::HighZ,
+                    Mode::Analog,
+                ],
             }),
             pulls: MaxLen::new_unchecked(RefVec::Slice {
                 slice: &[Pull::None, Pull::Up, Pull::Down],
@@ -479,7 +505,10 @@ impl ServerState {
         ValidIndices::range_u32(0..self.bank.len() as u32)
     }
 
-    fn valid_indices_root_port_pin(&mut self, index: [ww_client_server::ResourceIndex; 1]) -> ValidIndices<'_> {
+    fn valid_indices_root_port_pin(
+        &mut self,
+        index: [ww_client_server::ResourceIndex; 1],
+    ) -> ValidIndices<'_> {
         let _pin_idx = index[0].get().0 as usize;
         ValidIndices::range_u32(0..16)
     }

@@ -349,7 +349,10 @@ impl ServerState {
     }
 
     /// One state for every pin: the stream never opens on this board.
-    async fn stream_port_pin_event(&mut self, _index: [ww_client_server::ResourceIndex; 2]) -> &mut Counted {
+    async fn stream_port_pin_event(
+        &mut self,
+        _index: [ww_client_server::ResourceIndex; 2],
+    ) -> &mut Counted {
         &mut self.pin_events
     }
 
@@ -498,7 +501,12 @@ impl ServerState {
         index: [ww_client_server::ResourceIndex; 2],
     ) -> RpcResult<PinCapabilities<'_>> {
         let pin = index[1].get().0 as u8;
-        self.pin_name = [b'P', BANK_LETTERS[index[0].get().0 as usize], b'0' + pin % 10, 0];
+        self.pin_name = [
+            b'P',
+            BANK_LETTERS[index[0].get().0 as usize],
+            b'0' + pin % 10,
+            0,
+        ];
         let len = if pin >= 10 {
             self.pin_name[2] = b'1';
             self.pin_name[3] = b'0' + pin - 10;
@@ -531,7 +539,10 @@ impl ServerState {
         ValidIndices::range_u32(0..self.bank.len() as u32)
     }
 
-    fn valid_indices_root_port_pin(&mut self, index: [ww_client_server::ResourceIndex; 1]) -> ValidIndices<'_> {
+    fn valid_indices_root_port_pin(
+        &mut self,
+        index: [ww_client_server::ResourceIndex; 1],
+    ) -> ValidIndices<'_> {
         let _pin_idx = index[0].get().0 as usize;
         ValidIndices::range_u32(0..16)
     }

@@ -178,9 +178,17 @@ impl ServerState {
         Ready(())
     }
 
-    async fn close_uart_rx(&mut self, _cx: &mut Context<'_, impl EventOut>, _index: [ww_client_server::ResourceIndex; 1]) {}
+    async fn close_uart_rx(
+        &mut self,
+        _cx: &mut Context<'_, impl EventOut>,
+        _index: [ww_client_server::ResourceIndex; 1],
+    ) {
+    }
 
-    async fn stream_uart_rx(&mut self, index: [ww_client_server::ResourceIndex; 1]) -> &mut Counted {
+    async fn stream_uart_rx(
+        &mut self,
+        index: [ww_client_server::ResourceIndex; 1],
+    ) -> &mut Counted {
         &mut self.rx[index[0].get().0 as usize]
     }
 
