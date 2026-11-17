@@ -33,7 +33,7 @@ crate follows: typed numbers (never a bare integer with its unit in the name), e
 | `tests/stdlib_evolution` | every crate against its `api_snapshots/`, one test per crate (TOOL-31) |
 | `tests/global_ids` | every public trait has an id in the `ww_global` ledger (API-20) |
 | `examples/` | paired `<name>_api` and `<name>` crates: all_gpio, defmt_log, uart |
-| `examples_mcu/` | board firmware using these APIs (QEMU Cortex-M3, Nucleo H743ZI2, STM32H725IG): each its own workspace on nightly |
+| `examples_mcu/` | board firmware using these APIs (QEMU Cortex-M3, Nucleo H743ZI2, STM32H725IG, RP2350): each its own workspace |
 | `docs/` | the pages of these crates |
 
 `examples_mcu/*` and `ww_report/tests/crash_fw` are separate workspaces (bare-metal targets): build them through
