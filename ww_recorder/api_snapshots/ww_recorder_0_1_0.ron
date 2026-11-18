@@ -1,7 +1,7 @@
 // ww_recorder 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: e7a305a137ada6e1a47947e0b1d8a83b18748a01f9d5d4cf3818a9df67eccc51
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: a614dc00027d1226f23b2eb515df5c3a379dadba210db14a87c1efda672b1068
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Control a recorder over WireWeaver (STD-34): a device that logs many tracks (streams of any type) to an SD card",
     "or flash on its own, with sessions, recordings and markers.",
     "",

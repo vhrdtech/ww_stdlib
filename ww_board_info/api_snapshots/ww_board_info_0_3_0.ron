@@ -1,7 +1,7 @@
 // ww_board_info 0.3.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: c5830e9ceb7ad5b797dc30cc7b66ea9acac810c42ddf9915408b1c9311c3dc41
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 08e741561ebabc73da80d0fe0cc423dd5563cdf2e45ad186f4cc6ec23236d9a4
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "PCB and PCBA information (STD-24).",
     "",
     "One const item, [BoardInfo::BOARD], answers everything a host or a support case asks about the board: its name,",

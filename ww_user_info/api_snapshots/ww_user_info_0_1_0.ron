@@ -1,7 +1,7 @@
 // ww_user_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 6d8eed94397070df323b873ae36c8f30e57b19a94ff1f9f8e6d5390df35f8c57
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 13675028056c71262a7abe60fb5ae5dcfbf2ff967dd7172144342d61f86a8d13
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "A name and notes the user gives a unit (STD-24), shown by `ww list`.",
     "",
     "# Persistence",

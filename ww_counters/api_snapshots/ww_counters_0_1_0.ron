@@ -1,7 +1,7 @@
 // ww_counters 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 0ecba9423e5ebe2cde211d29646fb02e2b6125289dde72071e190e22154d94cf
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: ba8caafa68f2102aa5ed9cec42dd5a3f438b0d9ec3fb6c254ad340ef9ffae251
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "The device\'s [`cnt`](https://crates.io/crates/cnt) counters over WireWeaver (STD-25).",
     "",
     "`cnt` counts into two buffers of 32-bit words, RAM (zeroed at boot) and backup (survives a reset); a `u64` counter",

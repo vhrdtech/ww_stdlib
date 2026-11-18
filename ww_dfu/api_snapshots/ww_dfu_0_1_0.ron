@@ -1,7 +1,7 @@
 // ww_dfu 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 1f3d0a1d461389eb986b2ed58dfdd73ae6863cf884cd2c50fbd90f7dba275d28
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: c6cc939e02d120026cd527e79ac74eabbfd9347a9f8ad663e4079e2fc2b3d999
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Firmware update API: a set of small traits that every node taking part in an update picks from.",
     "",
     "**Start with the [guide](https://ww.vhrd.tech/std_library/ww_dfu/)** (`docs/std_library/ww_dfu.md` in the",

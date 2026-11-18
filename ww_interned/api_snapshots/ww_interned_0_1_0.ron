@@ -1,7 +1,7 @@
 // ww_interned 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 4b6344616aba3c7a17cc26d10866716db68dd7a4289a15e1cf316e8641787ac2
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 50d115e197026448629b2b282919fe2005e97df653231949a8a5e7bb69f9ea4a
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Strings a device sends as a small number instead of text (STD-48).",
     "",
     "Names and reasons (a pin\'s name, why a request was refused) cost flash and bytes on the wire when sent as text.",

@@ -1,7 +1,7 @@
 // ww_pwm 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 26427ddc412b6a0c147e8f2c005788f81fd581d4356fd4b0616f8759b7f2ff81
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 0504be33695ce002c0b32d848accc436d1f5cfef3fc35fbe4e920033ac9cd453
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "PWM outputs and pulse measurement over WireWeaver.",
     "",
     "# Traits",

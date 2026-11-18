@@ -1,7 +1,7 @@
 // ww_indication 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: d7eb898fe39c5abbf9f6a02b42dd3ef516609f7ca6d5ad5a1857b1a039cdc219
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: cad10767d01c3c581fef3c2a86ba7cf0b687de831b62459e167902a6298aa3bb
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Device indication control (STD-28): one global mode every indicator (LED, buzzer, ...) follows.",
     "",
     "[Indication::mode] is the only item a device must implement. Per-unit [brightness](Indication::brightness),",

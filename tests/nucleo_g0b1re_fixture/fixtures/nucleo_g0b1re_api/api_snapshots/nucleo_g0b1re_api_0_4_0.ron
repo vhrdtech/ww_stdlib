@@ -1,7 +1,7 @@
 // nucleo_g0b1re_api 0.4.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: fd41588991be1df19c62068354e79bdb1ea3b61343e5d67a2308cabdd269e7fe
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: e39e115319bef16aa4d599059b0e095bb427bfa6c4f422a0229ff72284c6377e
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "WireWeaver API of the nucleo_g0b1re firmware (`../nucleo_g0b1re_api`), served by `../firmware/src/ww.rs`.",
     "",
     "The crate name and version identify the API on the wire (`NUCLEO_G_0_B_1_RE_API_FULL_GID`), so bump the version with every",

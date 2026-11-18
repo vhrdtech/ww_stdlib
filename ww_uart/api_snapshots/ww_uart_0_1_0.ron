@@ -1,7 +1,7 @@
 // ww_uart 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 26ebe59f5dc1f09f0196281bc4119f578f5f80987245d2358669c5b782d42bd7
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 8924f45b9192a22530d08b081ea5ee96afa3683c58a42300ab264b698ae60fd1
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "UART over WireWeaver: a device bridges a serial port to the host, or watches the two lines of a serial link.",
     "",
     "`Uart` is one port: configure it, receive on `rx`, send on the `tx` credit sink, and, on ports with the hardware",

@@ -1,7 +1,7 @@
 // ww_firmware_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: f550bcb4933d9497f5882817cb2fcc0d0487ec1815d6459617f039a56152069d
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: ee285394f070679ca9a847f0593f02c56a19b1eb0500b063576ad1f6d451e40b
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Which firmware runs and why the device last reset (STD-24).",
     "",
     "[FirmwareInfo] answers what `--version` of our CLIs prints (`b200_usb_io 0.5.0 (a1b2c3d-dirty, built 3 Oct 2026",

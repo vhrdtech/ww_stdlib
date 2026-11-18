@@ -1,13 +1,13 @@
 // ww_board_info 0.2.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: e5240877087c10c382886096cd010189e835905ecd2818927bf4fa70e1dbd1e8
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 5f3e5808e6381f5c6b591f1e2ceef399e00120f4d2a930cf52639998c6216c9b
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "PCB and PCBA information (STD-24).",
     "",
     "One const item, [BoardInfo::BOARD], answers everything a host or a support case asks about the board: its name,",
     "revision and **how the firmware knows that revision**, variant, BOM variant, serial number and build date.",
 ], crate_idx: 0, trait_name: "ww_board_info", items: [
-    (id: 0, kind: Trait(trait_idx: 0, omitted: None), multiplicity: Flat, since: None, ident: "BoardInfo", docs: [], optional: None, meta: None),
+    (id: 0, kind: Trait(trait_idx: 0, omitted: None), multiplicity: Flat, since: None, ident: "BoardInfo", docs: [], optional: None, meta: None, identity: None),
 ], compact_id: None, meta: None), types: [
     InLine(ty: Enum((size: Unsized, repr: UNib32, crate_idx: 0, docs: [
         "Where a board\'s revision comes from.",
@@ -75,7 +75,7 @@
     ], crate_idx: 0, trait_name: "BoardInfo", items: [
         (id: 0, kind: Property(ty: OutOfLine(type_idx: 2), access: Const, write_err_ty: None, errors: None, batched: None), multiplicity: Flat, since: None, ident: "BOARD", docs: [
             "Everything the device knows about its board, in one value.",
-        ], optional: None, meta: None),
+        ], optional: None, meta: None, identity: None),
     ], compact_id: Some(10), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_board_info", version: (major: 0, minor: 2, patch: 0, pre: None, build: None)),

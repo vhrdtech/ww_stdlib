@@ -1,7 +1,7 @@
 // ww_adc 0.3.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: ffe41bef1fc28b25ddcf42c912920ec37a9f0b414e81453a6ad35f00f3cd1e83
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: e367b0a081e3e64ed3f90a32586ab68c2ede82b512c9e872fe6e1078d529a85e
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Analog inputs over WireWeaver: single calibrated readings, continuous sampling, and lossless captures into device",
     "RAM.",
     "",

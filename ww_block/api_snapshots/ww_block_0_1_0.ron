@@ -1,7 +1,7 @@
 // ww_block 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 9afb1cd34155d0435911ff23ca3b99cbb8773392b4bd2a29d62101feb536018b
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 042fec6b2627a379fc8b2ac89c4c4ae23337db8884fbd35b04a52e43edacff39
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "A block device over WireWeaver (STD-39): an SD card, eMMC or flash read, checked, written and erased in whole",
     "blocks by their address (LBA).",
     "",

@@ -1,7 +1,7 @@
 // ww_pin_diag 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 62c54ef097087687c2cfebcc3b4094fa9a2c1d3ac1788cef460f0084a62abecc
-(magic: 2837124336, ww_self_version: (major: 0, minor: 3, patch: 0), root: (docs: [
+// shrink_wrap sha256: 2fc037abecff693b4e87709e3bb01a67a8cd3abec0519540f290e5c8698411ae
+(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Raw access to a board\'s digital points for bring-up, verification and production tests (STD-47).",
     "",
     "A *point* is anything digital the firmware lets a test touch: an MCU pin, an output of a shift register or an",
