@@ -9,6 +9,8 @@ the repository.
 
 ### Breaking
 
+- ww_log: `LogText` has global id 2^30 instead of 14, short ids stay for frequent calls (API-20).
+- `LastReset`, `UserInfo`, `Counters`, `ww_dfu::Inventory` have global ids 144-147, out of the 1-byte range (API-20).
 - Repository: the API crates, `ww_bus_slave`, `ww_defmt_logger`, `ww_gpio_hl`, `ww_i2c_hl`, `ww_report`, `ww_pin_probe` and `ww_std_cli` live in vhrdtech/ww_stdlib; take them by git from there, not from wire_weaver.
 - Layout: the crates sit at the repository root (`ww_gpio/`, not `ww_stdlib/ww_gpio/`) and their docs pages in `docs/` (assembled into the book's Standard library section).
 - The board examples (`examples_mcu/mcu_qemu`, `nucleo_h743zi2`, `usb_stm32h725ig`, `rp2`) hold only the firmware that uses these APIs: `qemu-bus-slave`, `nucleo-h743zi2-all-gpio`, `stm32h725ig-all-gpio`, `stm32h725ig-uart` and `rp2_usb_log`; the framework benches of those boards stay in wire_weaver.

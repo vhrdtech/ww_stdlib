@@ -1,6 +1,6 @@
 // ww_user_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 13675028056c71262a7abe60fb5ae5dcfbf2ff967dd7172144342d61f86a8d13
+// shrink_wrap sha256: 96238609f86ba152d3fa656d551037f08f8b32c4b4fe0091495a78a35250b164
 (magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "A name and notes the user gives a unit (STD-24), shown by `ww list`.",
     "",
@@ -178,7 +178,7 @@
         ]), batched: None), multiplicity: Flat, since: None, ident: "notes", docs: [
             "Free-form notes about the unit. A device with no room for them leaves this out.",
         ], optional: Some((group: None)), meta: None, identity: None),
-    ], compact_id: Some(12), meta: None), crate_idx: 0),
+    ], compact_id: Some(145), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_user_info", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),
     (crate_id: "exact_units", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

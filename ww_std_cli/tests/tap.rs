@@ -126,13 +126,13 @@ async fn global_trait_calls_are_named_and_decoded() {
             "{name}"
         );
         if traits_only {
-            // the call went out by the trait's ww_global id (API-20): 6 bytes, the crate name alone would take 12;
-            // the name shown comes from the registry
+            // the call went out by the trait's ww_global id (API-20): 7 bytes with id 145, the crate name alone would
+            // take 12; the name shown comes from the registry
             let with_bytes = replayed_view(&path, Layer::Api, true, tests_common::resolver());
             let mut lines = with_bytes.lines();
             lines.find(|l| l.contains("Request Read ww_user_info::UserInfo.name"));
             let request_len = lines.next().unwrap().split_whitespace().skip(1).count();
-            assert_eq!(request_len, 6, "{with_bytes}");
+            assert_eq!(request_len, 7, "{with_bytes}");
         }
         std::fs::remove_dir_all(path.parent().unwrap()).unwrap();
     }

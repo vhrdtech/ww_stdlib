@@ -1,6 +1,6 @@
 // ww_firmware_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: ee285394f070679ca9a847f0593f02c56a19b1eb0500b063576ad1f6d451e40b
+// shrink_wrap sha256: 5ed1581a03ef7df5a23fc6e7f946a91dbe7f6944a2dbea43569a663c731266ac
 (magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Which firmware runs and why the device last reset (STD-24).",
     "",
@@ -419,7 +419,7 @@
         (id: 2, kind: Method(args: [], return_ty: None, errors: None), multiplicity: Flat, since: None, ident: "clear", docs: [
             "Forget the crash record and zero the boot counter, after the host saved them.",
         ], optional: None, meta: None, identity: None),
-    ], compact_id: Some(9), meta: None), crate_idx: 0),
+    ], compact_id: Some(144), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_firmware_info", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),
     (crate_id: "exact_units", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

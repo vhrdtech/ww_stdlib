@@ -1,6 +1,6 @@
 // ww_dfu 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: c6cc939e02d120026cd527e79ac74eabbfd9347a9f8ad663e4079e2fc2b3d999
+// shrink_wrap sha256: 1d7b88c87d7d7b50b9dabdaac2c756e2914a488fa44916048e93f29b57fd5b94
 (magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
     "Firmware update API: a set of small traits that every node taking part in an update picks from.",
     "",
@@ -1007,7 +1007,7 @@
             "[Error::Unsupported] on [Slot::Inactive] when this node has no previous image to report on,",
             "[Error::OutOfRange] when `first` is past the end of the slot.",
         ], optional: None, meta: None, identity: None),
-    ], compact_id: Some(18), meta: None), crate_idx: 0),
+    ], compact_id: Some(147), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "Receive a plan step by step, apply it ([Target::Live]) or store it ([Target::Stored]), and finish it.",
         "",

@@ -2,6 +2,7 @@
 
 ### ⚠️ Breaking
 
+- `LogText` has global id 2^30 instead of 14 (API-20): a `GlobalCompact` call to it takes 5.5 bytes for the id.
 - Wire `w2.0` (STD-16): `LogError` is gone, it held only the common errors: `level` is `property!(rw level: LevelFilter)`, a device refuses a write with `CommonError::Unsupported`.
 - Depends on `ww_api` instead of `wire_weaver` (API-68): the crate no longer pulls the runtime in; `std`/`defmt` forward to `ww_api`.
 - Renamed from `ww_log_bare_metal` (STD-26): depend on `ww_log`, `use ww_log::...`. Its global type id 0 goes with
