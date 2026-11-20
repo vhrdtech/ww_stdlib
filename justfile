@@ -15,8 +15,8 @@ default:
 # the crates that depend on them (through tpm when installed, otherwise the full suite)
 test *flags:
     if [ "{{ flags }}" = "--changed" ]; then \
-        if command -v changed-tests >/dev/null 2>&1; then f=$(changed-tests) && if [ -n "$f" ]; then cargo nextest run --workspace -E "$f"; fi; \
-        else echo "changed-tests not found; running the full test suite instead" >&2; {{ just_executable() }} test-all; fi; \
+        if command -v changedtests >/dev/null 2>&1; then f=$(changedtests) && if [ -n "$f" ]; then cargo nextest run --workspace -E "$f"; fi; \
+        else echo "changedtests not found; running the full test suite instead" >&2; {{ just_executable() }} test-all; fi; \
     else {{ just_executable() }} test-all {{ flags }}; fi
 
 # Every test: nextest, the doctests, ww_block's CRC without std at two table sizes, the builds of `just check`
