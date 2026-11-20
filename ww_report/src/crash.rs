@@ -480,8 +480,8 @@ fn clean_path(path: &str) -> String {
     path.strip_prefix("./").unwrap_or(path).replace("/./", "/")
 }
 
-/// A demangled function name without generic arguments, for display: `<donguru::ww::ServerState>::led_on::<Sink<..>>`
-/// as `donguru::ww::ServerState::led_on`. A trait's `<T as Trait>` stays.
+/// A demangled function name without generic arguments, for display: `<portwright::ww::ServerState>::led_on::<Sink<..>>`
+/// as `portwright::ww::ServerState::led_on`. A trait's `<T as Trait>` stays.
 pub fn short_function(name: &str) -> String {
     let mut out = String::new();
     let mut chars = name.chars().peekable();
@@ -722,15 +722,15 @@ mod tests {
                 "core::option::Option::unwrap",
             ),
             (
-                "<donguru::ww::ServerState>::led_on::<wire_weaver::context::EventWriter<ww_device::server::Sink<ww_device::server::EmbassyClock>>>",
-                "donguru::ww::ServerState::led_on",
+                "<portwright::ww::ServerState>::led_on::<wire_weaver::context::EventWriter<ww_device::server::Sink<ww_device::server::EmbassyClock>>>",
+                "portwright::ww::ServerState::led_on",
             ),
             (
-                "<donguru::ww::ServerState>::process_root::<ww_device::Sink<u8>>::{closure#0}",
-                "donguru::ww::ServerState::process_root::{closure#0}",
+                "<portwright::ww::ServerState>::process_root::<ww_device::Sink<u8>>::{closure#0}",
+                "portwright::ww::ServerState::process_root::{closure#0}",
             ),
             (
-                "<embassy_executor::raw::TaskPool<donguru::Main, 1>>::spawn",
+                "<embassy_executor::raw::TaskPool<portwright::Main, 1>>::spawn",
                 "embassy_executor::raw::TaskPool::spawn",
             ),
             (
@@ -757,7 +757,7 @@ mod tests {
         }
         for f in [
             "crash_fw::ratio",
-            "donguru::main",
+            "portwright::main",
             "<heapless::Vec<u8, 4>>::push",
         ] {
             assert!(!is_std_function(Some(f)), "{f}");
@@ -766,7 +766,7 @@ mod tests {
 
     #[test]
     fn entry_points() {
-        for f in ["main", "Reset", "donguru::main", "__cortex_m_rt_main"] {
+        for f in ["main", "Reset", "portwright::main", "__cortex_m_rt_main"] {
             assert!(is_entry_point(Some(f)), "{f}");
         }
         for f in ["crash_fw::ratio", "main_loop", "Reset_handler_x"] {
@@ -785,7 +785,7 @@ mod tests {
             "core::option::Option<T>::expect",
             "<core::result::Result<T, E>>::unwrap",
             "bedrock_crash::cortex_m::capture_panic",
-            "donguru::panic_handler",
+            "portwright::panic_handler",
             "_defmt_panic",
             "__defmt_default_panic",
         ] {

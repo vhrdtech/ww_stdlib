@@ -116,7 +116,7 @@ and what is planned, for humans and AI agents alike.
     frames or skipped and counted, whatever mode a probe set), `pump()` into the store,
     drops reported in place), ring stress-tested on the host with concurrent producers. `tests/log_defmt` decodes
     with `defmt-decoder` end to end; `examples/defmt_log` (host) and `examples_mcu/rp2`'s `rp2_usb_log` (USB and RTT
-    at once, build id in flash). `docs/std_library/ww_log.md`. Tested 16 Oct 2026 on Donguru B153A (STM32G0B1,
+    at once, build id in flash). `docs/std_library/ww_log.md`. Tested 16 Oct 2026 on Portwright B153A (STM32G0B1,
     typec_dongle API-10, with a `PersistentRamRing`): logs over USB and RTT at once, `lost` exact under a flood of
     1000 (227 + 773), logs from before connecting and from before a forced HardFault; the non-blocking RTT tee
     with probe-rs attached (it sets the channel to blocking): floods of 1000 go on at ~62 us a line instead of
@@ -128,7 +128,7 @@ and what is planned, for humans and AI agents alike.
   same animation are in phase with no epoch passed around, across PCs to NTP precision. A rule in the trait's docs,
   no API item (an explicit epoch was dropped: every server would have had to implement or omit it).
   `docs/std_library/ww_indication.md#animations-in-phase-std-50`; device side embedded_bedrock `bedrock_led` with
-  `bedrock_sync`. Hardware check open: Donguru and rePort breathing in phase.
+  `bedrock_sync`. Hardware check open: Portwright and rePort breathing in phase.
 - 🧪 **STD-35 Slave data paths in `ww_i2c` and `ww_spi`** · `v0.5.x` — an `#[optional(slave)]` group in `I2c` and
   in `Spi`: opening the counted `slave_events` / `slave_frames` stream with a config starts slave mode (closing stops
   it) and reports every transfer (bytes both ways, register pointer or address, fill bytes, stretch time); the
