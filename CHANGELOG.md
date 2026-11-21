@@ -7,6 +7,10 @@ the repository.
 
 ## Unreleased
 
+### Changed
+
+- Docs name the Portwright repo `portwright` (was `typec_dongle`, renamed).
+
 ### Breaking
 
 - ww_log: `LogText` has global id 2^30 instead of 14, short ids stay for frequent calls (API-20).

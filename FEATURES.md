@@ -117,7 +117,7 @@ and what is planned, for humans and AI agents alike.
     drops reported in place), ring stress-tested on the host with concurrent producers. `tests/log_defmt` decodes
     with `defmt-decoder` end to end; `examples/defmt_log` (host) and `examples_mcu/rp2`'s `rp2_usb_log` (USB and RTT
     at once, build id in flash). `docs/std_library/ww_log.md`. Tested 16 Oct 2026 on Portwright B153A (STM32G0B1,
-    typec_dongle API-10, with a `PersistentRamRing`): logs over USB and RTT at once, `lost` exact under a flood of
+    portwright API-10, with a `PersistentRamRing`): logs over USB and RTT at once, `lost` exact under a flood of
     1000 (227 + 773), logs from before connecting and from before a forced HardFault; the non-blocking RTT tee
     with probe-rs attached (it sets the channel to blocking): floods of 1000 go on at ~62 us a line instead of
     ~620 us, RTT shows what fits. Known gap: frames dropped at the end of a burst are reported (`lost`) only with
@@ -151,7 +151,7 @@ and what is planned, for humans and AI agents alike.
   `max_ops`, `max_write_read_len`, `zero_length_write`, `stretch_timeout` range; grouped by topic, sizes all `u16`). Transactions are stated as
   a repeated start before every operation (Linux `I2C_RDWR`), not embedded-hal merging; `i2c_configure` answers the
   highest SCL not above the request. Breaking on the wire and in Rust (nothing released or deployed, user 27 Oct
-  2026): callers in usb_io_fw and typec_dongle adapt. Docs
+  2026): callers in usb_io_fw and portwright adapt. Docs
   `docs/std_library/ww_i2c.md#transactions`, tests in `ww_i2c` (round trips) and `tests/io_i2c`. Open:
   the check on real silicon with the rePort driver (usb_io_fw IF-2, RP2350 DW_apb_i2c).
 - 🧪 **STD-76 `ww_i2c_hl` embedded-hal I2C over `ww_i2c`** · `v0.5` — a stock embedded-hal 1.0 I2C driver,
