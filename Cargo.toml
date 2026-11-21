@@ -171,3 +171,6 @@ dbg_macro = "warn"
 [profile.deploy]
 inherits = "release"
 incremental = true
+
+[profile.dev]
+debug = false
