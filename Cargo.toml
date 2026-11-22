@@ -87,21 +87,21 @@ ww_version = { version = "0.2.0", git = "https://github.com/vhrdtech/ww_base", d
 
 # wire_weaver: the framework runtime, the API description, the client and the shared test fixtures
 tests_common = { version = "0.1.0", git = "https://github.com/vhrdtech/wire_weaver" }
-wire_weaver = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
-wire_weaver_cli = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-wire_weaver_client = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-wire_weaver_core = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-wire_weaver_evolution = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
-ww_api = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+wire_weaver = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+wire_weaver_cli = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_client = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_core = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+wire_weaver_evolution = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_api = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
 ww_client_server = { version = "0.2.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
-ww_device = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-ww_framer = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
-ww_link = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_device = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_framer = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_link = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
 ww_lz4 = { version = "0.1.0", git = "https://github.com/vhrdtech/wire_weaver" }
 ww_self = { version = "0.3.0", git = "https://github.com/vhrdtech/wire_weaver" }
-ww_settings = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-ww_snapshots = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver" }
-ww_stream = { version = "0.5.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
+ww_settings = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_snapshots = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver" }
+ww_stream = { version = "0.6.0", git = "https://github.com/vhrdtech/wire_weaver", default-features = false }
 
 # the crates of this repository, each with its own version (the helpers and host tools follow [workspace.package])
 ww_adc = { version = "0.3.0", path = "./ww_adc", default-features = false }
