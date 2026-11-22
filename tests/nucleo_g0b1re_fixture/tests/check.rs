@@ -152,8 +152,7 @@ fn old_format_snapshot_passes_against_unchanged_source() {
     let outcome = check_fixture(&c, &cache);
     assert_eq!(outcome.verdict().unwrap(), "no changes", "{outcome}");
     // ItemStruct::extra (DER-18 transparent, INT-13 marker) came later still, then ApiBundle::wire (EVO-24),
-    // ApiBundle::ext_wire (EVO-26), ApiItem::identity (INT-17), Meta::effects (API-58, model format 0.5.0) and
-    // Meta::track (API-71, model format 0.6.0)
+    // ApiBundle::ext_wire (EVO-26), ApiItem::identity (INT-17) and Meta::effects (API-58, model format 0.5.0)
     assert_eq!(
         unrecorded(&outcome),
         [
@@ -162,14 +161,13 @@ fn old_format_snapshot_passes_against_unchanged_source() {
             "ApiItem::identity",
             "ItemEnum::future_version",
             "ItemStruct::extra",
-            "Meta::effects",
-            "Meta::track"
+            "Meta::effects"
         ]
     );
     has_all(
         &outcome.to_string(),
         &[
-            "not compared: ApiBundle::ext_wire, ApiBundle::wire, ApiItem::identity, ItemEnum::future_version, ItemStruct::extra, Meta::effects, Meta::track, \
+            "not compared: ApiBundle::ext_wire, ApiBundle::wire, ApiItem::identity, ItemEnum::future_version, ItemStruct::extra, Meta::effects, \
             which a snapshot saved by an older wire_weaver",
         ],
     );
@@ -319,7 +317,7 @@ fn real_change_against_old_format_snapshot_is_caught() {
 
 /// The pin of `ww_timebase::Clock` that wire_weaver's copy of `nucleo_g0b1re_api_0_4_0.ron` holds: its
 /// `tests/stdlib_evolution` reads that one pin for its check that a refresh in place keeps a pinned signature known.
-const CLOCK_PIN: [u8; 8] = [118, 86, 37, 233, 140, 163, 47, 191];
+const CLOCK_PIN: [u8; 8] = [99, 64, 185, 25, 39, 228, 153, 130];
 
 /// The fixture's `ww_timebase::Clock` pin is the one wire_weaver's copy of the 0.4.0 snapshot holds. A refresh that
 /// changes it (`just refresh-fixture-pins` after a `ww_timebase` change) fails here, until the refreshed file is copied
