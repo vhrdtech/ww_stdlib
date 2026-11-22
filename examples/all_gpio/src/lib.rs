@@ -15,7 +15,7 @@ impl WwClient for AllGpio {
 }
 
 impl AllGpio {
-    pub fn info(&self) -> &DeviceApiInfo {
+    pub fn info(&self) -> DeviceApiInfo {
         self.cmd.info()
     }
 }
