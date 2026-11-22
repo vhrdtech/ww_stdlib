@@ -93,8 +93,11 @@ With the `build-id` feature, `ww_firmware_info::build_id()` returns the bytes of
 ```rust
 #[ww_trait]
 pub trait LastReset {
+    #[effect(read)]
     fn last_reset() -> ResetRecord<'i>;
+    #[effect(read)]
     fn boot_count() -> u32;
+    #[effect(destructive)]
     fn clear();
 }
 ```

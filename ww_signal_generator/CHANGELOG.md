@@ -11,6 +11,7 @@
   `#[errors(..)]`. Devices return `CommonError::Unsupported.into()` (or `?` a helper returning `CommonError`).
 ### 🚀 Features
 
+- `PatternGenerator`, `WaveformGenerator`, `WaveformChannel`: items declare what they do with `#[effect(..)]` (API-58).
 - New crate (STD-22): `PatternGenerator` (digital channels from a pattern loaded through a `#[credit]` sink in
   `ww_logic_analyzer`'s chunk types, so captures replay as they are; once / repeated / forever, start now, on the
   external input or on the analyzer's trigger) and `WaveformGenerator` with `channel[]: WaveformChannel` (DAC:

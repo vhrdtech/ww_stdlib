@@ -32,10 +32,13 @@ One bank (port) of pins sharing the same IO level:
 trait Bank {
     ww_impl!(pin[]: Pin);
 
+    #[effect(read)]
     fn capabilities() -> BankCapabilities<'i>;
 
+    #[effect(actuate)]
     fn configure(config: BankConfig) -> Result<BankConfig, Error>;
 
+    #[effect(read)]
     fn name() -> &'i str;
 }
 ```
@@ -59,20 +62,29 @@ defined first, to get more compact resource paths since low path indices take fe
 ```rust
 #[ww_trait]
 pub trait Pin {
+    #[effect(actuate)]
     fn set_output_level(level: Level);
+    #[effect(actuate)]
     fn toggle();
+    #[effect(read)]
     fn output_level() -> Level;
+    #[effect(read)]
     fn input_level() -> Level;
 
     #[stream(IoPinEvent, counted)]
     fn event(enabled: IoPinEnabledEvents<'i>) -> Result<(), Error>;
 
+    #[effect(actuate)]
     fn set_mode(mode: Mode, initial: Option<Level>) -> Result<(), Error>;
+    #[effect(read)]
     fn mode() -> Mode;
 
+    #[effect(actuate)]
     property!(rw pull: Pull, Error);
+    #[effect(edit)]
     property!(rw speed: Speed, Error);
 
+    #[effect(read)]
     fn capabilities() -> PinCapabilities<'i>;
 }
 ```

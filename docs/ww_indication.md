@@ -9,10 +9,13 @@ Device indication control (STD-28): one global mode every indicator (LED, buzzer
 ```rust
 #[ww_trait]
 pub trait Indication {
+    #[effect(actuate)]
     property!(rw mode: Mode);
     #[optional]
+    #[effect(actuate)]
     property!(rw brightness: Brightness);
     #[optional]
+    #[effect(actuate)]
     fn identify(duration: Second);
     #[optional]
     const NAMES: RefVec<'i, &'i str>;

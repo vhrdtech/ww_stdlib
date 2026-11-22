@@ -32,14 +32,20 @@ pub trait Uart {
     stream!(rx: RxChunk<'i>);
 
     #[credit]
+    #[effect(outbound)]
     sink!(tx: MaxLen<RefVec<'i, u8>, UART_TX_MAX>);
 
+    #[effect(read)]
     fn capabilities() -> Capabilities<'i>;
 
+    #[effect(edit)]
     fn configure(config: UartConfig) -> Result<UartConfig, Error>;
 
+    #[effect(outbound, actuate)]
     fn set_pin_level(pin: Pin, is_high: bool) -> Result<(), Error>;
+    #[effect(outbound)]
     fn send_break(duration: Second) -> Result<(), Error>;
+    #[effect(read)]
     fn tx_pending() -> Bytes<u32>;
 
     #[optional]

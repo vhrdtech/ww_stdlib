@@ -32,12 +32,18 @@ Digital channels driven from a pattern at a fixed rate, all switching on the sam
 ```rust
 #[ww_trait]
 pub trait PatternGenerator {
+    #[effect(read)]
     fn capabilities() -> PgCapabilities<'i>;
+    #[effect(edit)]
     fn configure(config: PgConfig<'i>) -> Result<PgActual, PgError>;
     #[credit]
+    #[effect(edit)]
     sink!(pattern: StreamChunk<'i>);
+    #[effect(actuate)]
     fn start() -> Result<(), PgError>;
+    #[effect(actuate)]
     fn stop();
+    #[effect(read)]
     fn status() -> PgStatus;
 }
 ```
@@ -74,16 +80,22 @@ DAC outputs, one sub-trait per channel:
 #[ww_trait]
 pub trait WaveformGenerator {
     ww_impl!(channel[]: WaveformChannel);
+    #[effect(read)]
     fn capabilities() -> WgCapabilities<'i>;
+    #[effect(actuate)]
     fn start_together(channels: MaxLen<RefVec<'i, u8>, MAX_CHANNELS>) -> Result<(), WgError>;
 }
 
 #[ww_trait]
 pub trait WaveformChannel {
+    #[effect(actuate)]
     fn set(waveform: Waveform) -> Result<WaveformActual, WgError>;
+    #[effect(actuate)]
     fn stop(level: Volt) -> Result<Volt, WgError>;
+    #[effect(read)]
     fn state() -> WaveformState;
     #[credit]
+    #[effect(edit)]
     sink!(table: MaxLen<RefVec<'i, u8>, MAX_TABLE_CHUNK>);
 }
 ```

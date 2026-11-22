@@ -69,9 +69,11 @@ pub trait Uart {
     /// Bytes to send. Credit-based (API-28): the host never sends more than the device's TX buffer
     /// ([Capabilities::tx_buffer]) holds.
     #[credit]
+    #[effect(outbound)]
     sink!(tx: MaxLen<RefVec<'i, u8>, UART_TX_MAX>);
 
     /// Supported baud rates, modes, IO levels and other features.
+    #[effect(read)]
     fn capabilities() -> Capabilities<'i>;
 
     /// Configures the port in one step and returns what was actually set: the baud rate the divider settled on
@@ -81,20 +83,24 @@ pub trait Uart {
     /// or IO level this device doesn't have is `Unsupported`; `Refused` when e.g. the line already sits at a higher
     /// voltage than `io_level`.
     #[errors(CommonError(Unsupported, InUse, NoPower, Refused))]
+    #[effect(edit)]
     fn configure(config: UartConfig) -> UartConfig;
 
     /// Manually control pins, only in [Mode::Test].
     ///
     /// `WrongState` in any other mode.
     #[errors(CommonError(WrongState, InUse, NoPower))]
+    #[effect(outbound, actuate)]
     fn set_pin_level(pin: Pin, is_high: bool);
 
     /// Holds TX low for `duration` (a break), after the bytes already queued.
     /// `WrongState` in [Mode::HighZ] or [Mode::Test], `Refused` when longer than this device allows.
     #[errors(CommonError(WrongState, InUse, NoPower, Refused))]
+    #[effect(outbound)]
     fn send_break(duration: Second);
 
     /// Bytes queued for sending and not sent yet.
+    #[effect(read)]
     fn tx_pending() -> Bytes<u32>;
 
     /// Both lines of a serial link between two other devices, received without driving them: what both

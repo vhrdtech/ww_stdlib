@@ -19,8 +19,10 @@ so it can't be compiled into the same image. So the device sends **raw words** a
 pub trait Counters {
     const INFO: CountersInfo<'i>;
     #[errors(CommonError(InvalidArgument, Unsupported))]
+    #[effect(read)]
     fn read(buffer: CounterBuffer, offset: u16) -> Result<MaxLen<RefVec<'i, UVlq32>, 64>, CountersError<'i>>;
     #[errors(CommonError(Unsupported))]
+    #[effect(destructive)]
     fn reset(buffer: CounterBuffer) -> Result<(), CountersError<'i>>;
     #[optional]
     #[stream(CounterChanges<'i>, counted)]

@@ -12,8 +12,11 @@ expander output. It is one generic trait, so one host tool tests any board that 
 #[ww_trait]
 pub trait PinDiag {
     const POINTS: RefVec<'i, Point<'i>>;
+    #[effect(actuate)]
     fn set(point: Index<TestPoint, u16>, state: PointState) -> Result<(), PinDiagError<'i>>;
+    #[effect(read)]
     fn read(point: Index<TestPoint, u16>) -> Result<Level, PinDiagError<'i>>;
+    #[effect(actuate)]
     fn release_all();
 }
 

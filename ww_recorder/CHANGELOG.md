@@ -2,6 +2,7 @@
 
 ### 🚀 Features
 
+- `Recorder`, `Track`: items declare what they do with `#[effect(..)]` (API-58).
 - New crate (STD-34): `Recorder` to control a recorder that logs tracks to an SD card or flash, and `Track`, the array
   `track[]` of its tracks (0 is the system track).
   - `Recorder`: `status` (`Status`, `State`: `NoCard`, `NeedsFormat`, `Unbound`, `Formatting`, `Logging`, `Full`,

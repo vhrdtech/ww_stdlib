@@ -13,6 +13,7 @@ pub const MAX_PRODUCT_LEN: usize = 32;
 #[ww_trait]
 pub trait UpdateNode {
     /// Identity, versions and state of this node, and which of the other update traits it implements.
+    #[effect(read)]
     fn node() -> NodeInfo<'i>;
 }
 

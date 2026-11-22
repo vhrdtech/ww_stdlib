@@ -1,7 +1,7 @@
 // ww_memory 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 2b17c03d5729e6cef414338bc1d2b46aa45319eeeaafdc9239810f3f1b0e34fd
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: bdcf9e39ceeb368e9745e537944750d0e4002cd3f0ddeac3ceaa32ef674f7045
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Low-level access to memory or registers over WireWeaver: read and write words at addresses, and optionally watch",
     "addresses for changes.",
     "",
@@ -56,7 +56,7 @@
         ])), multiplicity: Flat, since: None, ident: "read", docs: [
             "Reads the word at `addr`. With `allow_side_effects` false, an address whose read changes the device\'s state",
             "(e.g. a status register cleared on read) isn\'t read and answers `Common(Refused)`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 1, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U32)), default: None, flatten: false),
             (ident: "value", ty: NumericAny(Base(U32)), default: None, flatten: false),
@@ -67,7 +67,7 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "write", docs: [
             "Writes the word at `addr`; `Common(Refused)` for a read-only address.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 2, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U32)), default: None, flatten: false),
             (ident: "len", ty: NumericAny(Base(U32)), default: None, flatten: false),
@@ -80,7 +80,7 @@
         ])), multiplicity: Flat, since: None, ident: "read_many", docs: [
             "Reads `len` words starting at `addr`. With `allow_side_effects` false, addresses whose read changes the",
             "device\'s state are skipped.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 3, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U32)), default: None, flatten: false),
             (ident: "data", ty: Vec(NumericAny(Base(U32))), default: Some("Default::default()"), flatten: false),
@@ -91,7 +91,7 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "write_many", docs: [
             "Writes `data` to consecutive words starting at `addr`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 4, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U32)), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: Tuple([]), err_ty: OutOfLine(type_idx: 0))), errors: Some([
@@ -99,10 +99,10 @@
             (ident: "OutOfWatchSlots", nested: None),
         ])), multiplicity: Flat, since: None, ident: "watch", docs: [
             "Starts watching the word at `addr`: its changes come on `changed`.",
-        ], optional: Some((group: Some("watches"))), meta: None, identity: None),
+        ], optional: Some((group: Some("watches"))), meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 5, kind: Method(args: [], return_ty: Some(Vec(NumericAny(Base(U32)))), errors: None), multiplicity: Flat, since: None, ident: "watching", docs: [
             "Watched addresses.",
-        ], optional: Some((group: Some("watches"))), meta: None, identity: None),
+        ], optional: Some((group: Some("watches"))), meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 6, kind: Stream(ty: Tuple([
             NumericAny(Base(U32)),
             NumericAny(Base(U32)),
@@ -133,7 +133,7 @@
         ])), multiplicity: Flat, since: None, ident: "read", docs: [
             "Reads the word at `addr`. With `allow_side_effects` false, an address whose read changes the device\'s state",
             "(e.g. a status register cleared on read) isn\'t read and answers `Common(Refused)`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 1, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U8)), default: None, flatten: false),
             (ident: "value", ty: NumericAny(Base(U8)), default: None, flatten: false),
@@ -144,7 +144,7 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "write", docs: [
             "Writes the word at `addr`; `Common(Refused)` for a read-only address.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 2, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U8)), default: None, flatten: false),
             (ident: "len", ty: NumericAny(Base(U8)), default: None, flatten: false),
@@ -157,7 +157,7 @@
         ])), multiplicity: Flat, since: None, ident: "read_many", docs: [
             "Reads `len` words starting at `addr`. With `allow_side_effects` false, addresses whose read changes the",
             "device\'s state are skipped.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 3, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U8)), default: None, flatten: false),
             (ident: "data", ty: Vec(NumericAny(Base(U8))), default: Some("Default::default()"), flatten: false),
@@ -168,7 +168,7 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "write_many", docs: [
             "Writes `data` to consecutive words starting at `addr`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 4, kind: Method(args: [
             (ident: "addr", ty: NumericAny(Base(U8)), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: Tuple([]), err_ty: OutOfLine(type_idx: 0))), errors: Some([
@@ -176,10 +176,10 @@
             (ident: "OutOfWatchSlots", nested: None),
         ])), multiplicity: Flat, since: None, ident: "watch", docs: [
             "Starts watching the word at `addr`: its changes come on `changed`.",
-        ], optional: Some((group: Some("watches"))), meta: None, identity: None),
+        ], optional: Some((group: Some("watches"))), meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 5, kind: Method(args: [], return_ty: Some(Vec(NumericAny(Base(U8)))), errors: None), multiplicity: Flat, since: None, ident: "watching", docs: [
             "Watched addresses.",
-        ], optional: Some((group: Some("watches"))), meta: None, identity: None),
+        ], optional: Some((group: Some("watches"))), meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 6, kind: Stream(ty: Tuple([
             NumericAny(Base(U8)),
             NumericAny(Base(U8)),

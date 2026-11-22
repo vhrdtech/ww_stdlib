@@ -7,6 +7,7 @@
 
 ### 🚀 Features
 
+- `SdCard`: items declare what they do with `#[effect(..)]` (API-58).
 - New crate (STD-40): `SdCard`, raw access to an SD card over WireWeaver.
   - `capabilities` (`Capabilities`: `Interface`, widest bus, `max_clock` as `Fixed<Hertz, Kilo, u32>`), `state`
     (`CardState`, `CardKind`, `BusState` with `clock` the same typed kHz, `BusWidth`, `SpeedMode`), the `detect`

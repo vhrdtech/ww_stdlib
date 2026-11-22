@@ -82,6 +82,7 @@ pub const MAX_RATE_LIMITS: usize = 8;
 #[ww_trait]
 pub trait LogicAnalyzer {
     /// Channels, rates, memory, encodings and triggers.
+    #[effect(read)]
     fn capabilities() -> LaCapabilities<'i>;
 
     /// Arms a capture, replacing the previous one and its data, and returns what was actually set. With
@@ -93,14 +94,17 @@ pub trait LogicAnalyzer {
         CommonError(InvalidArgument, Unsupported, Busy, InUse, NoPower),
         NoSuchChannel
     )]
+    #[effect(job)]
     fn capture(config: CaptureConfig<'i>) -> Result<CaptureActual, LaError>;
 
     /// Arms again with the configuration of the last `capture`, for repeated captures of the same event.
     /// `WrongState`: nothing was configured yet.
     #[errors(CommonError(WrongState))]
+    #[effect(job)]
     fn rearm() -> Result<CaptureActual, LaError>;
 
     /// Where the capture stands.
+    #[effect(read)]
     fn status() -> CaptureStatus;
 
     /// Samples of `range` of a finished capture as raw words, at most [MAX_READ_LEN] bytes: the chunk may hold
@@ -108,6 +112,7 @@ pub trait LogicAnalyzer {
     /// `WrongState`: no finished capture; `InvalidArgument`: outside the capture; `Unsupported`: the device doesn't
     /// give raw words.
     #[errors(CommonError(WrongState, InvalidArgument, Unsupported))]
+    #[effect(read)]
     fn read_raw(range: SampleRange) -> Result<RawChunk<'i>, LaError>;
 
     /// Edges of `channel` (an index into [CaptureConfig::channels]) from sample `from` on, up to [MAX_EDGES]
@@ -115,12 +120,14 @@ pub trait LogicAnalyzer {
     /// `WrongState`: no finished capture; `InvalidArgument`: outside the capture; `Unsupported`: the device doesn't
     /// give transitions.
     #[errors(CommonError(WrongState, InvalidArgument, Unsupported), NoSuchChannel)]
+    #[effect(read)]
     fn read_transitions(
         channel: Index<Channel, u8>,
         from: Index<Sample, u32>,
     ) -> Result<TransitionsChunk<'i>, LaError>;
 
     /// Stops an armed or running capture and drops its data.
+    #[effect(edit)]
     fn abort();
 }
 
@@ -142,6 +149,7 @@ pub trait LogicStream {
     fn data(config: StreamConfig<'i>) -> Result<StreamActual, LaError>;
 
     /// Rates, channels and encodings of streaming.
+    #[effect(read)]
     fn stream_capabilities() -> StreamCapabilities<'i>;
 }
 

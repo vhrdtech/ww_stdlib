@@ -20,6 +20,7 @@ pub trait CanXl {
     /// Configures the XL data phase (`None`: no XL frames) and answers what was set. Needs CAN FD configured on the
     /// controller (`WrongState`); a timing or transceiver mode switching it can't do is `Unsupported`.
     #[errors(CommonError(Unsupported, InvalidArgument, WrongState))]
+    #[effect(edit)]
     fn configure_xl(config: Option<XlConfig>) -> Result<Option<XlConfig>, CanError>;
 
     /// Received XL frames. A counted stream, unit: frame; the head's time is when the frame was received.
@@ -28,6 +29,7 @@ pub trait CanXl {
 
     /// XL frames to send; credit-based. Reported on `Can::tx_events` with their marker, where present.
     #[credit]
+    #[effect(outbound)]
     sink!(tx_xl: XlTxFrame<'i>);
 }
 

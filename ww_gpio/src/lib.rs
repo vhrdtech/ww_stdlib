@@ -38,15 +38,18 @@ pub trait Bank {
     reserved!(1..=7);
 
     /// Capabilities that each pin of the bank supports.
+    #[effect(read)]
     fn capabilities() -> BankCapabilities<'i>;
 
     /// Configures what the pins of the bank share and returns what was actually set: the IO level in effect.
     /// `Unsupported` for an IO level the bank's hardware can't drive, `Refused` when a safety rule of the device
     /// doesn't allow it.
     #[errors(CommonError(Unsupported, Refused))]
+    #[effect(actuate)]
     fn configure(config: BankConfig) -> Result<BankConfig, GpioError>;
 
     /// User-friendly bank name, e.g. `"PA"`.
+    #[effect(read)]
     fn name() -> &'i str;
 }
 
@@ -58,20 +61,24 @@ pub trait Pin {
     /// 0. Set the output level.
     ///
     /// If the pin is currently configured as input, this level should only be written to control register, without changing pin mode.
+    #[effect(actuate)]
     fn set_output_level(level: Level);
 
     /// 1. Toggle the output level.
+    #[effect(actuate)]
     fn toggle();
 
     /// 2. Get output level.
     ///
     /// If the pin is currently configured as input, this level should be read from an output register, not input one.
+    #[effect(read)]
     fn output_level() -> Level;
 
     /// 3. Get the input level.
     ///
     /// Note that when a pin is configured as output, input buffer might be disabled, resulting in incorrect input level reported.
     /// If this is the case, current output level must be returned.
+    #[effect(read)]
     fn input_level() -> Level;
 
     // TODO(STD-31): `property!(ro+observe level: Level)` here, once levels under a resource array can be observed
@@ -91,21 +98,26 @@ pub trait Pin {
     /// `Unsupported` if the pin can't be switched to the requested mode, `DifferentModes` if the bank's pins share one
     /// mode and this one differs.
     #[errors(CommonError(Unsupported, InUse, NoPower, Refused), DifferentModes)]
+    #[effect(actuate)]
     fn set_mode(mode: Mode, initial: Option<Level>) -> Result<(), GpioError>;
     /// Get current mode.
+    #[effect(read)]
     fn mode() -> Mode;
 
     /// Pull resistors selection.
     /// `Unsupported` if the pin doesn't support the requested pull (`set` only).
     #[errors(CommonError(Unsupported))]
+    #[effect(actuate)]
     property!(rw pull: Pull, GpioError);
 
     /// Drive strength selection.
     /// `Unsupported` if the pin doesn't support the requested drive strength (`set` only).
     #[errors(CommonError(Unsupported))]
+    #[effect(edit)]
     property!(rw speed: Speed, GpioError);
 
     /// What this pin can do: modes, pulls, speeds, whether it sends events, and its name.
+    #[effect(read)]
     fn capabilities() -> PinCapabilities<'i>;
 }
 

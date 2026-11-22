@@ -44,9 +44,11 @@ pub const MAX_INIT_STEPS: usize = 24;
 pub trait SdCard {
     /// What the device's host controller can do: interface, bus widths, clock, UHS, the size of a data phase,
     /// whether restricted commands go through.
+    #[effect(read)]
     fn capabilities() -> Capabilities;
 
     /// The card in the slot and how it is driven now.
+    #[effect(read)]
     fn state() -> CardState;
 
     /// Card inserted (`true`) or removed (`false`), from the card detect switch or a failing poll.
@@ -57,6 +59,7 @@ pub trait SdCard {
     ///
     /// `NoCard`, `Common(WrongState)` before the card is initialised.
     #[errors(CommonError(WrongState), NoCard)]
+    #[effect(read)]
     fn registers() -> Result<SdRegisters<'i>, SdError>;
 
     /// Runs the init sequence again (CMD0, CMD8, ACMD41, CMD2, CMD3, ..., then bus width and speed up to the
@@ -66,6 +69,7 @@ pub trait SdCard {
     /// A card that fails to come up is not an error: the report says where it stopped. `Common(Unsupported)` for
     /// a bus width or clock the controller can't do.
     #[errors(CommonError(Busy, Unsupported), NoCard, BadLease)]
+    #[effect(edit)]
     fn reinit(
         lease: Lease,
         max_clock: Fixed<units::Hertz, Kilo, u32>,
@@ -85,6 +89,7 @@ pub trait SdCard {
         BadLease,
         Restricted
     )]
+    #[effect(persist, destructive)]
     fn command(lease: Option<Lease>, cmd: RawCommand<'i>) -> Result<RawResponse<'i>, SdError>;
 }
 

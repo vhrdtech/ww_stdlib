@@ -21,17 +21,20 @@ pub use ww_si::Second;
 pub trait Indication {
     /// Global operation mode every indicator follows. Periodic animations are aligned to shared time when the device
     /// has it, see the [crate docs](crate).
+    #[effect(actuate)]
     property!(rw mode: Mode);
 
     /// Brightness of all indicators; one setting covers every one of them. Left out by a device whose
     /// indicators have no adjustable brightness.
     #[optional]
+    #[effect(actuate)]
     property!(rw brightness: Brightness);
 
     /// Blinks every indicator for `duration` so the unit can be found on a bench or in a rack, then returns to
     /// `mode`. `Unsupported` on a device with no way to blink its indicators, `Busy` while already identifying.
     #[optional]
     #[errors(CommonError(Unsupported, Busy))]
+    #[effect(actuate)]
     fn identify(duration: Second);
 
     /// Indicator names, in the device's own order. Left out (empty on devices that implement it with nothing to

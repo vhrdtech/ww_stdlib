@@ -11,6 +11,7 @@ use crate::Error;
 #[claim(exclusive)]
 pub trait BootControl {
     /// Where the device stands between two updates.
+    #[effect(read)]
     fn boot_state() -> BootState;
 
     /// The running image works: keep it.
@@ -18,6 +19,7 @@ pub trait BootControl {
     /// Only meaningful in [BootState::Trial]; in any other state it does nothing and returns `Ok`. An image that
     /// never confirms is reverted at the next reset, so the app should confirm only after it has checked what
     /// matters to it (its peripherals, its link to the host, its config).
+    #[effect(persist)]
     fn confirm() -> Result<(), Error>;
 
     /// Give up the running trial image now, or un-stage a staged one: the previous image runs after the next reset.
@@ -25,6 +27,7 @@ pub trait BootControl {
     /// [Error::Unsupported] on profiles without a previous image ([Profile::InPlace]), [Error::WrongState] outside
     /// [BootState::Trial] and [BootState::Staged].
     #[errors(Unsupported, WrongState)]
+    #[effect(persist)]
     fn revert() -> Result<(), Error>;
 
     /// Reset into the app or into the updater.
@@ -39,6 +42,7 @@ pub trait BootControl {
     ///
     /// [Error::Unsupported] into [BootTarget::Updater] on an A/B node (there is no separate updater to reboot into).
     #[errors(Unsupported)]
+    #[effect(reset)]
     fn reboot(into: BootTarget) -> Result<(), Error>;
 }
 

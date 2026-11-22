@@ -28,7 +28,9 @@ The channels, their units and ranges, and one calibrated reading on demand:
 ```rust
 #[ww_trait]
 pub trait Adc {
+    #[effect(read)]
     fn read(channel: u8) -> Result<Reading, AdcError>;
+    #[effect(read)]
     fn capabilities() -> AdcCapabilities<'i>;
 }
 ```
@@ -52,6 +54,7 @@ Continuous sampling of chosen channels, streamed while the link keeps up:
 pub trait AdcStream {
     #[stream(SampleBlock<'i>, counted)]
     fn samples(config: StreamConfig<'i>) -> Result<StreamActual, AdcError>;
+    #[effect(read)]
     fn stream_capabilities() -> StreamCapabilities<'i>;
 }
 ```
@@ -89,10 +92,15 @@ Lossless capture: samples go into device RAM at any rate the hardware can do, th
 ```rust
 #[ww_trait]
 pub trait AdcCapture {
+    #[effect(read)]
     fn capture_capabilities() -> CaptureCapabilities<'i>;
+    #[effect(job)]
     fn capture(config: CaptureConfig<'i>) -> Result<CaptureActual, AdcError>;
+    #[effect(read)]
     fn capture_status() -> CaptureStatus;
+    #[effect(read)]
     fn capture_read(offset: u32, len: u16) -> Result<MaxLen<RefVec<'i, u8>, MAX_CAPTURE_READ_LEN>, AdcError>;
+    #[effect(edit)]
     fn capture_abort();
 }
 ```

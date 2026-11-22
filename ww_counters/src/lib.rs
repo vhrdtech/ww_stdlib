@@ -82,6 +82,7 @@ pub trait Counters {
     /// words of one call are copied at once, so a page is one snapshot (a `u64` counter can still tear between two
     /// calls, or within one if an interrupt carries into its high word; the host reads such a counter again).
     #[errors(CommonError(InvalidArgument, Unsupported))]
+    #[effect(read)]
     fn read(
         buffer: CounterBuffer,
         offset: Index<Word, u16>,
@@ -89,6 +90,7 @@ pub trait Counters {
 
     /// Zero a buffer.
     #[errors(CommonError(Unsupported))]
+    #[effect(destructive)]
     fn reset(buffer: CounterBuffer);
 
     /// Words that changed since the last event, sent every `period` (at least the device's minimum, which opening

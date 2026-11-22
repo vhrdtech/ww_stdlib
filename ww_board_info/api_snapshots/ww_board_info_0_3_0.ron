@@ -1,7 +1,7 @@
 // ww_board_info 0.3.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 08e741561ebabc73da80d0fe0cc423dd5563cdf2e45ad186f4cc6ec23236d9a4
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 9237f93e9f336a42187ea1a68114be8e940b7f8f750b186574f8bf144b56c439
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "PCB and PCBA information (STD-24).",
     "",
     "One const item, [BoardInfo::BOARD], answers everything a host or a support case asks about the board: its name,",
@@ -170,7 +170,7 @@
             "refused ([ReworkError::UnknownRework]), never stored. `program` false is a dry run: everything is checked, nothing",
             "written. The board runs on the record from its next boot: [BoardInfo::REWORKS], read once per connection,",
             "shows the board as it booted. A device that serves this serves [BoardInfo::REWORKS] too.",
-        ], optional: Some((group: None)), meta: None, identity: None),
+        ], optional: Some((group: None)), meta: Some((claim: None, shares: [], labels: [], effects: (4))), identity: None),
     ], compact_id: Some(10), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_board_info", version: (major: 0, minor: 3, patch: 0, pre: None, build: None)),

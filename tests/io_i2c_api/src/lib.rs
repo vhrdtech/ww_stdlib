@@ -4,6 +4,7 @@
 use ww_api::prelude::*;
 
 #[ww_api_root]
+#[effect(edit)]
 pub trait IoI2cTest {
     ww_impl!(i2c: ww_i2c::I2c);
     ww_impl!(i2c_watch: ww_i2c::I2cWatch);
@@ -18,6 +19,7 @@ pub trait IoI2cTest {
 /// Test API root for `ww_i2c`'s slave mode, used by `tests/io_i2c`: a device built on `ww_bus_slave::I2cSlave`,
 /// driven by [SlaveBusOp] instead of a real bus, with a fake clock advanced by [SlaveBusOp::Advance].
 #[ww_api_root]
+#[effect(edit)]
 pub trait IoI2cSlaveTest {
     ww_impl!(i2c: ww_i2c::I2c);
 

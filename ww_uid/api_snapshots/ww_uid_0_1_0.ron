@@ -1,7 +1,7 @@
 // ww_uid 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 2fb350a25b90f59af1955c98622674bb241d266e1352d7a0fe18c6d805689dce
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 237f74bf0048c35b95550b07c07bf12b35f93601e03398e7b7f5102c73aa713a
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Unique ids of a device (STD-24).",
     "",
     "A unit can carry several ids: a chip\'s factory-programmed unique id, a MAC address, an EUI-64 of a radio. They",

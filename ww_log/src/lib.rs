@@ -126,6 +126,7 @@ pub trait LogText {
     /// Records less severe than this level are not produced (filters compiled into the firmware still apply).
     /// Writing it fails with `Unsupported` when the level is fixed at compile time.
     #[errors(CommonError(Unsupported))]
+    #[effect(edit)]
     property!(rw level: LevelFilter);
 }
 

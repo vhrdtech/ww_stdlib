@@ -38,6 +38,7 @@
 
 ### 🚀 Features
 
+- `AdcCapture`: items declare what they do with `#[effect(..)]` (API-58).
 - `AdcStream::samples` lists its errors with `#[errors(..)]` (API-32), now that stream functions and properties can
   carry one, instead of a hand-written `# Errors` note: rustdoc, introspection and the client's warning about an
   unlisted error see it.

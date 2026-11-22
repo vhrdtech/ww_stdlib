@@ -83,10 +83,12 @@ pub trait Recorder {
     ww_impl!(track[]: Track);
 
     /// What the recorder is doing now.
+    #[effect(read)]
     fn status() -> Status<'i>;
 
     /// Facts about the card in the slot, `None` without a card. Reads what the card reports (SD Status, CID); the
     /// speed rating is the result of the last card check, made by [Recorder::format].
+    #[effect(read)]
     fn card() -> Option<CardFacts<'i>>;
 
     /// First step of a format: reads the card (facts, what is on it, limits) and answers what a format would do,
@@ -98,6 +100,7 @@ pub trait Recorder {
     /// `Common(Busy)` while a format is running, `NoCard`.
     #[optional(formatting)]
     #[errors(CommonError(Busy, Unsupported), NoCard)]
+    #[effect(read)]
     fn prepare_format(action: FormatAction) -> Result<FormatOffer<'i>, RecorderError<'i>>;
 
     /// Second step: carries out the offer. `rw_mb` is the size of the read-write region for a full format (`None`:
@@ -111,6 +114,7 @@ pub trait Recorder {
     /// offer's limits, `CardFailed` when the check finds a fake or broken card (nothing is formatted then).
     #[optional(formatting)]
     #[errors(CommonError(Busy, InvalidArgument), NoCard, BadToken, CardFailed)]
+    #[effect(persist, destructive)]
     fn format(token: FormatToken, rw_mb: Option<Mebibytes<u32>>) -> Result<(), RecorderError<'i>>;
 
     /// Starts a recording: a labelled span of the log. Everything is logged all the time in the default
@@ -125,6 +129,7 @@ pub trait Recorder {
         NotLogging,
         RecordingRunning
     )]
+    #[effect(persist, job)]
     fn recording_start(
         trigger: Trigger,
         pre_trigger: Secs<u16>,
@@ -133,12 +138,14 @@ pub trait Recorder {
     /// Stops the running recording and returns its id. `NoRecording` when none runs.
     #[optional(recording)]
     #[errors(NotLogging, NoRecording)]
+    #[effect(persist)]
     fn recording_stop() -> Result<RecordingId, RecorderError<'i>>;
 
     /// Recordings on the card, oldest first, up to [MAX_RECORDINGS] with id above `after` (0 for the first page).
     /// Recordings whose data the ring has already overwritten are not listed.
     #[optional(recording)]
     #[errors(NotLogging)]
+    #[effect(read)]
     fn recordings(
         after: RecordingId,
     ) -> Result<MaxLen<RefVec<'i, RecordingInfo>, MAX_RECORDINGS>, RecorderError<'i>>;
@@ -147,6 +154,7 @@ pub trait Recorder {
     /// at once, not with the next flush.
     #[optional(markers)]
     #[errors(CommonError(InvalidArgument), NotLogging)]
+    #[effect(persist)]
     fn marker(
         kind: MarkerKind,
         label: MaxLen<&'i str, MAX_LABEL>,
@@ -156,14 +164,17 @@ pub trait Recorder {
     /// Writes what is in RAM to the card now (all tracks), instead of waiting for [Settings::flush] or
     /// [Settings::flush_interval]. Answers when it is on the card. Before a planned power-off, on a brown-out warning.
     #[errors(NotLogging)]
+    #[effect(persist)]
     fn sync() -> Result<(), RecorderError<'i>>;
 
     /// Settings: flush thresholds, full policy, recording mode, USB view. Each field says when it takes effect.
     #[errors(CommonError(InvalidArgument, Unsupported))]
+    #[effect(edit)]
     property!(rw settings: Settings, RecorderError<'i>);
 
     /// Totals since the card was formatted and since this boot.
     #[optional(counting)]
+    #[effect(read)]
     fn counters() -> RecorderCounters;
 
     /// Tells the USB mass storage view to show the log as it is now. The view is a snapshot taken when the host
@@ -171,5 +182,6 @@ pub trait Recorder {
     /// without a USB view leaves it out.
     #[optional(usb)]
     #[errors(CommonError(Unsupported, Busy))]
+    #[effect(edit)]
     fn refresh_usb() -> Result<(), RecorderError<'i>>;
 }

@@ -57,6 +57,7 @@ pub trait Pwm {
     ww_impl!(channel[]: PwmChannel);
 
     /// The channels, their groups and the frequency and duty range.
+    #[effect(read)]
     fn capabilities() -> PwmCapabilities<'i>;
 }
 
@@ -68,18 +69,22 @@ pub trait PwmChannel {
     /// `InvalidArgument`: frequency or duty out of range; `SharedTimer`: another channel of the same group already runs
     /// at a different frequency.
     #[errors(CommonError(InvalidArgument, InUse, NoPower, Refused), SharedTimer)]
+    #[effect(actuate)]
     fn set_output(output: PwmOutput) -> Result<PwmActual, PwmError>;
 
     /// Changes only the duty, keeping the frequency; returns the duty actually set.
     /// `WrongState`: the channel is idle, `PwmChannel::set_output` first.
     #[errors(CommonError(WrongState, InvalidArgument))]
+    #[effect(actuate)]
     fn set_duty(duty: Duty16) -> Result<Duty16, PwmError>;
 
     /// Stops the output, leaving the pin high or low.
     #[errors(CommonError(InUse, Refused))]
+    #[effect(actuate)]
     fn stop(idle_high: bool) -> Result<(), PwmError>;
 
     /// The current output, or [PwmState::Idle] if stopped.
+    #[effect(read)]
     fn state() -> PwmState;
 }
 
@@ -105,11 +110,13 @@ pub trait PwmCaptureChannel {
     /// actually set (the nearest gate the hardware can do).
     /// `Unsupported`: this mode isn't available on this channel; `InvalidArgument`: gate out of range.
     #[errors(CommonError(Unsupported, InvalidArgument, InUse, Refused))]
+    #[effect(edit)]
     fn set_capture(config: CaptureConfig) -> Result<CaptureConfig, PwmError>;
 
     /// The last measurement.
     /// `WrongState`: no measurement yet; `PwmCaptureChannel::set_capture` first, then wait for at least one `gate`.
     #[errors(CommonError(WrongState))]
+    #[effect(read)]
     fn read_capture() -> Result<CaptureSample, PwmError>;
 }
 

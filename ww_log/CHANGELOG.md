@@ -22,6 +22,7 @@
 
 ### 🚀 Features
 
+- `LogText`: items declare what they do with `#[effect(..)]` (API-58).
 - `LogDefmt::frames`, `LogText::records` and the `LogText::level` property list their errors with `#[errors(..)]`
   (API-32), now that stream functions and properties can carry one, instead of a hand-written `# Errors` note: rustdoc,
   introspection and the client's warning about an unlisted error see them.

@@ -20,6 +20,7 @@ ww_firmware_info = { version = "0.1", default-features = false }
 pub trait MyBoard {
     ww_impl!(firmware: ww_firmware_info::FirmwareInfo);
     ww_impl!(gpio: ww_gpio::Bank);
+    #[effect(edit)]
     fn my_own_method(value: u8);
 }
 ```

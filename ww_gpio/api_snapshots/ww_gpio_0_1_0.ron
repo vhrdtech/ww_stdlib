@@ -1,7 +1,7 @@
 // ww_gpio 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 0c0d73b847d20b38231e3cab36f09b26be5b3ba7fa9c40ea73f1fbe9351ab740
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: abc05caf21cbe69765618523e60282f22ce7d61ff50e91156cd595a4ba747b52
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "GPIO control and remote bridging API: banks of pins (`Bank`), each with individually addressable pins (`Pin`)",
     "that can be read, driven, reconfigured (mode / pull / drive strength) and watched for edge events through a",
     "stream. See `docs/std_library/ww_gpio.md` for the full writeup with client and server examples.",
@@ -369,7 +369,7 @@
         ], optional: None, meta: None, identity: None),
         (id: 8, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 0)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "Capabilities that each pin of the bank supports.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 9, kind: Method(args: [
             (ident: "config", ty: OutOfLine(type_idx: 1), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 1), err_ty: OutOfLine(type_idx: 2))), errors: Some([
@@ -381,11 +381,11 @@
             "Configures what the pins of the bank share and returns what was actually set: the IO level in effect.",
             "`Unsupported` for an IO level the bank\'s hardware can\'t drive, `Refused` when a safety rule of the device",
             "doesn\'t allow it.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 10, kind: Method(args: [], return_ty: Some(String), errors: None), multiplicity: Flat, since: None, ident: "name", docs: [
             "User-friendly bank name, e.g. `\"PA\"`.",
-        ], optional: None, meta: None, identity: None),
-    ], compact_id: Some(32), meta: Some((claim: Some(Exclusive), shares: [], labels: []))), crate_idx: 0),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
+    ], compact_id: Some(32), meta: Some((claim: Some(Exclusive), shares: [], labels: [], effects: (0)))), crate_idx: 0),
     InLine(level: (docs: [
         "One pin from a GPIO bank.",
         "",
@@ -397,21 +397,21 @@
             "0. Set the output level.",
             "",
             "If the pin is currently configured as input, this level should only be written to control register, without changing pin mode.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 1, kind: Method(args: [], return_ty: None, errors: None), multiplicity: Flat, since: None, ident: "toggle", docs: [
             "1. Toggle the output level.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 2, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 3)), errors: None), multiplicity: Flat, since: None, ident: "output_level", docs: [
             "2. Get output level.",
             "",
             "If the pin is currently configured as input, this level should be read from an output register, not input one.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 3, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 3)), errors: None), multiplicity: Flat, since: None, ident: "input_level", docs: [
             "3. Get the input level.",
             "",
             "Note that when a pin is configured as output, input buffer might be disabled, resulting in incorrect input level reported.",
             "If this is the case, current output level must be returned.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 7, kind: StreamFn(ty: OutOfLine(type_idx: 4), delivery: Counted, args: [
             (ident: "enabled", ty: OutOfLine(type_idx: 5), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: Tuple([]), err_ty: OutOfLine(type_idx: 2))), errors: Some([
@@ -440,10 +440,10 @@
             "Optionally set the initial level before changing pin mode.",
             "`Unsupported` if the pin can\'t be switched to the requested mode, `DifferentModes` if the bank\'s pins share one",
             "mode and this one differs.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 9, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 6)), errors: None), multiplicity: Flat, since: None, ident: "mode", docs: [
             "Get current mode.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 10, kind: Property(ty: OutOfLine(type_idx: 7), access: ReadWrite(observe: false), write_err_ty: Some(OutOfLine(type_idx: 2)), errors: Some([
             (ident: "CommonError", nested: Some([
                 "Unsupported",
@@ -451,7 +451,7 @@
         ]), batched: None), multiplicity: Flat, since: None, ident: "pull", docs: [
             "Pull resistors selection.",
             "`Unsupported` if the pin doesn\'t support the requested pull (`set` only).",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 11, kind: Property(ty: OutOfLine(type_idx: 8), access: ReadWrite(observe: false), write_err_ty: Some(OutOfLine(type_idx: 2)), errors: Some([
             (ident: "CommonError", nested: Some([
                 "Unsupported",
@@ -459,10 +459,10 @@
         ]), batched: None), multiplicity: Flat, since: None, ident: "speed", docs: [
             "Drive strength selection.",
             "`Unsupported` if the pin doesn\'t support the requested drive strength (`set` only).",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 12, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 9)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "What this pin can do: modes, pulls, speeds, whether it sends events, and its name.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(33), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_gpio", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

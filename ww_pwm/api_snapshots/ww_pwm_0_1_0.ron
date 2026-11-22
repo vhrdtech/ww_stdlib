@@ -1,7 +1,7 @@
 // ww_pwm 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 0504be33695ce002c0b32d848accc436d1f5cfef3fc35fbe4e920033ac9cd453
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 3a0d4dcb161a8ca85089b99e8b6ec15b10873ab227bbbf1c9c8422bee3ebf567
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "PWM outputs and pulse measurement over WireWeaver.",
     "",
     "# Traits",
@@ -398,7 +398,7 @@
         ], optional: None, meta: None, identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 0)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "The channels, their groups and the frequency and duty range.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(48), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "Pulse measurement: frequency, duty cycle, pulse width or edge count, channel by channel.",
@@ -438,7 +438,7 @@
             "Sets up what to measure without a stream, for `PwmCaptureChannel::read_capture`, and returns what was",
             "actually set (the nearest gate the hardware can do).",
             "`Unsupported`: this mode isn\'t available on this channel; `InvalidArgument`: gate out of range.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 2, kind: Method(args: [], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 4), err_ty: OutOfLine(type_idx: 3))), errors: Some([
             (ident: "CommonError", nested: Some([
                 "WrongState",
@@ -446,7 +446,7 @@
         ])), multiplicity: Flat, since: None, ident: "read_capture", docs: [
             "The last measurement.",
             "`WrongState`: no measurement yet; `PwmCaptureChannel::set_capture` first, then wait for at least one `gate`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(98), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "One PWM output, see [PwmCapabilities::channels] for its group and whether it also captures.",
@@ -466,7 +466,7 @@
             "can do).",
             "`InvalidArgument`: frequency or duty out of range; `SharedTimer`: another channel of the same group already runs",
             "at a different frequency.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 1, kind: Method(args: [
             (ident: "duty", ty: Instance(type_idx: 7, args: [
                 Type(OutOfLine(type_idx: 8)),
@@ -493,7 +493,7 @@
         ])), multiplicity: Flat, since: None, ident: "set_duty", docs: [
             "Changes only the duty, keeping the frequency; returns the duty actually set.",
             "`WrongState`: the channel is idle, `PwmChannel::set_output` first.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 2, kind: Method(args: [
             (ident: "idle_high", ty: Bool, default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: Tuple([]), err_ty: OutOfLine(type_idx: 3))), errors: Some([
@@ -503,10 +503,10 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "stop", docs: [
             "Stops the output, leaving the pin high or low.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 3, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 11)), errors: None), multiplicity: Flat, since: None, ident: "state", docs: [
             "The current output, or [PwmState::Idle] if stopped.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(49), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_pwm", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

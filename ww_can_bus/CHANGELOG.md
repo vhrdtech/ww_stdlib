@@ -53,6 +53,7 @@
 
 ### 🚀 Features
 
+- `Can`, `CanGroup`, `CanTimeTriggered`, `CanXl`: items declare what they do with `#[effect(..)]` (API-58).
 - `Can`, `CanGroup`, `CanTimeTriggered` and `CanXl` are `#[claim(exclusive)]` (SRV-34): a client can claim a controller or group through the hub. Wire compatible, only the introspection data changes.
 - `BitTiming::bit_rate()`, `sample_point()`, `quanta()`; `CanId::standard()`, `extended()`, `raw()`;
   `Frame::len()`, `is_fd()`.

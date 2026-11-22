@@ -22,8 +22,10 @@ use ww_api::prelude::*;
 #[ww_api_root]
 pub trait NucleoG0b1reApi {
     /// LD4 solid on (`leds` shows it until another mode)
+    #[effect(actuate)]
     fn led_on();
     /// LD4 off (`leds` shows it until another mode)
+    #[effect(actuate)]
     fn led_off();
 
     /// Device contract: firmware, last reset, board, ids, label, counters, log, variant, settings, boot, update node
@@ -87,9 +89,11 @@ pub trait Dfu {
 pub trait Settings {
     /// The LED after boot: on (`true`) or off, default off
     #[errors(CommonError(Fault))]
+    #[effect(persist)]
     property!(rw led_at_boot: bool);
     /// Every setting back to its default, the label too
     #[errors(CommonError(Fault))]
+    #[effect(persist, destructive)]
     fn reset();
 }
 
