@@ -152,7 +152,8 @@ fn old_format_snapshot_passes_against_unchanged_source() {
     let outcome = check_fixture(&c, &cache);
     assert_eq!(outcome.verdict().unwrap(), "no changes", "{outcome}");
     // ItemStruct::extra (DER-18 transparent, INT-13 marker) came later still, then ApiBundle::wire (EVO-24),
-    // ApiBundle::ext_wire (EVO-26), ApiItem::identity (INT-17) and Meta::effects (API-58, model format 0.5.0)
+    // ApiBundle::ext_wire (EVO-26), ApiItem::identity (INT-17), Meta::effects (API-58, model format 0.5.0) and
+    // Meta::track (API-71, model format 0.6.0)
     assert_eq!(
         unrecorded(&outcome),
         [
@@ -161,13 +162,14 @@ fn old_format_snapshot_passes_against_unchanged_source() {
             "ApiItem::identity",
             "ItemEnum::future_version",
             "ItemStruct::extra",
-            "Meta::effects"
+            "Meta::effects",
+            "Meta::track"
         ]
     );
     has_all(
         &outcome.to_string(),
         &[
-            "not compared: ApiBundle::ext_wire, ApiBundle::wire, ApiItem::identity, ItemEnum::future_version, ItemStruct::extra, Meta::effects, \
+            "not compared: ApiBundle::ext_wire, ApiBundle::wire, ApiItem::identity, ItemEnum::future_version, ItemStruct::extra, Meta::effects, Meta::track, \
             which a snapshot saved by an older wire_weaver",
         ],
     );
