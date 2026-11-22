@@ -1,7 +1,7 @@
 // ww_firmware_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 5ed1581a03ef7df5a23fc6e7f946a91dbe7f6944a2dbea43569a663c731266ac
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 029d9ce69efbc0d48cdc8d928b1c0cd58025dbdfa45427fbe59cfa86125e2654
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Which firmware runs and why the device last reset (STD-24).",
     "",
     "[FirmwareInfo] answers what `--version` of our CLIs prints (`b200_usb_io 0.5.0 (a1b2c3d-dirty, built 3 Oct 2026",
@@ -407,7 +407,7 @@
     ], crate_idx: 0, trait_name: "LastReset", items: [
         (id: 0, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 1)), errors: None), multiplicity: Flat, since: None, ident: "last_reset", docs: [
             "Cause of the last reset and, after a crash, the record saved before it.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(Instance(type_idx: 2, args: [
             Type(OutOfLine(type_idx: 3)),
             Type(OutOfLine(type_idx: 4)),
@@ -415,10 +415,10 @@
             Type(OutOfLine(type_idx: 5)),
         ])), errors: None), multiplicity: Flat, since: None, ident: "boot_count", docs: [
             "Boots since the boot counter was cleared. With the cause it tells a reset loop from a single crash.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 2, kind: Method(args: [], return_ty: None, errors: None), multiplicity: Flat, since: None, ident: "clear", docs: [
             "Forget the crash record and zero the boot counter, after the host saved them.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (8))), identity: None),
     ], compact_id: Some(144), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_firmware_info", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

@@ -1,7 +1,7 @@
 // ww_adc 0.3.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: e367b0a081e3e64ed3f90a32586ab68c2ede82b512c9e872fe6e1078d529a85e
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 497005858973a64e48cbacea5bbd5a754f04024273c0a53f7f19c2079959586e
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Analog inputs over WireWeaver: single calibrated readings, continuous sampling, and lossless captures into device",
     "RAM.",
     "",
@@ -633,17 +633,17 @@
             "One calibrated reading of `channel`, in the channel\'s unit.",
             "`Busy`: the ADC runs a stream or capture that can\'t be interrupted; `NoPower`: inputs behind an unpowered",
             "buffer.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 5)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "The channels, their units and ranges.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(44), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "Lossless capture: samples go into device RAM at any rate the hardware can do, the host reads them out after.",
     ], crate_idx: 0, trait_name: "AdcCapture", items: [
         (id: 0, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 6)), errors: None), multiplicity: Flat, since: None, ident: "capture_capabilities", docs: [
             "Rates, depth, triggers and formats of captures.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 1, kind: Method(args: [
             (ident: "config", ty: OutOfLine(type_idx: 7), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 8), err_ty: OutOfLine(type_idx: 4))), errors: Some([
@@ -660,10 +660,10 @@
             "and keeps them, waits for the trigger, then takes the rest. Replaces a previous capture and its data.",
             "`InvalidArgument`: rate, depth or trigger level out of range; `Unsupported`: format or trigger; `Busy`: a stream",
             "runs.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (256))), identity: None),
         (id: 2, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 9)), errors: None), multiplicity: Flat, since: None, ident: "capture_status", docs: [
             "Where the capture stands.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 3, kind: Method(args: [
             (ident: "offset", ty: Instance(type_idx: 0, args: [
                 Type(OutOfLine(type_idx: 10)),
@@ -685,10 +685,10 @@
             "Reads `len` bytes of the captured data from `offset`. The data is raw samples, interleaved in the order of",
             "[CaptureConfig::channels], `CaptureActual::bytes` long; the first `pre_trigger` sets come before the trigger.",
             "`WrongState`: no finished capture; `InvalidArgument`: outside the data.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 4, kind: Method(args: [], return_ty: None, errors: None), multiplicity: Flat, since: None, ident: "capture_abort", docs: [
             "Stops an armed or running capture and drops its data.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
     ], compact_id: Some(96), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "Continuous sampling, sent on the `samples` stream.",
@@ -714,7 +714,7 @@
         ], optional: None, meta: None, identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 16)), errors: None), multiplicity: Flat, since: None, ident: "stream_capabilities", docs: [
             "Rates, formats and limits of streaming.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(45), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_adc", version: (major: 0, minor: 3, patch: 0, pre: None, build: None)),

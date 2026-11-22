@@ -1,7 +1,7 @@
 // ww_log 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 43bdb12496025472834cc174a4a06e96a04217cf9306dc87c9e049f8a39da49e
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 3a98f6049e14a0d3177ac0f2acb54ab23b5318b678da424cac2a45075eb53095
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Logs of bare metal firmware over WireWeaver: defmt frames decoded on the host with the firmware\'s ELF, or text",
     "records for firmware without defmt.",
     "",
@@ -149,7 +149,7 @@
         ]), batched: None), multiplicity: Flat, since: None, ident: "level", docs: [
             "Records less severe than this level are not produced (filters compiled into the firmware still apply).",
             "Writing it fails with `Unsupported` when the level is fixed at compile time.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
     ], compact_id: Some(1073741824), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_log", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

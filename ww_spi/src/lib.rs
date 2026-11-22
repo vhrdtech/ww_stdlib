@@ -79,6 +79,7 @@ pub trait Spi {
     /// `WrongState` while not configured as [SpiRole::Master], `BufferTooBig` for `data` longer than [SPI_MAX] or
     /// this device's [SpiCapabilities::max_len].
     #[errors(CommonError(WrongState, NoPower, Timeout), BufferTooBig)]
+    #[effect(outbound)]
     fn transfer(
         data: MaxLen<RefVec<'i, u8>, SPI_MAX>,
     ) -> Result<MaxLen<RefVec<'i, u8>, SPI_MAX>, SpiError>;
@@ -88,15 +89,18 @@ pub trait Spi {
     /// Errors as `Spi::transfer`; `BufferTooBig` also when the reads together exceed [SPI_MAX], `Unsupported` for an
     /// operation of a newer version.
     #[errors(CommonError(Unsupported, WrongState, NoPower, Timeout), BufferTooBig)]
+    #[effect(outbound)]
     fn transaction(
         ops: MaxLen<RefVec<'i, SpiOp<'i>>, MAX_OPS>,
     ) -> Result<MaxLen<RefVec<'i, u8>, SPI_MAX>, SpiError>;
 
     /// Writes `data`, ignoring what comes back. Errors as `Spi::transfer`.
     #[errors(CommonError(WrongState, NoPower, Timeout), BufferTooBig)]
+    #[effect(outbound)]
     fn write(data: MaxLen<RefVec<'i, u8>, SPI_MAX>) -> Result<(), SpiError>;
 
     /// What this bus supports: frequency range, word sizes, master/slave, IO levels.
+    #[effect(read)]
     fn capabilities() -> SpiCapabilities<'i>;
 
     /// Configures the bus and returns what was actually set: the frequency the hardware settled on (the nearest it
@@ -105,10 +109,12 @@ pub trait Spi {
     /// IO level the adapter doesn't have, `InvalidArgument` for a `freq` outside [SpiCapabilities], `Refused` when
     /// e.g. the bus already sits at a higher voltage than `io_level`.
     #[errors(CommonError(Unsupported, InvalidArgument, InUse, Refused))]
+    #[effect(edit)]
     fn configure(config: SpiConfig) -> Result<SpiConfig, SpiError>;
 
     /// Asserts or releases CS, with [CsMode::Manual]; `WrongState` with another [CsMode].
     #[errors(CommonError(WrongState))]
+    #[effect(outbound)]
     fn set_cs(active: bool) -> Result<(), SpiError>;
 
     /// Watches the bus without taking part: one [SpiFrame] per CS assertion, in bus order, decoded with `config` (the
@@ -125,6 +131,7 @@ pub trait Spi {
 
     /// What slave mode supports: queue depth, register map, how fast.
     #[optional(slave)]
+    #[effect(read)]
     fn slave_capabilities() -> SpiSlaveCapabilities;
 
     /// Slave mode: opening the stream makes this device a slave answering from [SpiSlaveConfig::answers], closing
@@ -141,6 +148,7 @@ pub trait Spi {
         BufferTooBig
     )]
     #[stream(SpiSlaveFrame<'i>, counted)]
+    #[effect(outbound)]
     fn slave_frames(config: SpiSlaveConfig) -> Result<(), SpiError>;
 
     /// Writes `data` into the register map from `offset`, while the slave runs or before it starts (the map keeps
@@ -148,6 +156,7 @@ pub trait Spi {
     /// [SpiSlaveCapabilities::map_len].
     #[optional(slave)]
     #[errors(BufferTooBig)]
+    #[effect(edit)]
     fn slave_map_write(
         offset: Index<Byte, u32>,
         data: MaxLen<RefVec<'i, u8>, SPI_MAX>,
@@ -158,6 +167,7 @@ pub trait Spi {
     /// for `len` above [SPI_MAX].
     #[optional(slave)]
     #[errors(BufferTooBig)]
+    #[effect(read)]
     fn slave_map_read(
         offset: Index<Byte, u32>,
         len: Bytes<u16>,
@@ -173,10 +183,12 @@ pub trait Spi {
     /// ([SpiSlaveCapabilities::queue_len] answers).
     #[optional(slave)]
     #[credit]
+    #[effect(outbound)]
     sink!(slave_answers: MaxLen<RefVec<'i, u8>, SPI_MAX>);
 
     /// Drops every queued answer and returns how many there were.
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_clear_answers() -> Count<Item, u32>;
 }
 

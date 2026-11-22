@@ -31,6 +31,7 @@
 
 ### 🚀 Features
 
+- `Bank`, `Pin`: items declare what they do with `#[effect(..)]` (API-58).
 - `Bank` is `#[claim(exclusive)]` (SRV-34): a client can claim a bank through the hub. Wire compatible, only the introspection data changes.
 - `Pin::event` and the `pull` / `speed` properties list their errors with `#[errors(..)]` (API-32), now that stream
   functions and properties can carry one, instead of a hand-written `# Errors` note: rustdoc, introspection and the

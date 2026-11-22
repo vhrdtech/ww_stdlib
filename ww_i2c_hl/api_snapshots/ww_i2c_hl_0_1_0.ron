@@ -1,7 +1,7 @@
 // ww_i2c_hl 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 515fdaeb5dd313b1b6d01c02480d06928fe69710b6d7c1e79495fad12bc0ffd6
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 858401e93dc4858f52c8e0ea2c9b4f75e81ca7e8deab5e3439438d3ca978bcfb
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "embedded-hal I2C over WireWeaver: a stock `embedded-hal` 1.0 driver, blocking or async, runs unchanged on the",
     "host against the I2C bus of a remote device serving `ww_i2c::I2c` (a USB adapter, a dev board, an instrument).",
     "",

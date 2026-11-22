@@ -5,6 +5,7 @@ use ww_api::prelude::*;
 use ww_log::Severity;
 
 #[ww_api_root]
+#[effect(edit)]
 pub trait LogTest {
     ww_impl!(defmt: ww_log::LogDefmt);
     ww_impl!(text: ww_log::LogText);

@@ -21,28 +21,45 @@ and tune how it writes.
 #[ww_trait]
 pub trait Recorder {
     ww_impl!(track[]: Track);
+    #[effect(read)]
     fn status() -> Status<'i>;
+    #[effect(read)]
     fn card() -> Option<CardFacts<'i>>;
+    #[effect(read)]
     fn prepare_format(action: FormatAction) -> Result<FormatOffer<'i>, RecorderError<'i>>;
+    #[effect(persist, destructive)]
     fn format(token: u32, rw_mb: Option<u32>) -> Result<(), RecorderError<'i>>;
+    #[effect(persist, job)]
     fn recording_start(trigger: Trigger, pre_trigger_s: u16) -> Result<u32, RecorderError<'i>>;
+    #[effect(persist)]
     fn recording_stop() -> Result<u32, RecorderError<'i>>;
+    #[effect(read)]
     fn recordings(after: u32) -> Result<MaxLen<RefVec<'i, RecordingInfo>, 8>, RecorderError<'i>>;
+    #[effect(persist)]
     fn marker(kind: MarkerKind, label: MaxLen<&'i str, 64>, value: Option<i64>) -> Result<(), RecorderError<'i>>;
+    #[effect(persist)]
     fn sync() -> Result<(), RecorderError<'i>>;
+    #[effect(edit)]
     property!(rw settings: Settings, RecorderError<'i>);
+    #[effect(read)]
     fn counters() -> RecorderCounters;
     #[optional]
+    #[effect(edit)]
     fn refresh_usb() -> Result<(), RecorderError<'i>>;
 }
 
 #[ww_trait]
 pub trait Track {
+    #[effect(read)]
     fn info() -> TrackInfo<'i>;
+    #[effect(edit)]
     property!(rw enabled: bool, RecorderError<'i>);
+    #[effect(edit)]
     property!(rw durability: Durability, RecorderError<'i>);
     #[optional]
+    #[effect(edit)]
     property!(rw compression: Compression, RecorderError<'i>);
+    #[effect(read)]
     fn counters() -> TrackCounters;
 }
 ```

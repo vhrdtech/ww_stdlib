@@ -84,6 +84,7 @@ Draft of the IO trait family (STD-13), under review; not published yet, so no ve
 
 ### 🚀 Features
 
+- `I2c`, `I2cWatch`: items declare what they do with `#[effect(..)]` (API-58).
 - Master errors and limits (STD-52), besides the breaking changes above:
     - `I2cError::ClockStretch`: a slave held SCL low longer than the master's `stretch_timeout`.
     - `I2cError::BusStuck { scl_low, sda_low }`: a line held low before the start. Devices don't recover on their

@@ -28,14 +28,20 @@ of that type.
 ```rust
 #[ww_trait]
 pub trait Memory32 {
+    #[effect(edit)]
     fn read(addr: u32, allow_side_effects: bool) -> Result<u32, MemoryError>;
+    #[effect(edit)]
     fn write(addr: u32, value: u32) -> Result<(), MemoryError>;
+    #[effect(edit)]
     fn read_many(addr: u32, len: u32, allow_side_effects: bool) -> Result<RefVec<'i, u32>, MemoryError>;
+    #[effect(edit)]
     fn write_many(addr: u32, data: RefVec<'i, u32>) -> Result<(), MemoryError>;
 
     #[optional(watches)]
+    #[effect(edit)]
     fn watch(addr: u32) -> Result<(), MemoryError>;
     #[optional(watches)]
+    #[effect(read)]
     fn watching() -> RefVec<'i, u32>;
     #[optional(watches)]
     stream!(changed: (u32, u32));

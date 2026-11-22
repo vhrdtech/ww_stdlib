@@ -71,12 +71,14 @@ pub trait OneWire {
         NoPresence,
         ShortCircuit
     )]
+    #[effect(outbound)]
     fn transaction(
         t: OneWireTransaction<'i>,
     ) -> Result<MaxLen<RefVec<'i, u8>, OW_MAX>, OneWireError>;
 
     /// Reset pulse; true when a device answered with a presence pulse.
     #[errors(CommonError(Busy, WrongState, NoPower), ShortCircuit)]
+    #[effect(outbound)]
     fn reset() -> Result<bool, OneWireError>;
 
     /// ROM search, one page at a time: start with `from: None`, continue with the page's `next` until it comes back
@@ -88,12 +90,14 @@ pub trait OneWire {
         ShortCircuit,
         CrcMismatch
     )]
+    #[effect(outbound)]
     fn search(
         from: Option<SearchState>,
         family: Option<FamilyCode>,
     ) -> Result<SearchPage<'i>, OneWireError>;
 
     /// What this bus supports: pins it can be put on, IO levels, overdrive, strong pull-up.
+    #[effect(read)]
     fn capabilities() -> OneWireCapabilities<'i>;
 
     /// Puts the bus on one of [OneWireCapabilities::pins] at the given speed and IO level, or disables it
@@ -102,6 +106,7 @@ pub trait OneWire {
     /// [OneWireCapabilities::overdrive] or an IO level the adapter doesn't have, `InUse` when the pin serves another
     /// function, `Busy` while a transaction or search runs.
     #[errors(CommonError(Unsupported, InvalidArgument, InUse, Busy, Refused))]
+    #[effect(edit)]
     fn configure(config: OneWireConfig) -> Result<OneWireConfig, OneWireError>;
 
     /// One search step at bit level, for a search run on the host: after `OneWire::reset` and writing the `Search
@@ -111,6 +116,7 @@ pub trait OneWire {
     /// for the next step (the agreed bit when there is no fork, the caller's `direction` at a fork). `WrongState`
     /// when no `Search ROM` command was sent since the last reset, or after more than 64 calls.
     #[errors(CommonError(WrongState, NoPower, Refused), ShortCircuit)]
+    #[effect(outbound)]
     fn triplet(direction: bool) -> Result<Triplet, OneWireError>;
 }
 

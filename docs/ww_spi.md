@@ -37,16 +37,22 @@ ww_codegen!(my_adapter_api::MyAdapter for Server, server = true, omit = ["spi.mo
 ```rust
 #[ww_trait]
 pub trait Spi {
+    #[effect(outbound)]
     fn transfer(data: MaxLen<RefVec<'i, u8>, SPI_MAX>) -> Result<MaxLen<RefVec<'i, u8>, SPI_MAX>, SpiError>;
 
+    #[effect(outbound)]
     fn transaction(ops: MaxLen<RefVec<'i, SpiOp<'i>>, MAX_OPS>) -> Result<MaxLen<RefVec<'i, u8>, SPI_MAX>, SpiError>;
 
+    #[effect(outbound)]
     fn write(data: MaxLen<RefVec<'i, u8>, SPI_MAX>) -> Result<(), SpiError>;
 
+    #[effect(read)]
     fn capabilities() -> SpiCapabilities<'i>;
 
+    #[effect(edit)]
     fn configure(config: SpiConfig) -> Result<SpiConfig, SpiError>;
 
+    #[effect(outbound)]
     fn set_cs(active: bool) -> Result<(), SpiError>;
 
     #[optional]
@@ -84,18 +90,24 @@ A device with the `slave` group of `Spi` ([optional](../api/optional_items.md), 
 pub trait Spi {
     // ...
     #[optional(slave)]
+    #[effect(read)]
     fn slave_capabilities() -> SpiSlaveCapabilities;
     #[optional(slave)]
     #[stream(SpiSlaveFrame<'i>, counted)]
+    #[effect(outbound)]
     fn slave_frames(config: SpiSlaveConfig) -> Result<(), SpiError>;
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_map_write(offset: Index<Byte, u32>, data: MaxLen<RefVec<'i, u8>, SPI_MAX>) -> Result<(), SpiError>;
     #[optional(slave)]
+    #[effect(read)]
     fn slave_map_read(offset: Index<Byte, u32>, len: Bytes<u16>) -> Result<MaxLen<RefVec<'i, u8>, SPI_MAX>, SpiError>;
     #[optional(slave)]
     #[credit]
+    #[effect(outbound)]
     sink!(slave_answers: MaxLen<RefVec<'i, u8>, SPI_MAX>);
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_clear_answers() -> Count<Item, u32>;
 }
 ```

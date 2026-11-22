@@ -5,6 +5,7 @@
 use ww_api::prelude::*;
 
 #[ww_api_root]
+#[effect(edit)]
 pub trait DefmtLogDemo {
     ww_impl!(log: ww_log::LogDefmt);
 

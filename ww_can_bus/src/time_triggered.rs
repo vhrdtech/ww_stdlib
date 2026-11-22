@@ -18,11 +18,13 @@ pub trait CanTimeTriggered {
     /// Configures time-triggered operation (`None` switches it off, back to event-driven CAN) and answers what was
     /// set. The controller must be in [Mode::Config] or [Mode::Off] (`WrongState`).
     #[errors(CommonError(Unsupported, InvalidArgument, WrongState))]
+    #[effect(edit)]
     fn configure_tt(config: Option<TtConfig>) -> Result<Option<TtConfig>, CanError>;
 
     /// Replaces the trigger list (time marks of the matrix cycle). `OutOfMemory` when it doesn't fit the trigger
     /// memory, `InvalidArgument` for an unsorted list or a buffer the controller doesn't have.
     #[errors(CommonError(InvalidArgument, WrongState), OutOfMemory)]
+    #[effect(edit)]
     fn set_schedule(triggers: MaxLen<RefVec<'i, Trigger>, MAX_TRIGGERS>) -> Result<(), CanError>;
 
     /// Synchronisation state, master role, cycle count and error level; sent to observers on every change of the

@@ -48,18 +48,28 @@ several operations without releasing the bus in between (repeated starts).
 ```rust
 #[ww_trait]
 pub trait I2c {
+    #[effect(read)]
     fn i2c_capabilities() -> I2cCapabilities<'i>;
+    #[effect(edit)]
     fn i2c_configure(config: I2cConfig) -> Result<I2cConfig, I2cError>;
+    #[effect(outbound)]
     fn i2c_write(addr: I2cAddress, data: MaxLen<RefVec<'i, u8>, MAX_WRITE_LEN>, delay_after: Option<Second>)
         -> Result<I2cTransactionTimeRange, I2cError>;
+    #[effect(outbound)]
     fn i2c_read(addr: I2cAddress, kind: I2cReadKind<'i>, len: u16, delay_after: Option<Second>)
         -> Result<I2cReadEnvelope<'i>, I2cError>;
+    #[effect(outbound)]
     fn i2c_scan() -> Result<MaxLen<RefVec<'i, u8>, MAX_SCAN>, I2cError>;
+    #[effect(outbound)]
     fn i2c_transaction(addr: I2cAddress, ops: MaxLen<RefVec<'i, I2cOp<'i>>, MAX_OPS>)
         -> Result<I2cTransactionResult<'i>, I2cError>;
+    #[effect(read)]
     fn i2c_lines_state() -> I2cLinesState;
+    #[effect(outbound)]
     fn i2c_wiggle_clock(count: u8) -> Result<I2cLinesState, I2cError>;
+    #[effect(actuate)]
     fn i2c_set_pullups(enabled: bool) -> Result<(), I2cError>;
+    #[effect(read)]
     fn i2c_pullups() -> bool;
 }
 ```
@@ -127,10 +137,15 @@ ones and see no more delay than one watch read.
 pub trait I2cWatch {
     #[counted]
     stream!(changes: I2cWatchEvent<'i>);
+    #[effect(read)]
     fn watch_capabilities() -> I2cWatchCapabilities;
+    #[effect(outbound, job)]
     fn watch_add(watch: I2cWatchConfig<'i>) -> Result<u32, I2cError>;
+    #[effect(outbound, job)]
     fn watch_modify(slot: u32, watch: I2cWatchConfig<'i>) -> Result<(), I2cError>;
+    #[effect(edit)]
     fn watch_remove(slot: u32) -> Result<(), I2cError>;
+    #[effect(read)]
     fn watch_list() -> MaxLen<RefVec<'i, u32>, MAX_WATCHES>;
 }
 ```
@@ -185,18 +200,24 @@ A device with the `slave` group of `I2c` ([optional](../api/optional_items.md), 
 pub trait I2c {
     // ...
     #[optional(slave)]
+    #[effect(read)]
     fn slave_capabilities() -> I2cSlaveCapabilities;
     #[optional(slave)]
     #[stream(I2cSlaveEvent<'i>, counted)]
+    #[effect(outbound)]
     fn slave_events(config: I2cSlaveConfig) -> Result<(), I2cError>;
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_map_write(offset: u32, data: MaxLen<RefVec<'i, u8>, MAX_WRITE_LEN>) -> Result<(), I2cError>;
     #[optional(slave)]
+    #[effect(read)]
     fn slave_map_read(offset: u32, len: u16) -> Result<MaxLen<RefVec<'i, u8>, MAX_READ_LEN>, I2cError>;
     #[optional(slave)]
     #[credit]
+    #[effect(outbound)]
     sink!(slave_answers: MaxLen<RefVec<'i, u8>, MAX_READ_LEN>);
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_clear_answers() -> u32;
 }
 ```

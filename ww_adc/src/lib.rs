@@ -85,9 +85,11 @@ pub trait Adc {
     /// `Busy`: the ADC runs a stream or capture that can't be interrupted; `NoPower`: inputs behind an unpowered
     /// buffer.
     #[errors(CommonError(Busy, NoPower, Timeout), NoSuchChannel)]
+    #[effect(read)]
     fn read(channel: Index<Channel, u8>) -> Result<Reading, AdcError>;
 
     /// The channels, their units and ranges.
+    #[effect(read)]
     fn capabilities() -> AdcCapabilities<'i>;
 }
 
@@ -108,6 +110,7 @@ pub trait AdcStream {
     fn samples(config: StreamConfig<'i>) -> Result<StreamActual, AdcError>;
 
     /// Rates, formats and limits of streaming.
+    #[effect(read)]
     fn stream_capabilities() -> StreamCapabilities<'i>;
 }
 
@@ -115,6 +118,7 @@ pub trait AdcStream {
 #[ww_trait]
 pub trait AdcCapture {
     /// Rates, depth, triggers and formats of captures.
+    #[effect(read)]
     fn capture_capabilities() -> CaptureCapabilities<'i>;
 
     /// Arms a capture. With [Trigger::Now] it starts at once; otherwise it samples `pre_trigger` sets continuously
@@ -125,21 +129,25 @@ pub trait AdcCapture {
         CommonError(InvalidArgument, Unsupported, Busy, InUse, NoPower),
         NoSuchChannel
     )]
+    #[effect(job)]
     fn capture(config: CaptureConfig<'i>) -> Result<CaptureActual, AdcError>;
 
     /// Where the capture stands.
+    #[effect(read)]
     fn capture_status() -> CaptureStatus;
 
     /// Reads `len` bytes of the captured data from `offset`. The data is raw samples, interleaved in the order of
     /// [CaptureConfig::channels], `CaptureActual::bytes` long; the first `pre_trigger` sets come before the trigger.
     /// `WrongState`: no finished capture; `InvalidArgument`: outside the data.
     #[errors(CommonError(WrongState, InvalidArgument))]
+    #[effect(read)]
     fn capture_read(
         offset: Index<Byte, u32>,
         len: Bytes<u16>,
     ) -> Result<MaxLen<RefVec<'i, u8>, MAX_CAPTURE_READ_LEN>, AdcError>;
 
     /// Stops an armed or running capture and drops its data.
+    #[effect(edit)]
     fn capture_abort();
 }
 

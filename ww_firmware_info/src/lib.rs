@@ -99,12 +99,15 @@ pub trait FirmwareInfo {
 #[ww_trait]
 pub trait LastReset {
     /// Cause of the last reset and, after a crash, the record saved before it.
+    #[effect(read)]
     fn last_reset() -> ResetRecord<'i>;
 
     /// Boots since the boot counter was cleared. With the cause it tells a reset loop from a single crash.
+    #[effect(read)]
     fn boot_count() -> Count<Boot, u32>;
 
     /// Forget the crash record and zero the boot counter, after the host saved them.
+    #[effect(destructive)]
     fn clear();
 }
 

@@ -16,6 +16,7 @@
 
 ### 🚀 Features
 
+- `Indication`: items declare what they do with `#[effect(..)]` (API-58).
 - Animations in phase (STD-50): a device with a shared clock (`ww_timebase` host sync or a sync line) aligns its
   periodic animations to period boundaries of shared time (UTC), so devices showing the same animation are in phase
   without an epoch. A rule in the docs of `Indication` and `mode`, no API item: devices without a shared clock change

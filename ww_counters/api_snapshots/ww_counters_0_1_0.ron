@@ -1,7 +1,7 @@
 // ww_counters 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 60a8a40b21ef841e7182fae60b640ecbcf5692983c9047594f389e26f345bc73
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 2cb20d0a1ce96e48719ff4a0cb598469c955718033e97aacf6052529f537db53
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "The device\'s [`cnt`](https://crates.io/crates/cnt) counters over WireWeaver (STD-25).",
     "",
     "`cnt` counts into two buffers of 32-bit words, RAM (zeroed at boot) and backup (survives a reset); a `u64` counter",
@@ -277,7 +277,7 @@
             "Words of a buffer from word `offset`, up to [MAX_WORDS] and never past its used words: empty at the end. The",
             "words of one call are copied at once, so a page is one snapshot (a `u64` counter can still tear between two",
             "calls, or within one if an interrupt carries into its high word; the host reads such a counter again).",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 2, kind: Method(args: [
             (ident: "buffer", ty: OutOfLine(type_idx: 1), default: None, flatten: false),
         ], return_ty: None, errors: Some([
@@ -286,7 +286,7 @@
             ])),
         ])), multiplicity: Flat, since: None, ident: "reset", docs: [
             "Zero a buffer.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (8))), identity: None),
         (id: 3, kind: StreamFn(ty: OutOfLine(type_idx: 5), delivery: Counted, args: [
             (ident: "period", ty: Instance(type_idx: 6, args: [
                 Type(OutOfLine(type_idx: 7)),

@@ -58,6 +58,7 @@ pub const MAX_TABLE_CHUNK: usize = 512;
 #[ww_trait]
 pub trait PatternGenerator {
     /// Channels, rates, memory, encodings and start conditions.
+    #[effect(read)]
     fn capabilities() -> PgCapabilities<'i>;
 
     /// Sets channels, rate, repetition, idle levels and the start condition, and returns what was actually set.
@@ -67,22 +68,27 @@ pub trait PatternGenerator {
         CommonError(InvalidArgument, Unsupported, Busy, InUse, NoPower),
         NoSuchChannel
     )]
+    #[effect(edit)]
     fn configure(config: PgConfig<'i>) -> Result<PgActual, PgError>;
 
     /// Pattern data, appended in order. The credit is the free pattern memory.
     #[credit]
+    #[effect(edit)]
     sink!(pattern: StreamChunk<'i>);
 
     /// Starts output now, or waits for [PgConfig::start]. Started before the pattern is complete, it plays what it
     /// has while the sink keeps filling, and stops with [PgStatus::Underrun] if the host falls behind.
     /// `WrongState`: not configured, or nothing loaded.
     #[errors(CommonError(WrongState, Refused))]
+    #[effect(actuate)]
     fn start() -> Result<(), PgError>;
 
     /// Stops output; the channels go to their idle levels.
+    #[effect(actuate)]
     fn stop();
 
     /// Where the generator stands.
+    #[effect(read)]
     fn status() -> PgStatus;
 }
 
@@ -92,12 +98,14 @@ pub trait WaveformGenerator {
     ww_impl!(channel[]: WaveformChannel);
 
     /// The channels, their ranges and formats.
+    #[effect(read)]
     fn capabilities() -> WgCapabilities<'i>;
 
     /// Starts every channel in `channels` (already `set`, held) on the same sample clock tick, so their phases line
     /// up.
     /// `Unsupported`: the channels don't share a clock.
     #[errors(CommonError(Unsupported, WrongState), NoSuchChannel)]
+    #[effect(actuate)]
     fn start_together(channels: MaxLen<RefVec<'i, u8>, MAX_CHANNELS>) -> Result<(), WgError>;
 }
 
@@ -108,18 +116,22 @@ pub trait WaveformChannel {
     /// `InvalidArgument`: frequency or levels out of range; `Unsupported`: shape or format; `WrongState`: an
     /// `Arbitrary` shape with no table.
     #[errors(CommonError(InvalidArgument, Unsupported, WrongState, InUse, Refused))]
+    #[effect(actuate)]
     fn set(waveform: Waveform) -> Result<WaveformActual, WgError>;
 
     /// Stops and holds `level`; returns the level actually held.
     /// `InvalidArgument`: out of range.
     #[errors(CommonError(InvalidArgument, Refused))]
+    #[effect(actuate)]
     fn stop(level: Volt) -> Result<Volt, WgError>;
 
+    #[effect(read)]
     fn state() -> WaveformState;
 
     /// Table of an [Shape::Arbitrary] waveform, raw codes appended in order; `Open` starts a new table, `Close`
     /// completes it. The credit is the free table memory.
     #[credit]
+    #[effect(edit)]
     sink!(table: MaxLen<RefVec<'i, u8>, MAX_TABLE_CHUNK>);
 }
 

@@ -33,14 +33,19 @@ devices with PWM output don't have spare on every channel, so a plain PWM driver
 pub trait Pwm {
     ww_impl!(channel[]: PwmChannel);
 
+    #[effect(read)]
     fn capabilities() -> PwmCapabilities<'i>;
 }
 
 #[ww_trait]
 pub trait PwmChannel {
+    #[effect(actuate)]
     fn set_output(output: PwmOutput) -> Result<PwmActual, PwmError>;
+    #[effect(actuate)]
     fn set_duty(duty: Duty16) -> Result<Duty16, PwmError>;
+    #[effect(actuate)]
     fn stop(idle_high: bool) -> Result<(), PwmError>;
+    #[effect(read)]
     fn state() -> PwmState;
 }
 ```
@@ -70,7 +75,9 @@ pub trait PwmCaptureChannel {
     #[stream(CaptureValue, counted)]
     fn capture(config: CaptureConfig) -> Result<CaptureConfig, PwmError>;
 
+    #[effect(edit)]
     fn set_capture(config: CaptureConfig) -> Result<CaptureConfig, PwmError>;
+    #[effect(read)]
     fn read_capture() -> Result<CaptureSample, PwmError>;
 }
 ```

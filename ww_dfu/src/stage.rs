@@ -25,6 +25,7 @@ pub const MAX_HEADER_LEN: usize = 256;
 #[claim(exclusive)]
 pub trait Stage {
     /// What this node accepts: piece size, how many calls may be in flight, targets, the plan area.
+    #[effect(read)]
     fn limits() -> StageLimits;
 
     /// Start a session for the plan with this header (the header's octets as the protocol spec defines them), or
@@ -49,6 +50,7 @@ pub trait Stage {
         PlanTooBig,
         WrongState
     )]
+    #[effect(job)]
     fn begin(
         target: Target,
         header: MaxLen<RefVec<'i, u8>, MAX_HEADER_LEN>,
@@ -69,6 +71,7 @@ pub trait Stage {
         Flash,
         Ecc
     )]
+    #[effect(persist, destructive)]
     fn erase(index: Index<Step, u32>, block: Index<Block, u16>) -> Result<(), Error>;
 
     /// Step `index`: copy chunk `src` of the running image into chunk `dst` of the slot being written.
@@ -87,6 +90,7 @@ pub trait Stage {
         Flash,
         Ecc
     )]
+    #[effect(persist)]
     fn copy(
         index: Index<Step, u32>,
         dst: Index<Chunk, u16>,
@@ -112,6 +116,7 @@ pub trait Stage {
         Flash,
         Ecc
     )]
+    #[effect(persist)]
     fn write(
         index: Index<Step, u32>,
         dst: Index<Chunk, u16>,
@@ -124,6 +129,7 @@ pub trait Stage {
     ///
     /// [Error::NoSession] when nothing is in progress.
     #[errors(NoSession)]
+    #[effect(read)]
     fn progress() -> Result<Progress, Error>;
 
     /// All steps are in: verify and stage.
@@ -150,10 +156,12 @@ pub trait Stage {
         SourceMismatch,
         HashMismatch
     )]
+    #[effect(persist)]
     fn finish() -> Result<BootState, Error>;
 
     /// Drop the current session. What was written stays where it was (an inactive slot or a plan area is just
     /// scratch); in place, the device stays in the updater until a session finishes.
+    #[effect(edit)]
     fn abort();
 
     /// Progress of long operations (hashing, copying, verifying, applying a stored plan) and the outcome of a session,
@@ -190,6 +198,7 @@ pub trait StageBulk {
         PlanTooBig,
         WrongState
     )]
+    #[effect(job)]
     fn begin_bulk(
         target: Target,
         header: MaxLen<RefVec<'i, u8>, MAX_HEADER_LEN>,
@@ -208,6 +217,7 @@ pub trait StageBulk {
     /// continue what the node has (e.g., the host resumed from the wrong place) answers [BulkStatus::Gap] on
     /// `plan_ack`.
     #[credit]
+    #[effect(persist)]
     sink!(plan: PlanSegment<'i>);
 
     /// Acknowledgements from the node: how far it is and whether something went wrong. How much more it can take is

@@ -146,6 +146,7 @@ ww_si::unit! {
 #[claim(exclusive)]
 pub trait I2c {
     /// What this adapter supports: modes, frequencies, IO levels, buffer sizes, 10-bit addresses, pull-ups.
+    #[effect(read)]
     fn i2c_capabilities() -> I2cCapabilities<'i>;
 
     /// Configures the bus and returns what was actually set: the SCL frequency (the highest the hardware can do that
@@ -154,6 +155,7 @@ pub trait I2c {
     /// A mode or IO level this adapter doesn't have is `Unsupported`, a frequency outside its range an
     /// `InvalidArgument`; `Refused` when e.g. the bus already sits at a higher voltage than `io_level`.
     #[errors(CommonError(Unsupported, InvalidArgument, InUse, Refused))]
+    #[effect(edit)]
     fn i2c_configure(config: I2cConfig) -> Result<I2cConfig, I2cError>;
 
     /// Writes `data` to the device at `addr`: start, address, data, stop.
@@ -175,6 +177,7 @@ pub trait I2c {
         ClockStretch,
         BusStuck
     )]
+    #[effect(outbound)]
     fn i2c_write(
         addr: I2cAddress,
         data: MaxLen<RefVec<'i, u8>, MAX_WRITE_LEN>,
@@ -196,6 +199,7 @@ pub trait I2c {
         ClockStretch,
         BusStuck
     )]
+    #[effect(outbound)]
     fn i2c_read(
         addr: I2cAddress,
         kind: I2cReadKind<'i>,
@@ -212,6 +216,7 @@ pub trait I2c {
         ClockStretch,
         BusStuck
     )]
+    #[effect(outbound)]
     fn i2c_scan() -> Result<MaxLen<RefVec<'i, I2cAddress>, MAX_SCAN>, I2cError>;
 
     /// Several operations to one address in one transaction: a start, then for each operation the address with its
@@ -235,6 +240,7 @@ pub trait I2c {
         ClockStretch,
         BusStuck
     )]
+    #[effect(outbound)]
     fn i2c_transaction(
         addr: I2cAddress,
         ops: MaxLen<RefVec<'i, I2cOp<'i>>, MAX_OPS>,
@@ -242,6 +248,7 @@ pub trait I2c {
 
     /// Levels of SCL and SDA now. Both are high on an idle bus; a line held low means a slave is stuck mid-byte,
     /// pull-ups are missing or unpowered, or something shorts it.
+    #[effect(read)]
     fn i2c_lines_state() -> I2cLinesState;
 
     /// Bus recovery: clocks SCL up to `count` times (9 is enough for any stuck byte), at the configured SCL frequency
@@ -252,18 +259,22 @@ pub trait I2c {
     /// bus that is off while disabled). The only way a device frees the bus: it never does so silently before a
     /// transfer.
     #[errors(CommonError(Unsupported, WrongState, NoPower))]
+    #[effect(outbound)]
     fn i2c_wiggle_clock(count: Count<Cycle, u8>) -> Result<I2cLinesState, I2cError>;
 
     /// Switches the adapter's own pull-up resistors on SCL and SDA. `Unsupported` without switchable pull-ups (see
     /// [I2cCapabilities::pullups]), `Refused` when e.g. the pull-ups would feed a bus that sits at another voltage.
     #[errors(CommonError(Unsupported, Refused))]
+    #[effect(actuate)]
     fn i2c_set_pullups(enabled: bool) -> Result<(), I2cError>;
 
     /// Whether the adapter's pull-ups are on (false if it has none).
+    #[effect(read)]
     fn i2c_pullups() -> bool;
 
     /// What slave mode supports: register map size, answer queue depth, clock stretching, address NACK.
     #[optional(slave)]
+    #[effect(read)]
     fn slave_capabilities() -> I2cSlaveCapabilities;
 
     /// Slave mode: opening the stream makes this device a slave at [I2cSlaveConfig::addr] answering from
@@ -282,6 +293,7 @@ pub trait I2c {
         BufferTooBig
     )]
     #[stream(I2cSlaveEvent<'i>, counted)]
+    #[effect(outbound)]
     fn slave_events(config: I2cSlaveConfig) -> Result<(), I2cError>;
 
     /// Writes `data` into the register map from `offset`, while the slave runs or before it starts (the map keeps
@@ -289,6 +301,7 @@ pub trait I2c {
     /// never reads half of an update. `BufferTooBig` past [I2cSlaveCapabilities::map_len].
     #[optional(slave)]
     #[errors(BufferTooBig)]
+    #[effect(edit)]
     fn slave_map_write(
         offset: Index<Byte, u32>,
         data: MaxLen<RefVec<'i, u8>, MAX_WRITE_LEN>,
@@ -300,6 +313,7 @@ pub trait I2c {
     /// `BufferTooBig` past [I2cSlaveCapabilities::map_len] or for `len` above [MAX_READ_LEN].
     #[optional(slave)]
     #[errors(BufferTooBig)]
+    #[effect(read)]
     fn slave_map_read(
         offset: Index<Byte, u32>,
         len: Bytes<u16>,
@@ -311,10 +325,12 @@ pub trait I2c {
     /// has room for ([I2cSlaveCapabilities::queue_len] answers).
     #[optional(slave)]
     #[credit]
+    #[effect(outbound)]
     sink!(slave_answers: MaxLen<RefVec<'i, u8>, MAX_READ_LEN>);
 
     /// Drops every queued answer (after the master gave up on a request, say) and returns how many there were.
     #[optional(slave)]
+    #[effect(edit)]
     fn slave_clear_answers() -> Count<Item, u32>;
 }
 

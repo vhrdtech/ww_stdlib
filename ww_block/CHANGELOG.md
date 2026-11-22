@@ -8,6 +8,7 @@
 
 ### 🚀 Features
 
+- `BlockDevice`: items declare what they do with `#[effect(..)]` (API-58).
 - `crc32`/`crc32_update` (STD-39) are table-driven on the [crc](https://docs.rs/crc) crate (already used by
   `ww_framer`), table size picked by cargo feature: none by default (bitwise, 0 B, today's behaviour),
   `crc-table-256` (1 KiB) or `crc-table-slice16` (16 KiB, fastest); enabling both picks `crc-table-slice16` instead

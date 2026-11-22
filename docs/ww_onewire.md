@@ -36,16 +36,22 @@ early once it has found the family code it is looking for).
 ```rust
 #[ww_trait]
 pub trait OneWire {
+    #[effect(outbound)]
     fn transaction(t: OneWireTransaction<'i>) -> Result<MaxLen<RefVec<'i, u8>, OW_MAX>, OneWireError>;
 
+    #[effect(outbound)]
     fn reset() -> Result<bool, OneWireError>;
 
+    #[effect(outbound)]
     fn search(from: Option<SearchState>, family: Option<FamilyCode>) -> Result<SearchPage<'i>, OneWireError>;
 
+    #[effect(read)]
     fn capabilities() -> OneWireCapabilities<'i>;
 
+    #[effect(edit)]
     fn configure(config: OneWireConfig) -> Result<OneWireConfig, OneWireError>;
 
+    #[effect(outbound)]
     fn triplet(direction: bool) -> Result<Triplet, OneWireError>;
 }
 ```

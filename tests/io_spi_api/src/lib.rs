@@ -11,6 +11,7 @@ pub trait IoSpiTest {
 /// Test API root for `ww_spi`'s slave mode, used by `tests/io_spi`: a device built on `ww_bus_slave::SpiSlave`,
 /// driven by [SpiBusOp] instead of a real bus, with a fake clock advanced by [SpiBusOp::Advance].
 #[ww_api_root]
+#[effect(edit)]
 pub trait IoSpiSlaveTest {
     ww_impl!(spi: ww_spi::Spi);
 

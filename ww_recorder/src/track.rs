@@ -23,26 +23,31 @@ pub struct TrackKey(pub u64);
 #[ww_trait]
 pub trait Track {
     /// Where the track comes from and what it carries.
+    #[effect(read)]
     fn info() -> TrackInfo<'i>;
 
     /// Whether the track is written. A disabled track keeps its place in the table and its position; its items are
     /// counted as dropped. Takes effect at once; the system track (0) can't be disabled (`Unsupported`).
     #[errors(CommonError(Unsupported))]
+    #[effect(edit)]
     property!(rw enabled: bool, RecorderError<'i>);
 
     /// When the track is flushed to the card, see [Durability]. Takes effect at once.
     #[optional(track_settings)]
     #[errors(CommonError(Unsupported))]
+    #[effect(edit)]
     property!(rw durability: Durability, RecorderError<'i>);
 
     /// Compression of the track's batches, see [Compression]. Optional: a device without a codec leaves it out,
     /// and tracks are stored plain.
     #[optional]
     #[errors(CommonError(Unsupported))]
+    #[effect(edit)]
     property!(rw compression: Compression, RecorderError<'i>);
 
     /// What the track has stored and lost.
     #[optional(counting)]
+    #[effect(read)]
     fn counters() -> TrackCounters;
 }
 

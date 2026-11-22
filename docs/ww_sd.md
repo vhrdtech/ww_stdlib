@@ -20,11 +20,16 @@ lease that `ww_sd`'s changing commands need.
 ```rust
 #[ww_trait]
 pub trait SdCard {
+    #[effect(read)]
     fn capabilities() -> Capabilities;
+    #[effect(read)]
     fn state() -> CardState;
     stream!(detect: bool);
+    #[effect(read)]
     fn registers() -> Result<SdRegisters<'i>, SdError>;
+    #[effect(edit)]
     fn reinit(lease: Lease, max_clock: Fixed<Hertz, Kilo, u32>, bus_width: BusWidth) -> Result<InitReport<'i>, SdError>;
+    #[effect(persist, destructive)]
     fn command(lease: Option<Lease>, cmd: RawCommand<'i>) -> Result<RawResponse<'i>, SdError>;
 }
 ```

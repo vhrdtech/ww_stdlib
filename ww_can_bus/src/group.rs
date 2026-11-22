@@ -22,16 +22,19 @@ pub trait CanGroup {
     ww_impl!(interface[]: Can);
 
     /// What the group has: number of controllers, clock sources and frequencies, shared message memory.
+    #[effect(read)]
     fn group_capabilities() -> GroupCapabilities<'i>;
 
     /// Enables the group's clock (the source and frequency set last, or the device's default) and answers the clock
     /// in effect. Every controller is then in [Mode::Off] until configured. `WrongState` when already enabled.
     #[errors(CommonError(WrongState, NoPower))]
+    #[effect(edit)]
     fn enable() -> Result<GroupClock, CanError>;
 
     /// Disables the group's clock, its lowest power state. Every controller must be in [Mode::Off] first
     /// (`WrongState` names the one that isn't).
     #[errors(CommonError(WrongState))]
+    #[effect(edit)]
     fn disable() -> Result<(), CanError>;
 
     /// Enabled (with the clock in effect) or disabled; sent to observers on every change.
@@ -42,11 +45,13 @@ pub trait CanGroup {
     /// `Unsupported`. For advanced nodes that pick a clock to hit an exact bit timing; a bridge uses the default.
     #[optional(clock)]
     #[errors(CommonError(Unsupported, WrongState))]
+    #[effect(edit)]
     fn set_clock(clock: GroupClock) -> Result<GroupClock, CanError>;
 
     /// What the group guarantees together, under the current clock and system load: a device whose controllers
     /// share a bus to the host or a CPU knows it, the host can't.
     #[optional]
+    #[effect(read)]
     fn performance() -> Performance;
 }
 

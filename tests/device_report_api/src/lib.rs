@@ -5,6 +5,7 @@
 use ww_api::prelude::*;
 
 #[ww_api_root]
+#[effect(edit)]
 pub trait ReportTest {
     ww_impl!(firmware: ww_firmware_info::FirmwareInfo);
     ww_impl!(reset: ww_firmware_info::LastReset);

@@ -1,7 +1,7 @@
 // ww_user_info 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 96238609f86ba152d3fa656d551037f08f8b32c4b4fe0091495a78a35250b164
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: e711c1c12c98c41bbe2aece0d311eb9588771987aa3eca7715cfc32ac1091997
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "A name and notes the user gives a unit (STD-24), shown by `ww list`.",
     "",
     "# Persistence",
@@ -168,7 +168,7 @@
             ])),
         ]), batched: None), multiplicity: Flat, since: None, ident: "name", docs: [
             "Short name of the unit, shown by `ww list`.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (4))), identity: None),
         (id: 2, kind: Property(ty: MaxLen(max_len: Fixed(256), ty: String), access: ReadWrite(observe: false), write_err_ty: Some(OutOfLine(type_idx: 1)), errors: Some([
             (ident: "TooLong", nested: None),
             (ident: "CommonError", nested: Some([
@@ -177,7 +177,7 @@
             ])),
         ]), batched: None), multiplicity: Flat, since: None, ident: "notes", docs: [
             "Free-form notes about the unit. A device with no room for them leaves this out.",
-        ], optional: Some((group: None)), meta: None, identity: None),
+        ], optional: Some((group: None)), meta: Some((claim: None, shares: [], labels: [], effects: (4))), identity: None),
     ], compact_id: Some(145), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_user_info", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

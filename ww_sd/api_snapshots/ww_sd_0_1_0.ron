@@ -1,7 +1,7 @@
 // ww_sd 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 0dd83d83ffd98cf8d98c4243294ae2872b7582db9d96c7c9d341c15bed16abc6
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: ef412953d365236da19f9beefbf683cb4cc9b6a4eab5f6e02b0f1a497e2d6f77
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Raw access to an SD card over WireWeaver (STD-40): its state, its registers as the card sent them, the init",
     "sequence with what each step answered, and single raw commands with their response, status bits and timing.",
     "",
@@ -607,10 +607,10 @@
         (id: 0, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 0)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "What the device\'s host controller can do: interface, bus widths, clock, UHS, the size of a data phase,",
             "whether restricted commands go through.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 1)), errors: None), multiplicity: Flat, since: None, ident: "state", docs: [
             "The card in the slot and how it is driven now.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 2, kind: Stream(ty: Bool, is_up: true), multiplicity: Flat, since: None, ident: "detect", docs: [
             "Card inserted (`true`) or removed (`false`), from the card detect switch or a failing poll.",
         ], optional: None, meta: None, identity: None),
@@ -624,7 +624,7 @@
             "(ACMD13), and the RCA. Decoding is the host\'s. Read at init and cached, safe at any time.",
             "",
             "`NoCard`, `Common(WrongState)` before the card is initialised.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 4, kind: Method(args: [
             (ident: "lease", ty: OutOfLine(type_idx: 4), default: None, flatten: false),
             (ident: "max_clock", ty: Instance(type_idx: 5, args: [
@@ -648,7 +648,7 @@
             "",
             "A card that fails to come up is not an error: the report says where it stopped. `Common(Unsupported)` for",
             "a bus width or clock the controller can\'t do.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
         (id: 5, kind: Method(args: [
             (ident: "lease", ty: Option(some_ty: OutOfLine(type_idx: 4)), default: None, flatten: false),
             (ident: "cmd", ty: OutOfLine(type_idx: 11), default: None, flatten: false),
@@ -669,7 +669,7 @@
             "timing there were; an error here means the command wasn\'t sent. `Restricted` for CMD42 and CMD27 without",
             "`raw-sd-unrestricted`, `Common(Unsupported)` for a command the interface doesn\'t have (SPI mode),",
             "`Common(InvalidArgument)` for an index above 63 or a data phase over [MAX_DATA].",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (12))), identity: None),
     ], compact_id: Some(105), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_sd", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

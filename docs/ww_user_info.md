@@ -10,8 +10,10 @@ A name and notes the user gives a unit, shown by `ww list`.
 #[ww_trait]
 pub trait UserInfo {
     const CAPABILITIES: UserInfoCaps;
+    #[effect(persist)]
     property!(rw name: MaxLen<&'i str, 32>, UserInfoError);
     #[optional]
+    #[effect(persist)]
     property!(rw notes: MaxLen<&'i str, 256>, UserInfoError);
 }
 ```

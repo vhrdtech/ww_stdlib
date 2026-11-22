@@ -1,7 +1,7 @@
 // ww_indication 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: cad10767d01c3c581fef3c2a86ba7cf0b687de831b62459e167902a6298aa3bb
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 485a84b4ec49ff5eeed2642538762a96317a979af51dace6c3a7bdb9f7526f4b
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Device indication control (STD-28): one global mode every indicator (LED, buzzer, ...) follows.",
     "",
     "[Indication::mode] is the only item a device must implement. Per-unit [brightness](Indication::brightness),",
@@ -117,11 +117,11 @@
         (id: 0, kind: Property(ty: OutOfLine(type_idx: 0), access: ReadWrite(observe: false), write_err_ty: None, errors: None, batched: None), multiplicity: Flat, since: None, ident: "mode", docs: [
             "Global operation mode every indicator follows. Periodic animations are aligned to shared time when the device",
             "has it, see the [crate docs](crate).",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 1, kind: Property(ty: OutOfLine(type_idx: 1), access: ReadWrite(observe: false), write_err_ty: None, errors: None, batched: None), multiplicity: Flat, since: None, ident: "brightness", docs: [
             "Brightness of all indicators; one setting covers every one of them. Left out by a device whose",
             "indicators have no adjustable brightness.",
-        ], optional: Some((group: None)), meta: None, identity: None),
+        ], optional: Some((group: None)), meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 2, kind: Method(args: [
             (ident: "duration", ty: Instance(type_idx: 2, args: [
                 Type(OutOfLine(type_idx: 3)),
@@ -135,7 +135,7 @@
         ])), multiplicity: Flat, since: None, ident: "identify", docs: [
             "Blinks every indicator for `duration` so the unit can be found on a bench or in a rack, then returns to",
             "`mode`. `Unsupported` on a device with no way to blink its indicators, `Busy` while already identifying.",
-        ], optional: Some((group: None)), meta: None, identity: None),
+        ], optional: Some((group: None)), meta: Some((claim: None, shares: [], labels: [], effects: (64))), identity: None),
         (id: 3, kind: Property(ty: Vec(String), access: Const, write_err_ty: None, errors: None, batched: None), multiplicity: Flat, since: None, ident: "NAMES", docs: [
             "Indicator names, in the device\'s own order. Left out (empty on devices that implement it with nothing to",
             "name) to save flash.",

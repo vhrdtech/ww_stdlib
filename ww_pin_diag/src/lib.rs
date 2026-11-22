@@ -41,14 +41,17 @@ pub trait PinDiag {
     /// until [PinDiag::release_all]. Refused when the point can't do that at all, a function holds it, or the
     /// board's rules forbid it in the current state of the other points.
     #[errors(NoSuchPoint, NotCapable, Refused, CommonError(InUse))]
+    #[effect(actuate)]
     fn set(point: Index<TestPoint, u16>, state: PointState) -> Result<(), PinDiagError<'i>>;
 
     /// Level on the point's pad, also while it drives: a point driving high that reads low is shorted to something
     /// stronger.
     #[errors(NoSuchPoint, NotCapable)]
+    #[effect(read)]
     fn read(point: Index<TestPoint, u16>) -> Result<Level, PinDiagError<'i>>;
 
     /// Every point set since the last release goes back to the firmware's safe state and to its function.
+    #[effect(actuate)]
     fn release_all();
 }
 

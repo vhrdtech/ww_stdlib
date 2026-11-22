@@ -24,18 +24,26 @@ pub const MAX_TRANSFER: usize = 4096;
 
 #[ww_trait]
 pub trait BlockDevice {
+    #[effect(read)]
     fn geometry() -> Result<Geometry<'i>, BlockError<'i>>;
+    #[effect(read)]
     fn read(lba: Index<Block, u64>, count: Count<Block, u16>) -> Result<MaxLen<RefVec<'i, u8>, MAX_TRANSFER>, BlockError<'i>>;
+    #[effect(read)]
     fn crc(lba: Index<Block, u64>, count: Count<Block, u32>) -> Result<u32, BlockError<'i>>;
 
+    #[effect(edit)]
     fn claim(lease: Secs<u16>) -> Result<Lease, BlockError<'i>>;
+    #[effect(edit)]
     fn release(lease: Lease) -> Result<(), BlockError<'i>>;
+    #[effect(persist)]
     fn write(lease: Lease, lba: Index<Block, u64>, data: MaxLen<RefVec<'i, u8>, MAX_TRANSFER>, crc: u32)
         -> Result<(), BlockError<'i>>;
+    #[effect(persist, destructive)]
     fn erase(lease: Lease, lba: Index<Block, u64>, count: Count<Block, u32>) -> Result<(), BlockError<'i>>;
 
     #[optional(bulk)]
     #[credit]
+    #[effect(persist)]
     sink!(write_runs: WriteRun<'i>);
     #[optional(bulk)]
     #[counted]

@@ -164,6 +164,7 @@ For firmware without `defmt`: the `log` crate on embassy or std targets, ESP-IDF
 pub trait LogText {
     #[stream(LogRecord<'i>, reliable)]
     fn records() -> Result<(), LogError<'i>>;
+    #[effect(edit)]
     property!(rw level: LevelFilter, LogError<'i>);
 }
 

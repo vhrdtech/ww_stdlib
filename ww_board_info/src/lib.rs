@@ -46,6 +46,7 @@ pub trait BoardInfo {
     /// shows the board as it booted. A device that serves this serves [BoardInfo::REWORKS] too.
     #[optional]
     #[since = "w1.2"]
+    #[effect(persist)]
     fn set_reworks(
         changes: MaxLen<RefVec<'i, ReworkState>, MAX_REWORKS>,
         program: bool,

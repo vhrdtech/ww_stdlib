@@ -34,12 +34,19 @@ configuration, poll the status, read the data out, abort.
 ```rust
 #[ww_trait]
 pub trait LogicAnalyzer {
+    #[effect(read)]
     fn capabilities() -> LaCapabilities<'i>;
+    #[effect(job)]
     fn capture(config: CaptureConfig<'i>) -> Result<CaptureActual, LaError>;
+    #[effect(job)]
     fn rearm() -> Result<CaptureActual, LaError>;
+    #[effect(read)]
     fn status() -> CaptureStatus;
+    #[effect(read)]
     fn read_raw(range: SampleRange) -> Result<RawChunk<'i>, LaError>;
+    #[effect(read)]
     fn read_transitions(channel: u8, from: u32) -> Result<TransitionsChunk<'i>, LaError>;
+    #[effect(edit)]
     fn abort();
 }
 ```
@@ -76,6 +83,7 @@ Continuous capture, streamed while the link keeps up:
 pub trait LogicStream {
     #[stream(StreamChunk<'i>, counted)]
     fn data(config: StreamConfig<'i>) -> Result<StreamActual, LaError>;
+    #[effect(read)]
     fn stream_capabilities() -> StreamCapabilities<'i>;
 }
 ```

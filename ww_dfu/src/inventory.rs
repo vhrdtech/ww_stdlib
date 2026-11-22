@@ -23,6 +23,7 @@ pub trait Inventory {
     ///
     /// [Error::Unsupported] on [Slot::Inactive] when this node has no previous image to report on.
     #[errors(Unsupported)]
+    #[effect(read)]
     fn layout(slot: Slot) -> Result<SlotLayout, Error>;
 
     /// Digest of a slot's manifest, as the protocol spec defines it. Equal digests mean equal manifests, so a host
@@ -33,6 +34,7 @@ pub trait Inventory {
     ///
     /// [Error::Unsupported] on [Slot::Inactive] when this node has no previous image to report on.
     #[errors(Unsupported)]
+    #[effect(read)]
     fn manifest_digest(slot: Slot) -> Result<[u8; 8], Error>;
 
     /// The state of `count` chunks of `slot`, starting at chunk `first`.
@@ -44,6 +46,7 @@ pub trait Inventory {
     /// [Error::Unsupported] on [Slot::Inactive] when this node has no previous image to report on,
     /// [Error::OutOfRange] when `first` is past the end of the slot.
     #[errors(Unsupported, OutOfRange)]
+    #[effect(read)]
     fn chunks(
         slot: Slot,
         first: Index<Chunk, u16>,

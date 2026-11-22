@@ -44,6 +44,7 @@ pub trait BlockDevice {
     /// Block size and count, blocks per call, erase unit, what erased blocks read as, read-only flag. `NoMedium`
     /// without a card.
     #[errors(NoMedium)]
+    #[effect(read)]
     fn geometry() -> Result<Geometry<'i>, BlockError<'i>>;
 
     /// Reads `count` blocks from `lba`, at most [Geometry::max_blocks]. Allowed at any time, also while the device
@@ -51,6 +52,7 @@ pub trait BlockDevice {
     ///
     /// `OutOfRange` past the last block, `Common(InvalidArgument)` for more than [Geometry::max_blocks].
     #[errors(CommonError(Busy, InvalidArgument), NoMedium, OutOfRange, ReadFailed)]
+    #[effect(read)]
     fn read(
         lba: Index<Block, u64>,
         count: Count<Block, u16>,
@@ -59,6 +61,7 @@ pub trait BlockDevice {
     /// CRC-32 (see [crc32]) of `count` blocks from `lba`, computed on the device: the host checks what it wrote
     /// without reading it back over a slow link. Takes as long as reading the blocks.
     #[errors(CommonError(Busy), NoMedium, OutOfRange, ReadFailed)]
+    #[effect(read)]
     fn crc(lba: Index<Block, u64>, count: Count<Block, u32>) -> Result<u32, BlockError<'i>>;
 
     /// Takes the card for writing and returns a [Lease]. Stops the card's own user first (a recorder syncs and
@@ -69,11 +72,13 @@ pub trait BlockDevice {
     /// `Common(Busy)` while another lease is held, `Common(Refused)` when this link may not write the card (the
     /// firmware's choice), `ReadOnly` for a read-only medium.
     #[errors(CommonError(Busy, Refused, InvalidArgument), NoMedium, ReadOnly)]
+    #[effect(edit)]
     fn claim(lease: Secs<u16>) -> Result<Lease, BlockError<'i>>;
 
     /// Gives the card back: its user mounts it again (and finds what the host wrote). `BadLease` for a lease that
     /// lapsed or is not the current one.
     #[errors(BadLease)]
+    #[effect(edit)]
     fn release(lease: Lease) -> Result<(), BlockError<'i>>;
 
     /// Writes whole blocks at `lba`, at most [Geometry::max_blocks]. `crc` is the CRC-32 ([crc32]) of `data`, checked
@@ -89,6 +94,7 @@ pub trait BlockDevice {
         BadCrc,
         WriteFailed
     )]
+    #[effect(persist)]
     fn write(
         lease: Lease,
         lba: Index<Block, u64>,
@@ -100,6 +106,7 @@ pub trait BlockDevice {
     /// erase units ([Geometry::erase_blocks]) where it can; afterwards the blocks read as [Geometry::erased].
     /// Takes as long as the medium needs.
     #[errors(NoMedium, OutOfRange, BadLease, WriteFailed)]
+    #[effect(persist, destructive)]
     fn erase(
         lease: Lease,
         lba: Index<Block, u64>,
@@ -111,6 +118,7 @@ pub trait BlockDevice {
     /// than the device has room for. For long jobs and slow links: writing a prepared filesystem, an image.
     #[optional(bulk)]
     #[credit]
+    #[effect(persist)]
     sink!(write_runs: WriteRun<'i>);
 
     /// The outcome of each run of [BlockDevice::write_runs], in the order they came. A counted stream, unit: run.

@@ -12,34 +12,38 @@ the items for bus debuggers, filters and message memory, and time-triggered CAN.
 ```rust
 #[ww_trait]
 pub trait Can {
+    #[effect(read)]
     fn capabilities() -> Capabilities<'i>;
+    #[effect(edit)]
     fn configure(config: CanConfig) -> Result<CanConfig, CanError>;
+    #[effect(read)]
     fn config() -> CanConfig;
     property!(ro status: Status);
     #[counted]
     stream!(rx: RxFrame<'i>);
     #[credit]
+    #[effect(outbound)]
     sink!(tx: TxFrame<'i>);
 
-    #[optional] fn set_mode(mode: Mode) -> Result<Mode, CanError>;
-    #[optional] fn recover() -> Result<(), CanError>;
-    #[optional] fn tx_abort() -> Fixed<units::Frame, One, u32>;
+    #[optional] #[effect(edit)] fn set_mode(mode: Mode) -> Result<Mode, CanError>;
+    #[optional] #[effect(edit)] fn recover() -> Result<(), CanError>;
+    #[optional] #[effect(edit)] fn tx_abort() -> Fixed<units::Frame, One, u32>;
     #[optional] #[counted] stream!(tx_events: TxEvent);
     #[optional] #[counted] stream!(bus_errors: BusError);
-    #[optional] fn protocol_status() -> ProtocolStatus;
+    #[optional] #[effect(edit)] fn protocol_status() -> ProtocolStatus;
     #[optional] property!(ro bus_load: BusLoad);
-    #[optional] fn detect_timing(candidates: MaxLen<RefVec<'i, Timing>, 16>, per_candidate: Second)
+    #[optional] #[effect(edit)] fn detect_timing(candidates: MaxLen<RefVec<'i, Timing>, 16>, per_candidate: Second)
         -> Result<Option<CanConfig>, CanError>;
-    #[optional(filters)] fn set_filters(filters: FilterConfig<'i>) -> Result<(), CanError>;
-    #[optional] fn set_layout(layout: MemoryLayout) -> Result<MemoryLayout, CanError>;
-    #[optional(rx_buffers)] fn rx_buffer(index: BufferIndex) -> Result<Option<BufferedFrame<'i>>, CanError>;
-    #[optional(tx_buffers)] fn tx_buffer(index: BufferIndex, frame: Option<TxFrame<'i>>, period: Option<Second>)
+    #[optional(filters)] #[effect(edit)] fn set_filters(filters: FilterConfig<'i>) -> Result<(), CanError>;
+    #[optional] #[effect(edit)] fn set_layout(layout: MemoryLayout) -> Result<MemoryLayout, CanError>;
+    #[optional(rx_buffers)] #[effect(edit)] fn rx_buffer(index: BufferIndex) -> Result<Option<BufferedFrame<'i>>, CanError>;
+    #[optional(tx_buffers)] #[effect(outbound)] fn tx_buffer(index: BufferIndex, frame: Option<TxFrame<'i>>, period: Option<Second>)
         -> Result<(), CanError>;
-    #[optional(transceiver)] fn set_transceiver(mode: TransceiverMode) -> Result<TransceiverMode, CanError>;
+    #[optional(transceiver)] #[effect(edit)] fn set_transceiver(mode: TransceiverMode) -> Result<TransceiverMode, CanError>;
     #[optional(transceiver)] property!(ro transceiver_state: TransceiverState);
-    #[optional(terminator)] fn set_termination(termination: Termination) -> Result<Termination, CanError>;
+    #[optional(terminator)] #[effect(actuate)] fn set_termination(termination: Termination) -> Result<Termination, CanError>;
     #[optional(terminator)] property!(ro termination: Termination);
-    #[optional] fn test_pins(tx: TxPin) -> Result<BusLevel, CanError>;
+    #[optional] #[effect(outbound, actuate)] fn test_pins(tx: TxPin) -> Result<BusLevel, CanError>;
 }
 ```
 
@@ -90,12 +94,15 @@ Which controllers have what:
 #[ww_trait]
 pub trait CanGroup {
     ww_impl!(interface[]: Can);
+    #[effect(read)]
     fn group_capabilities() -> GroupCapabilities<'i>;
+    #[effect(edit)]
     fn enable() -> Result<GroupClock, CanError>;
+    #[effect(edit)]
     fn disable() -> Result<(), CanError>;
     property!(ro group_state: GroupState);
-    #[optional(clock)] fn set_clock(clock: GroupClock) -> Result<GroupClock, CanError>;
-    #[optional] fn performance() -> Performance;
+    #[optional(clock)] #[effect(edit)] fn set_clock(clock: GroupClock) -> Result<GroupClock, CanError>;
+    #[optional] #[effect(read)] fn performance() -> Performance;
 }
 ```
 
@@ -135,9 +142,10 @@ buffers nor carry the types.
 ```rust
 #[ww_trait]
 pub trait CanXl {
+    #[effect(edit)]
     fn configure_xl(config: Option<XlConfig>) -> Result<Option<XlConfig>, CanError>;
     #[counted] stream!(rx_xl: XlFrame<'i>);
-    #[credit] sink!(tx_xl: XlTxFrame<'i>);
+    #[credit] #[effect(outbound)] sink!(tx_xl: XlTxFrame<'i>);
 }
 ```
 
@@ -221,7 +229,9 @@ with `None`.
 ```rust
 #[ww_trait]
 pub trait CanTimeTriggered {
+    #[effect(edit)]
     fn configure_tt(config: Option<TtConfig>) -> Result<Option<TtConfig>, CanError>;
+    #[effect(edit)]
     fn set_schedule(triggers: MaxLen<RefVec<'i, Trigger>, MAX_TRIGGERS>) -> Result<(), CanError>;
     property!(ro tt_status: TtStatus);
 }

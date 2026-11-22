@@ -41,6 +41,7 @@
 
 ### 🚀 Features
 
+- `Spi`: items declare what they do with `#[effect(..)]` (API-58).
 - `SpiMode` derives `defmt::Format` under the `defmt` feature (requested by `ww_logic_analyzer` to embed it in its
   own defmt-deriving types): no wire change, introspection data unaffected.
 - `Spi` is `#[claim(exclusive)]` (SRV-34): a client can claim a controller through the hub. Wire compatible, only the introspection data changes.

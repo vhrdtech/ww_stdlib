@@ -1,7 +1,7 @@
 // ww_logic_analyzer 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 061b10cd21541ff9318f0d22f16c3619da9ea89b9faee7ad149dbc981a0a00ff
-(magic: 2837124336, ww_self_version: (major: 0, minor: 4, patch: 0), root: (docs: [
+// shrink_wrap sha256: 7532d9c852114f2d85f6175fae2c5bfb0491f7e199bf61cf196f7297900d068e
+(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
     "Logic analyzers over WireWeaver: many digital channels sampled at one rate, captured into device RAM or",
     "streamed, in a raw or a transition encoding.",
     "",
@@ -857,7 +857,7 @@
     ], crate_idx: 0, trait_name: "LogicAnalyzer", items: [
         (id: 0, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 0)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "Channels, rates, memory, encodings and triggers.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 1, kind: Method(args: [
             (ident: "config", ty: OutOfLine(type_idx: 1), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 2), err_ty: OutOfLine(type_idx: 3))), errors: Some([
@@ -875,7 +875,7 @@
             "waits for the trigger, then takes the rest.",
             "`InvalidArgument`: rate, depth, threshold or trigger out of range; `Unsupported`: a trigger stage or condition;",
             "`Busy`: a stream runs.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (256))), identity: None),
         (id: 2, kind: Method(args: [], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 2), err_ty: OutOfLine(type_idx: 3))), errors: Some([
             (ident: "CommonError", nested: Some([
                 "WrongState",
@@ -883,10 +883,10 @@
         ])), multiplicity: Flat, since: None, ident: "rearm", docs: [
             "Arms again with the configuration of the last `capture`, for repeated captures of the same event.",
             "`WrongState`: nothing was configured yet.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (256))), identity: None),
         (id: 3, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 4)), errors: None), multiplicity: Flat, since: None, ident: "status", docs: [
             "Where the capture stands.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 4, kind: Method(args: [
             (ident: "range", ty: OutOfLine(type_idx: 5), default: None, flatten: false),
         ], return_ty: Some(Result(ok_ty: OutOfLine(type_idx: 6), err_ty: OutOfLine(type_idx: 3))), errors: Some([
@@ -900,7 +900,7 @@
             "fewer samples than asked, a whole number of words.",
             "`WrongState`: no finished capture; `InvalidArgument`: outside the capture; `Unsupported`: the device doesn\'t",
             "give raw words.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 5, kind: Method(args: [
             (ident: "channel", ty: Instance(type_idx: 7, args: [
                 Type(OutOfLine(type_idx: 8)),
@@ -924,10 +924,10 @@
             "edges or a full reply; [TransitionsChunk::scanned_to] says where the next call starts.",
             "`WrongState`: no finished capture; `InvalidArgument`: outside the capture; `Unsupported`: the device doesn\'t",
             "give transitions.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
         (id: 6, kind: Method(args: [], return_ty: None, errors: None), multiplicity: Flat, since: None, ident: "abort", docs: [
             "Stops an armed or running capture and drops its data.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
     ], compact_id: Some(120), meta: None), crate_idx: 0),
     InLine(level: (docs: [
         "Continuous capture, sent on the `data` stream.",
@@ -954,7 +954,7 @@
         ], optional: None, meta: None, identity: None),
         (id: 1, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 15)), errors: None), multiplicity: Flat, since: None, ident: "stream_capabilities", docs: [
             "Rates, channels and encodings of streaming.",
-        ], optional: None, meta: None, identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
     ], compact_id: Some(121), meta: None), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_logic_analyzer", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),

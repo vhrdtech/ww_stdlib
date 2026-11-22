@@ -26,6 +26,7 @@ pub trait I2cWatch {
     stream!(changes: I2cWatchEvent<'i>);
 
     /// How many watches, how fast, how long.
+    #[effect(read)]
     fn watch_capabilities() -> I2cWatchCapabilities;
 
     /// Adds a watch and returns its slot, used by the other methods and in [I2cWatchEvent::slot].
@@ -36,6 +37,7 @@ pub trait I2cWatch {
         OutOfWatchSlots,
         BufferTooBig
     )]
+    #[effect(outbound, job)]
     fn watch_add(watch: I2cWatchConfig<'i>) -> Result<WatchSlot, I2cError>;
 
     /// Replaces a watch's configuration; its previous result is forgotten, so the next read is reported. Errors as
@@ -45,13 +47,16 @@ pub trait I2cWatch {
         InvalidWatchSlot,
         BufferTooBig
     )]
+    #[effect(outbound, job)]
     fn watch_modify(slot: WatchSlot, watch: I2cWatchConfig<'i>) -> Result<(), I2cError>;
 
     /// Removes a watch.
     #[errors(InvalidWatchSlot)]
+    #[effect(edit)]
     fn watch_remove(slot: WatchSlot) -> Result<(), I2cError>;
 
     /// Slots in use.
+    #[effect(read)]
     fn watch_list() -> MaxLen<RefVec<'i, WatchSlot>, MAX_WATCHES>;
 }
 

@@ -13,6 +13,7 @@
 
 ### 🚀 Features
 
+- `BoardInfo`: items declare what they do with `#[effect(..)]` (API-58).
 - Module `guard` (STD-101, `no_std`): `boot_check(table, flash, name, own) -> (Guard, BenchRecord)`, the check every
   guarding firmware runs first thing in `main` (through the image table's locator, on a
   `ww_settings::mapped::MappedFlash` before any driver); `read_bench` (`BenchRecord`: revision, reworks, allowance;
