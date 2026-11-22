@@ -277,7 +277,10 @@ async fn run<F: Firmware>(
             );
             serve(fw, tx, rx, rec, stop).await
         }
-        Media::WebSocket(socket) => serve_ws(fw, socket, &mut tx_buf, &mut rx_buf, rec, stop).await,
+        Media::WebSocket(port) => {
+            let mut socket = ww_device::ws::IoSocket::new(port);
+            serve_ws(fw, &mut socket, &mut tx_buf, &mut rx_buf, rec, stop).await
+        }
         Media::WebSocketTcp(socket) => {
             serve_ws(fw, socket, &mut tx_buf, &mut rx_buf, rec, stop).await
         }
@@ -326,8 +329,11 @@ where
         socket,
         rec: rec.clone(),
     });
-    let tx = ww_device::FramedTx::new(UdpSink::new(&conn), &mut tx_buf[..DATAGRAM]);
-    let rx = ww_device::FramedRx::new(UdpSource::new(&conn), &mut rx_buf[..MAX_MESSAGE + DATAGRAM]);
+    let tx = ww_device::FramedTx::new(UdpSink::new(&conn, 0), &mut tx_buf[..DATAGRAM]);
+    let rx = ww_device::FramedRx::new(
+        UdpSource::new(&conn, 0),
+        &mut rx_buf[..MAX_MESSAGE + DATAGRAM],
+    );
     serve(fw, tx, rx, rec, stop).await
 }
 
