@@ -9,6 +9,7 @@ the repository.
 
 ### Changed
 
+- `ww_std_cli`'s tap test moved to vhrdtech/ww_tools with the tap decoder (TR-14).
 - Docs name the Portwright repo `portwright` (was `typec_dongle`, renamed).
 
 ### Breaking

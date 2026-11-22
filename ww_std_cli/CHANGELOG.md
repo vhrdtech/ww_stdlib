@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+- The tap test of global trait naming moved to vhrdtech/ww_tools with the tap decoder (TR-14); `ww monitor`, `stats`, `capture` are gone.
+
 ### 🚀 Features
 
 - `ww dfu flash` runs `ww chunky flash` in process when the binary links `chunky_ww_cli`, else the `ww-chunky` plugin (TOOL-39).
