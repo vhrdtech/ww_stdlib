@@ -15,7 +15,7 @@ impl WwClient for UartBridge {
 }
 
 impl UartBridge {
-    pub fn info(&self) -> &DeviceApiInfo {
+    pub fn info(&self) -> DeviceApiInfo {
         self.cmd.info()
     }
 }
