@@ -1,7 +1,7 @@
 // ww_uart 0.1.0 traits and types, saved by `ww api save`.
 // Do not edit, bump the crate version and save a new snapshot instead.
-// shrink_wrap sha256: 06bce017bba1b9840b045e19adb872aa8d744369a8d8c09ff5be2c270157bd1d
-(magic: 2837124336, ww_self_version: (major: 0, minor: 5, patch: 0), root: (docs: [
+// shrink_wrap sha256: 0ec2fbbb0d3a5fa2ff36626617a57bd94ce1c1c9575a24c7cf72a0ce4107df46
+(magic: 2837124336, ww_self_version: (major: 0, minor: 6, patch: 0), root: (docs: [
     "UART over WireWeaver: a device bridges a serial port to the host, or watches the two lines of a serial link.",
     "",
     "`Uart` is one port: configure it, receive on `rx`, send on the `tx` credit sink, and, on ports with the hardware",
@@ -464,10 +464,10 @@
         (id: 1, kind: FlowSink(ty: MaxLen(max_len: Fixed(256), ty: Vec(NumericAny(Base(U8)))), flow: Credit), multiplicity: Flat, since: None, ident: "tx", docs: [
             "Bytes to send. Credit-based (API-28): the host never sends more than the device\'s TX buffer",
             "([Capabilities::tx_buffer]) holds.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (32))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (32), track: None)), identity: None),
         (id: 2, kind: Method(args: [], return_ty: Some(OutOfLine(type_idx: 1)), errors: None), multiplicity: Flat, since: None, ident: "capabilities", docs: [
             "Supported baud rates, modes, IO levels and other features.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1), track: None)), identity: None),
         (id: 3, kind: Method(args: [
             (ident: "config", ty: OutOfLine(type_idx: 2), default: None, flatten: false),
         ], return_ty: Some(OutOfLine(type_idx: 2)), errors: Some([
@@ -484,7 +484,7 @@
             "[Capabilities::min_baud_rate]..=[Capabilities::max_baud_rate], or a mode, parity, bit count, back-feed detector",
             "or IO level this device doesn\'t have is `Unsupported`; `Refused` when e.g. the line already sits at a higher",
             "voltage than `io_level`.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (2), track: None)), identity: None),
         (id: 4, kind: Method(args: [
             (ident: "pin", ty: OutOfLine(type_idx: 3), default: None, flatten: false),
             (ident: "is_high", ty: Bool, default: None, flatten: false),
@@ -498,7 +498,7 @@
             "Manually control pins, only in [Mode::Test].",
             "",
             "`WrongState` in any other mode.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (96))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (96), track: None)), identity: None),
         (id: 5, kind: Method(args: [
             (ident: "duration", ty: Instance(type_idx: 4, args: [
                 Type(OutOfLine(type_idx: 5)),
@@ -514,7 +514,7 @@
         ])), multiplicity: Flat, since: None, ident: "send_break", docs: [
             "Holds TX low for `duration` (a break), after the bytes already queued.",
             "`WrongState` in [Mode::HighZ] or [Mode::Test], `Refused` when longer than this device allows.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (32))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (32), track: None)), identity: None),
         (id: 6, kind: Method(args: [], return_ty: Some(Instance(type_idx: 7, args: [
             Type(OutOfLine(type_idx: 8)),
             Type(OutOfLine(type_idx: 9)),
@@ -522,7 +522,7 @@
             Type(OutOfLine(type_idx: 6)),
         ])), errors: None), multiplicity: Flat, since: None, ident: "tx_pending", docs: [
             "Bytes queued for sending and not sent yet.",
-        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1))), identity: None),
+        ], optional: None, meta: Some((claim: None, shares: [], labels: [], effects: (1), track: None)), identity: None),
         (id: 7, kind: StreamFn(ty: OutOfLine(type_idx: 10), delivery: Counted, args: [
             (ident: "config", ty: OutOfLine(type_idx: 11), default: None, flatten: false),
         ], return_ty: Some(OutOfLine(type_idx: 11)), errors: Some([
@@ -541,7 +541,7 @@
             "Optional: a port without monitoring hardware leaves it out (`omit = [\"uart.monitor\"]`), and a host sees that",
             "in the device\'s introspection. `Unsupported` for a baud rate, mode or parity this monitor can\'t decode.",
         ], optional: Some((group: None)), meta: None, identity: None),
-    ], compact_id: Some(36), meta: Some((claim: Some(Exclusive), shares: [], labels: [], effects: (0)))), crate_idx: 0),
+    ], compact_id: Some(36), meta: Some((claim: Some(Exclusive), shares: [], labels: [], effects: (0), track: None))), crate_idx: 0),
 ], ext_crates: [
     (crate_id: "ww_uart", version: (major: 0, minor: 1, patch: 0, pre: None, build: None)),
     (crate_id: "ww_si", version: (major: 0, minor: 5, patch: 0, pre: None, build: None)),
