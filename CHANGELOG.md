@@ -23,6 +23,8 @@ the repository.
 ### Features
 
 - The API traits declare what each item does with `#[effect(..)]`; snapshots and fixture pins saved again (API-58).
+- The `nucleo_g0b1re_api` fixture's tests list wire_weaver's `Meta::track` (API-71) as not compared; its pins stay.
+- Snapshots of ww_i2c, ww_spi, ww_uart, ww_can_bus, ww_pin_diag, ww_dfu and ww_gpio saved again in model format 0.6.0 (API-71).
 - Dependencies by git: `shrink_wrap` from romixlab/shrink_wrap, `exact_units` from romixlab/exact_units, the base crates from vhrdtech/ww_base and the framework from vhrdtech/wire_weaver; `Cargo.lock` pins each commit.
 - `tests/stdlib_evolution` and `tests/global_ids` check the crates of this repository; the snapshots they refer to come from the checkouts `Cargo.lock` pins (TOOL-31, API-20).
 - `tests/nucleo_g0b1re_fixture`: the frozen `nucleo_g0b1re_api` evolution fixture and its tests, from wire_weaver; `just refresh-fixture-pins` refreshes its pins (EVO-70).
