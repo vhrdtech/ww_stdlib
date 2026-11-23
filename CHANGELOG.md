@@ -11,6 +11,7 @@ the repository.
 
 - `ww_std_cli`'s tap test moved to vhrdtech/ww_tools with the tap decoder (TR-14).
 - Docs name the Portwright repo `portwright` (was `typec_dongle`, renamed).
+- Locks (the workspace and every `examples_mcu/*`) take wire_weaver 3b59cb59 with mount slots, model format 0.7.0 (SRV-76); the 0.6.0 snapshots still read, so none is re-saved.
 
 ### Breaking
 
