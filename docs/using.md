@@ -87,8 +87,8 @@ everything below it comes from `ww_gpio`. The number before each item is its ind
 these numbers on the wire instead of the names, which keeps a request small. The `crates:` line
 lists the crates the API is made of, `ww_gpio@0.1.0` among them.
 
-The line before it shows what a standard trait saves. The full description of the API takes 20 303 bytes, and the
-device sends 87. The rest is the traits and types of `ww_gpio`, which the host takes from the crate's snapshot
+The line before it shows what a standard trait saves. The full description of the API takes 20 372 bytes, and the
+device sends 156. The rest is the traits and types of `ww_gpio`, which the host takes from the crate's snapshot
 instead of from the wire.
 
 ## Where to go next

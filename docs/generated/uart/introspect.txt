@@ -10,6 +10,6 @@ trait UartBridge uart_api@0.1.0
    ├─ 6 #[effect(read)] fn tx_pending() -> Fixed<Byte, One, u32, Unbounded> [B]
    └─ 7 #[optional] #[errors(CommonError(Unsupported, InUse, NoPower))] #[counted] stream monitor(config: MonitorConfig): MonitorChunk -> MonitorConfig (left out by this device)
 
-9 resources, 1 traits, 29 types, 22514 bytes full, 84 bytes sent
+9 resources, 1 traits, 29 types, 22577 bytes full, 146 bytes sent
 crates: uart_api@0.1.0, ww_uart@0.1.0, ww_si@0.5.0, exact_units@0.1.0, ww_numeric@0.3.0
 api hash: 77565f3636dc92bf

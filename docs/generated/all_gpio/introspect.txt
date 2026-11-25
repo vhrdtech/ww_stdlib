@@ -16,6 +16,6 @@ trait AllGpioApi all_gpio_api@0.1.0
    ├─ 9 #[effect(actuate)] #[errors(CommonError(Unsupported, Refused))] fn configure(config: BankConfig) -> Result<BankConfig, GpioError>
    └─ 10 #[effect(read)] fn name() -> String
 
-15 resources, 2 traits, 24 types, 20303 bytes full, 87 bytes sent
+15 resources, 2 traits, 24 types, 20372 bytes full, 156 bytes sent
 crates: all_gpio_api@0.1.0, ww_gpio@0.1.0, exact_units@0.1.0
 api hash: 477b11b55d6de8d4
