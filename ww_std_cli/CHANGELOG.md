@@ -14,4 +14,5 @@
 
 ### Fixes
 
+- `ww info` prints its API and hello lines once; they were printed twice.
 - `ww board`, `counters`, `dfu`, `pins` and `report` follow `wire_weaver_cli` dropping `GlobalFlags::DeviceAndTap` with the link tap: they declare `GlobalFlags::Device`.

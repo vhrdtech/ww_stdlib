@@ -9,7 +9,7 @@ use std::path::PathBuf;
 use wire_weaver_client::DynClient;
 use ww_board_info::guard::Guard;
 use ww_report::clients::Contract;
-use ww_report::report::{ReportOptions, collect_report, render_info, render_report};
+use ww_report::report::{ReportOptions, collect_report, render_contract, render_report};
 use ww_report::rework_check::{
     BoardReworks, ImageReworks, RomFlash, board_guard, guard_line, read_board, scan_installed_image,
 };
@@ -46,7 +46,8 @@ pub(crate) struct ReportArgs {
 fn info<'a>(device: &'a DynClient) -> BoxFuture<'a, Result<Section>> {
     Box::pin(async move {
         let info = ww_report::info::collect_info(&Contract::new(device)).await;
-        Section::new(render_info(&info), &info)
+        // the command line prints the API and hello facts itself, before this section
+        Section::new(render_contract(&info), &info)
     })
 }
 

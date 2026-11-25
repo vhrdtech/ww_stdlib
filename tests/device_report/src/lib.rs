@@ -492,6 +492,14 @@ mod tests {
             text.contains("Hello      framer=") && text.contains("api_model="),
             "{text}"
         );
+        // `ww info` prints the link facts itself: its device section starts at the firmware, so they show once
+        let contract = ww_report::report::render_contract(&info);
+        assert!(contract.starts_with("Firmware   report_fw"), "{contract}");
+        assert!(
+            !contract.contains("API ") && !contract.contains("Hello "),
+            "{contract}"
+        );
+        assert!(text.ends_with(&contract), "{text}");
         assert!(
             text.contains("Reworks    rework 1: 0R to 10k on R12 (applied)"),
             "{text}"

@@ -12,6 +12,7 @@
 
 ### 🚀 Features
 
+- `report::render_contract`: the device contract part of `ww info`, without the API and hello lines `render_info` adds.
 - A counters read refused with a common error is reported by its text (STD-16).
 - `ww info` and `ww report` show the device's wire version next to its crate version, and the hello generations
   this connection agreed on (EVO-34): `Contract::api_wire: Option<String>`, `Contract::generations: String`,
