@@ -382,6 +382,11 @@ include their marked sections, and their output (a `ww` transcript, a Python run
   loopback jumper on port 1), `examples/uart` (`uart_sim`, `uart_bridge`, in-process tests, the `ww introspect`
   transcript) and `uart.py` in `examples/stdlib_py`. The board firmware (`examples_mcu/usb_stm32h725ig`) keeps its own
   server.
+- ✅ **EX-24 Sensor node that tells about itself, simulated**: `examples/node_api` (a `Device` subtree of
+  `FirmwareInfo`, `BoardInfo`, `Uid`, `UserInfo`, `LogText` and `Indication`, plus `measure()`),
+  `examples/node_device` (constants for what never changes, handlers for the label, the text log kept in a RAM store
+  and the indication), `examples/node` (`node_sim`, `node_about`, the `ww info` and `ww introspect` transcripts) and
+  `node.py` in `examples/stdlib_py`. No board firmware yet.
 
 ## Dropped and superseded
 

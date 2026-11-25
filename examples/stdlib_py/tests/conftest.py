@@ -45,6 +45,12 @@ def uart_url():
     yield from simulated("uart", "uart_sim")
 
 
+@pytest.fixture
+def node_url():
+    """A simulated sensor node, stopped after the test."""
+    yield from simulated("node", "node_sim")
+
+
 def check_output(name, command, run):
     """Runs `run()`, and checks what it printed, after the `$ command` line, against docs/generated/NAME.
     WW_BOOK_OUTPUTS=write (`just book-outputs`) writes the file instead."""

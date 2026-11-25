@@ -1,0 +1,39 @@
+[package]
+name = "node_api"
+version = "0.1.0"
+description = "API of the sensor node example: a device that tells about itself through the standard library's device contract"
+publish = false
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+# Wire version of the API (EVO-31): link setup decides on its line, `#[since]` names its revisions
+[package.metadata.wire_weaver]
+wire = "w1.0"
+
+[features]
+# owned types of the API and of the standard crates, for host code
+std = [
+    "ww_api/std",
+    "ww_board_info/std",
+    "ww_firmware_info/std",
+    "ww_indication/std",
+    "ww_log/std",
+    "ww_uid/std",
+    "ww_user_info/std",
+]
+
+# --8<-- [start:deps]
+[dependencies]
+ww_api.workspace = true
+ww_board_info.workspace = true
+ww_firmware_info.workspace = true
+ww_indication.workspace = true
+ww_log.workspace = true
+ww_uid.workspace = true
+ww_user_info.workspace = true
+# --8<-- [end:deps]
+
+[lints]
+workspace = true

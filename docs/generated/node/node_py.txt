@@ -1,0 +1,5 @@
+$ python node.py
+firmware: node_sim 0.1.0
+board: sensor node rev A serial SN-0001
+name: bench 2
+identify again: Busy
