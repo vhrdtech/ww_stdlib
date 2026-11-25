@@ -327,7 +327,7 @@ impl WireWeaverAsyncApiBackend for Node {
 }
 
 /// Serves `node` on `server` until `stop` resolves: the one event loop of the simulated device and the firmware.
-/// Every [POLL_PERIOD] it sends what the log stream holds. A firmware that never stops passes
+/// Every 100 ms it sends what the log stream holds. A firmware that never stops passes
 /// [core::future::pending].
 pub async fn serve<Tx: MessageTx, Rx: MessageRx, C: Clock>(
     server: &mut Server<'_, Tx, Rx, C>,
