@@ -377,6 +377,11 @@ include their marked sections, and their output (a `ww` transcript, a Python run
   (`all_gpio_sim` over WebSocket, `all_gpio_blink`, in-process tests on tokio's paused clock, the `ww introspect`
   transcript) and `examples/stdlib_py` (`gpio.py`, `just test-py`). The board firmware (`examples_mcu/nucleo_h743zi2`,
   `usb_stm32h725ig`) keeps its own server.
+- ✅ **EX-23 UART bridge, simulated**: `examples/uart_device` (the `no_std` server of `uart[]: ww_uart::Uart` over a
+  `Board`, `rx` sent from the serve loop, `tx` a credit sink; `SimBoard`: a GPS receiver at 9600 Bd on port 0, a
+  loopback jumper on port 1), `examples/uart` (`uart_sim`, `uart_bridge`, in-process tests, the `ww introspect`
+  transcript) and `uart.py` in `examples/stdlib_py`. The board firmware (`examples_mcu/usb_stm32h725ig`) keeps its own
+  server.
 
 ## Dropped and superseded
 

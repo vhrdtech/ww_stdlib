@@ -39,6 +39,12 @@ def gpio_url():
     yield from simulated("all_gpio", "all_gpio_sim")
 
 
+@pytest.fixture
+def uart_url():
+    """A simulated UART bridge, stopped after the test."""
+    yield from simulated("uart", "uart_sim")
+
+
 def check_output(name, command, run):
     """Runs `run()`, and checks what it printed, after the `$ command` line, against docs/generated/NAME.
     WW_BOOK_OUTPUTS=write (`just book-outputs`) writes the file instead."""

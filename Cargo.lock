@@ -1204,7 +1204,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1478,7 +1478,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e35d6e78f4cebb90e51d543db8fe41528851d6deeef6ef21ebd4bfdc1e784776"
 dependencies = [
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2258,7 +2258,7 @@ version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "82cb6a9f675da968c63b6208c641b9dca58fc0133ae53375736b1767b0cab8bd"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2669,7 +2669,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -3585,7 +3585,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4463,12 +4463,20 @@ name = "uart"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "book_outputs",
+ "clap",
+ "console",
+ "futures-util",
  "tokio",
+ "tokio-util",
  "tracing",
  "tracing-subscriber",
  "uart_api",
+ "uart_device",
  "wire_weaver",
+ "wire_weaver_cli",
  "wire_weaver_client",
+ "ww_device",
  "ww_si",
  "ww_uart",
 ]
@@ -4479,6 +4487,20 @@ version = "0.1.0"
 dependencies = [
  "defmt",
  "ww_api",
+ "ww_uart",
+]
+
+[[package]]
+name = "uart_device"
+version = "0.1.0"
+dependencies = [
+ "embassy-futures",
+ "uart_api",
+ "wire_weaver",
+ "ww_client_server",
+ "ww_device",
+ "ww_si",
+ "ww_stream",
  "ww_uart",
 ]
 

@@ -165,6 +165,7 @@ log_defmt_api = { version = "0.1.0", path = "./tests/log_defmt_api" }
 pin_diag_api = { version = "0.1.0", path = "./tests/pin_diag_api" }
 recorder_groups_api = { version = "0.1.0", path = "./tests/recorder_groups_api" }
 uart_api = { version = "0.1.0", path = "./examples/uart_api" }
+uart_device = { version = "0.1.0", path = "./examples/uart_device" }
 uid_api = { version = "0.1.0", path = "./tests/uid_api" }
 user_info_api = { version = "0.1.0", path = "./tests/user_info_api" }
 
