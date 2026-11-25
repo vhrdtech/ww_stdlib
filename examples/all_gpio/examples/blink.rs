@@ -1,7 +1,7 @@
 //! Lists the banks of a GPIO expander, blinks its LED and reads its button, through the standard `ww_gpio` calls.
 //!
 //! `cargo run -p all_gpio --example all_gpio_blink` against `all_gpio_sim` on this PC, `-- --url ws://ADDRESS/ww`
-//! against another, or `-- --usb --led PB0` against a board's all_gpio firmware over USB.
+//! against another, or `-- --usb --led PB0` against the Nucleo H743ZI2's all_gpio firmware over USB.
 
 use all_gpio::AllGpio;
 use anyhow::{Context, Result};
@@ -20,7 +20,7 @@ struct Args {
     /// The pin the LED sits on
     #[arg(long, default_value = "PA5")]
     led: String,
-    /// The pin the button sits on, low while pressed
+    /// The pin the button sits on
     #[arg(long, default_value = "PC13")]
     button: String,
 }

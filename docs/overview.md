@@ -2,51 +2,18 @@
 level: basic
 ---
 
-# Overview
+# Standard library crates
 
-`ww_stdlib` is a set of crates with ready-made WireWeaver traits and data types: GPIO, UART, I2C, CAN, logging,
-firmware info, firmware updates, physical units and more. Instead of designing its own GPIO or logging API, a device
-picks the crates it needs and puts their traits into its API, and a host (driver, CLI, GUI) gets a matching typed
-client from the same codegen.
+The standard library is a set of crates with ready-made WireWeaver traits and data types. This page lists them by
+group, each with its traits and its own page. [Using the standard library](using.md) shows how a device puts them into
+its API, and the chapters after it build three devices from them.
 
-```toml
-[dependencies]
-ww_gpio = "0.1"
-ww_firmware_info = { version = "0.1", default-features = false }
-```
-
-```rust
-#[ww_api_root]
-pub trait MyBoard {
-    ww_impl!(firmware: ww_firmware_info::FirmwareInfo);
-    ww_impl!(gpio: ww_gpio::Bank);
-    #[effect(edit)]
-    fn my_own_method(value: u8);
-}
-```
-
-A crate's name and version are part of the wire contract (see [folder structure](../api/folder_structure.md)), so
-using `ww_gpio` on both ends is what lets tools of unrelated projects recognize "this is a GPIO bank" without
-agreeing on anything else: `ww info` reads the firmware info of any device that has it, wherever it sits in the API.
-
-All crates are `no_std` by default; the `std` feature adds owned types (`..Owned`, `String` instead of `&str`) for
-host code. The API crates live in the [`ww_stdlib`](https://github.com/vhrdtech/ww_stdlib) repository, the base
-types (`ww_si`, `ww_numeric`, `ww_version`, `ww_error`, `ww_date_time`) and `ww_global` in
+Every crate builds without `std` and without a heap; its `std` feature adds the owned types for host code. The API
+crates live in the [`ww_stdlib`](https://github.com/vhrdtech/ww_stdlib) repository, the base types (`ww_si`,
+`ww_numeric`, `ww_version`, `ww_error`, `ww_date_time`) and `ww_global` in
 [`ww_base`](https://github.com/vhrdtech/ww_base), and the framework crates `ww_self`, `ww_client_server` and
-`ww_timebase` in [`wire_weaver`](https://github.com/vhrdtech/wire_weaver), each still versioned on its own.
-
-## Picking crates
-
-Start from what the device has:
-
-- Every device implements the [**device contract**](#device-contract): which firmware and board it is, which unit,
-  its log and counters, so `ww info` and a support case have one place to look whatever the device does.
-- Add the [**I/O**](#io) traits for the hardware the device exposes over the wire (a GPIO bank, a UART bridge, an I2C
-  master, ...). Pick only what is bridged: a thermometer implements `Adc`, not `AdcStream` as well.
-- Use the [**data types**](#data-types) in your own methods and types: a physical value is a `ww_si` quantity, not a
-  raw integer with an implied unit, and an API's error enum nests `ww_error::CommonError` first.
-- The [**framework**](#framework) crates are used by the codegen and introspection; an API crate rarely depends on
-  them directly.
+`ww_timebase` in [`wire_weaver`](https://github.com/vhrdtech/wire_weaver). Each crate is versioned on its own: its
+name and version are part of the wire contract, so a host recognises a trait of it on any device.
 
 ## I/O { #io }
 
