@@ -366,6 +366,18 @@ and what is planned, for humans and AI agents alike.
   `just test`). Seen before the TR-12 changes too. The recorder needs one order for events of the host and the
   simulated device that happen at the same time. Found 15 Oct 2026.
 
+## Examples (`EX`)
+
+Each example runs on the PC first, against its device simulated over WebSocket, then on a board. The book's chapters
+include their marked sections, and their output (a `ww` transcript, a Python run) is written by a golden test into
+`docs/generated/` (`just book-outputs`; a stale file fails `just test`). EX numbers are shared with wire_weaver's.
+
+- ✅ **EX-22 GPIO expander, simulated**: `examples/all_gpio_device` (the `no_std` server of `port[]: ww_gpio::Bank`
+  over a `Board`; `SimBoard`: PA, PB and PC of 16 pins, an LED on PA5, a button on PC13), `examples/all_gpio`
+  (`all_gpio_sim` over WebSocket, `all_gpio_blink`, in-process tests on tokio's paused clock, the `ww introspect`
+  transcript) and `examples/stdlib_py` (`gpio.py`, `just test-py`). The board firmware (`examples_mcu/nucleo_h743zi2`,
+  `usb_stm32h725ig`) keeps its own server.
+
 ## Dropped and superseded
 
 - **STD-9 Stubs, for later: `ww_spi`** — superseded by STD-13: `ww_spi` is now a full IO-family trait (optional

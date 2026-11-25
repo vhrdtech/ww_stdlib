@@ -1,0 +1,7 @@
+$ python gpio.py
+port 0: PA
+PA5: High
+PA5: Low
+PA5: High
+refused: Unsupported
+PA5 mode: PushPullOutput

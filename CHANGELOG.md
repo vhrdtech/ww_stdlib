@@ -22,6 +22,7 @@ the repository.
 
 ### Features
 
+- GPIO expander example simulated on the PC: `all_gpio_sim`, `all_gpio_blink`, `gpio.py`, golden book outputs (EX-22).
 - The API traits declare what each item does with `#[effect(..)]`; snapshots and fixture pins saved again (API-58).
 - Dependencies by git: `shrink_wrap` from romixlab/shrink_wrap, `exact_units` from romixlab/exact_units, the base crates from vhrdtech/ww_base and the framework from vhrdtech/wire_weaver; `Cargo.lock` pins each commit.
 - `tests/stdlib_evolution` and `tests/global_ids` check the crates of this repository; the snapshots they refer to come from the checkouts `Cargo.lock` pins (TOOL-31, API-20).
