@@ -185,6 +185,6 @@ finds the ELF file for it, and what `ww report` collects for a bug report.
 
 ## Where to go next
 
-- [Changing your API](../evolution/overview.md) shows how to add to an API so that old hosts and old firmware keep
+- [Changing your API](../basic/changing_your_api.md) shows how to add to an API so that old hosts and old firmware keep
   working.
 - The [list of crates](overview.md) describes every crate of the standard library, the contract's included.
