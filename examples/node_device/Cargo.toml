@@ -1,0 +1,31 @@
+[package]
+name = "node_device"
+version = "0.1.0"
+description = "The sensor node example device: the device contract served once, for a simulated device and a firmware"
+publish = false
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+# build against std: owned API types, for a device simulated on a PC
+std = ["node_api/std", "wire_weaver/std", "ww_client_server/std", "ww_stream/std"]
+
+[dependencies]
+embassy-futures.workspace = true
+node_api.workspace = true
+wire_weaver.workspace = true
+ww_board_info.workspace = true
+ww_client_server = { workspace = true, features = ["streams"] }
+ww_device.workspace = true
+ww_firmware_info.workspace = true
+ww_indication.workspace = true
+ww_log.workspace = true
+ww_si.workspace = true
+ww_stream = { workspace = true, features = ["streams"] }
+ww_uid.workspace = true
+ww_user_info.workspace = true
+
+[lints]
+workspace = true

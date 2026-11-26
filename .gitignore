@@ -4,3 +4,7 @@ target/
 **/*.rs.bk
 # the ww_dfu scenario tests write what they saw next to a transcript that differs
 tests/dfu_scenarios/transcripts/*.actual.md
+# uv-managed virtualenvs and pytest's cache of the Python examples
+.venv/
+.pytest_cache/
+__pycache__/

@@ -22,35 +22,12 @@ same global traits.
 
 ## Where to put them
 
-Implement each trait once, at any depth of the API tree. The conventional place is one `Device` subtree of the API
-root:
-
-```rust
-#[ww_trait]
-pub trait Device {
-    ww_impl!(firmware: ww_firmware_info::FirmwareInfo);
-    ww_impl!(last_reset: ww_firmware_info::LastReset);
-    ww_impl!(board: ww_board_info::BoardInfo);
-    ww_impl!(uid: ww_uid::Uid);
-    ww_impl!(label: ww_user_info::UserInfo);
-    ww_impl!(counters: ww_counters::Counters);
-    ww_impl!(log: ww_log::LogDefmt);
-}
-
-#[ww_api_root]
-pub trait MyDevice {
-    ww_impl!(device: Device);
-    // ... what the device does
-}
-```
-
-Where they sit doesn't matter to `ww`: its calls carry a *global trait path* (crate, version, trait name) that the
-device resolves itself ([addressing](../api/addressing.md)), so `ww info` works with a device whatever its own API and
-whatever version of it, also one flashed years ago. A device that doesn't implement a trait, or implements an
-incompatible version of it, is reported as such for that part; the rest is still shown.
-
-Every item of the first four crates is a `const`: the device serves it from a value, without a handler
-([const items](../api/properties.md#const-items)), and the host reads it once per connection.
+[A device that tells about itself](device_info.md) puts the traits into a `Device` subtree of the API root and serves
+them from a simulated sensor node. Each trait goes in once, at any depth: `ww` finds it by its global trait path
+([addressing](../api/addressing.md)), so `ww info` works with any device, also one flashed years ago. A device that
+doesn't implement a trait, or an incompatible version of it, is reported as such for that part, and the rest is still
+shown. Every item of the first four crates is a `const`, served from a value without a handler
+([const items](../api/properties.md#const-items)), and a host reads it once per connection.
 
 ## Linking a firmware to its ELF: the build id
 

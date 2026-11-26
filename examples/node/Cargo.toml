@@ -1,0 +1,49 @@
+[package]
+name = "node"
+version = "0.1.0"
+description = "Client of the sensor node example device, and the device simulated on a PC over WebSocket"
+publish = false
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+futures-util.workspace = true
+node_api = { workspace = true, features = ["std"] }
+node_device = { workspace = true, features = ["std"] }
+tokio = { workspace = true, features = ["sync", "rt"] }
+wire_weaver.workspace = true
+wire_weaver_client = { workspace = true, features = ["in_process", "usb", "ws"] }
+ww_board_info = { workspace = true, features = ["std"] }
+ww_device = { workspace = true, features = ["futures-io"] }
+ww_firmware_info = { workspace = true, features = ["std"] }
+ww_indication = { workspace = true, features = ["std"] }
+ww_log = { workspace = true, features = ["std"] }
+ww_si = { workspace = true, features = ["std"] }
+ww_uid = { workspace = true, features = ["std"] }
+ww_user_info = { workspace = true, features = ["std"] }
+
+[dev-dependencies]
+anyhow.workspace = true
+book_outputs.workspace = true
+clap = { workspace = true, features = ["derive"] }
+console.workspace = true
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "net", "signal", "test-util"] }
+tokio-util.workspace = true
+tracing = "0.1"
+tracing-subscriber.workspace = true
+wire_weaver_cli.workspace = true
+ww_report.workspace = true
+ww_self = { workspace = true }
+
+[[example]]
+name = "node_sim"
+path = "examples/sim.rs"
+
+[[example]]
+name = "node_about"
+path = "examples/about.rs"
+
+[lints]
+workspace = true

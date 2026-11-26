@@ -15,10 +15,12 @@ wire = "w1.0"
 std = ["ww_api/std"]
 defmt = ["ww_api/defmt", "dep:defmt"]
 
+# --8<-- [start:deps]
 [dependencies]
 defmt = { workspace = true, optional = true }
 ww_api = { workspace = true }
 ww_gpio.workspace = true
+# --8<-- [end:deps]
 
 [lints]
 workspace = true

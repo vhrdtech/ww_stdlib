@@ -24,6 +24,21 @@ test-all: check
     # ww_block's crc32/crc32_update without std, at the default and the 256-entry table (TR-31)
     cargo nextest run -p ww_block --no-default-features
     cargo nextest run -p ww_block --no-default-features --features ww_crc/table-256
+    # the Python scripts of the examples against their simulated devices, the book's Python outputs
+    just test-py
+
+# The Python scripts of the standard library examples against their simulated devices, their output checked
+# against docs/generated/
+[working-directory('examples/stdlib_py')]
+test-py:
+    uv run --group dev pytest -q tests
+
+# Write the book's generated outputs (docs/generated/) again: every test named `book_output*`, and the Python
+# scripts' outputs; a stale file fails `just test`
+book-outputs:
+    rm -rf docs/generated
+    WW_BOOK_OUTPUTS=write cargo nextest run --workspace -E 'test(/book_output/)'
+    WW_BOOK_OUTPUTS=write just test-py
 
 # cargo check what tests don't build: the board examples (each a workspace of its own on nightly)
 check:

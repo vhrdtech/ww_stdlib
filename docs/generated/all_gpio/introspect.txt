@@ -1,0 +1,21 @@
+$ ww --websocket ws://127.0.0.1:8081/ww introspect -d
+trait AllGpioApi all_gpio_api@0.1.0
+└─ 0 #[claim(exclusive)] impl port[]: ww_gpio::Bank
+   ├─ 0 impl pin[]: ww_gpio::Pin
+   │  ├─ 0 #[effect(actuate)] fn set_output_level(level: Level)
+   │  ├─ 1 #[effect(actuate)] fn toggle()
+   │  ├─ 2 #[effect(read)] fn output_level() -> Level
+   │  ├─ 3 #[effect(read)] fn input_level() -> Level
+   │  ├─ 7 #[errors(CommonError(Unsupported))] #[counted] stream event(enabled: IoPinEnabledEvents): IoPinEvent -> Result<(), GpioError>
+   │  ├─ 8 #[effect(actuate)] #[errors(CommonError(Unsupported, InUse, NoPower, Refused), DifferentModes)] fn set_mode(mode: Mode, initial: Option<Level>) -> Result<(), GpioError>
+   │  ├─ 9 #[effect(read)] fn mode() -> Mode
+   │  ├─ 10 #[effect(actuate)] #[errors(CommonError(Unsupported))] rw property pull: Pull, write error: GpioError
+   │  ├─ 11 #[effect(edit)] #[errors(CommonError(Unsupported))] rw property speed: Speed, write error: GpioError
+   │  └─ 12 #[effect(read)] fn capabilities() -> PinCapabilities
+   ├─ 8 #[effect(read)] fn capabilities() -> BankCapabilities
+   ├─ 9 #[effect(actuate)] #[errors(CommonError(Unsupported, Refused))] fn configure(config: BankConfig) -> Result<BankConfig, GpioError>
+   └─ 10 #[effect(read)] fn name() -> String
+
+15 resources, 2 traits, 24 types, 20372 bytes full, 156 bytes sent
+crates: all_gpio_api@0.1.0, ww_gpio@0.1.0, exact_units@0.1.0
+api hash: 477b11b55d6de8d4

@@ -171,35 +171,9 @@ All enums and structs are behind `#[derive_shrink_wrap]` with `owned(feature = "
 variants are available by enabling the crate's `std` feature; the plain configuration enums (`Mode`,
 `Pin`, `StopBits`, `Parity`, `DataBits`) also derive `PartialEq`/`Eq`.
 
-## Composing into a device API
+## Using it in a device
 
-A device exposes a UART by implementing `Uart` on its API root:
-
-```rust
-#[ww_api_root]
-pub trait MyDeviceApi {
-    ww_impl!(uart: ww_uart::Uart);
-}
-
-// a port without monitoring hardware
-ww_codegen!(my_device_api::MyDeviceApi for Server, server = true, omit = ["uart.monitor"]);
-```
-
-`tests/io_uart_api` is exactly this shape (used by `tests/io_uart`'s mock server and in-process tests); a device
-with more than one UART nests it as an array instead (`ww_impl!(uart[]: ww_uart::Uart)`, see `examples/uart_api`).
-
-## Client usage (`examples/uart`)
-
-The generated client wraps `wire_weaver_client::Commander`; see `examples/uart/src/lib.rs` for the small
-`UartBridge` wrapper type (connecting over USB with a fixed VID/PID). Sending bytes through the `tx` credit sink
-(`examples/uart/examples/simple.rs`):
-
-```rust
-let device = UartBridge::new().connect().await?;
-let mut tx = device.uart(0).tx().await?;
-tx.send_bytes(b"abc000def").await?;
-```
-
-Receiving chunks from `rx` and configuring the port look the same as any other nested trait, method and
-stream (see [streams](../api/streams.md)); for a non-array `uart` resource (as in `tests/io_uart_api`) the same
-calls drop the index: `client.uart().rx()`, `client.uart().configure(config)`.
+[A UART bridge](uart_bridge.md) puts `Uart` into an API as `uart[]: ww_uart::Uart`, serves it from a simulated board
+with a GPS receiver and a loopback, and calls it from Rust and Python. A device without monitoring hardware leaves
+`monitor` out with `omit = ["uart.monitor"]` in its `ww_codegen!` call; `tests/io_uart_api` shows a single port,
+`ww_impl!(uart: ww_uart::Uart)`, whose calls drop the index: `client.uart().rx()`.

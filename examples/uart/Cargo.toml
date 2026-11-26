@@ -1,6 +1,7 @@
 [package]
 name = "uart"
 version = "0.1.0"
+description = "Client of the UART bridge example device, and the device simulated on a PC over WebSocket"
 publish = false
 edition.workspace = true
 authors.workspace = true
@@ -8,18 +9,26 @@ license.workspace = true
 repository.workspace = true
 
 [dependencies]
+futures-util.workspace = true
 tokio = { workspace = true, features = ["sync", "rt"] }
-uart_api.workspace = true
+uart_api = { workspace = true, features = ["std"] }
+uart_device = { workspace = true, features = ["std"] }
 wire_weaver.workspace = true
-wire_weaver_client.workspace = true
+wire_weaver_client = { workspace = true, features = ["in_process", "usb", "ws"] }
+ww_device = { workspace = true, features = ["futures-io"] }
 ww_si = { workspace = true, features = ["std"] }
 ww_uart = { workspace = true, features = ["std"] }
 
 [dev-dependencies]
 anyhow.workspace = true
-tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+book_outputs.workspace = true
+clap = { workspace = true, features = ["derive"] }
+console.workspace = true
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "net", "signal", "test-util"] }
+tokio-util.workspace = true
 tracing = "0.1"
 tracing-subscriber.workspace = true
+wire_weaver_cli.workspace = true
 
 [[example]]
 name = "uart_blocking"
@@ -28,6 +37,14 @@ path = "examples/blocking.rs"
 [[example]]
 name = "uart_simple"
 path = "examples/simple.rs"
+
+[[example]]
+name = "uart_sim"
+path = "examples/sim.rs"
+
+[[example]]
+name = "uart_bridge"
+path = "examples/bridge.rs"
 
 [lints]
 workspace = true

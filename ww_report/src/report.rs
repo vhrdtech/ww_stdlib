@@ -197,7 +197,7 @@ fn part<T>(out: &mut String, part: &Part<T>, show: impl FnOnce(&mut String, &T))
     }
 }
 
-/// `ww info` as text.
+/// `ww info` as text: the link facts (API, hello generations), then [render_contract].
 pub fn render_info(info: &DeviceInfo) -> String {
     let mut out = String::new();
     if let Some(api) = &info.api {
@@ -213,6 +213,14 @@ pub fn render_info(info: &DeviceInfo) -> String {
     if let Some(generations) = &info.generations {
         let _ = writeln!(out, "Hello      {generations}");
     }
+    out += &render_contract(info);
+    out
+}
+
+/// What the device says about itself through the device contract traits, as text: firmware, board, ids, label and
+/// last reset. `ww info` prints it after the link facts the command line prints itself.
+pub fn render_contract(info: &DeviceInfo) -> String {
+    let mut out = String::new();
     if let Part::Value(f) = &info.firmware {
         let _ = write!(out, "Firmware   {} {}", f.name, f.version);
         if let Some(git) = &f.git {

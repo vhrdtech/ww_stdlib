@@ -23,6 +23,9 @@ the repository.
 
 ### Features
 
+- Sensor node example that tells about itself, simulated: `node_sim`, `node_about`, `node.py`, a `ww info` transcript (EX-24).
+- UART bridge example simulated on the PC: a GPS receiver and a loopback, `uart_sim`, `uart_bridge`, `uart.py` (EX-23).
+- GPIO expander example simulated on the PC: `all_gpio_sim`, `all_gpio_blink`, `gpio.py`, golden book outputs (EX-22).
 - The API traits declare what each item does with `#[effect(..)]`; snapshots and fixture pins saved again (API-58).
 - The `nucleo_g0b1re_api` fixture's tests list wire_weaver's `Meta::track` (API-71) as not compared; its pins stay.
 - Snapshots of ww_i2c, ww_spi, ww_uart, ww_can_bus, ww_pin_diag, ww_dfu and ww_gpio saved again in model format 0.6.0 (API-71).

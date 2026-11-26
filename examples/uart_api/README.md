@@ -1,10 +1,9 @@
 # uart_api
 
-> API for a USB/Ethernet/CAN to UART bridge.
+API of the UART bridge example: the serial ports of a board as standard `ww_uart::Uart`s, in one line.
 
-This crate is used by several example firmwares in `examples_mcu/` folder.
-Client code for Rust is generated from this crate in `../uart_api`.
-Python wheel using the Rust client and this crate is in `../uart_api_py`.
+- Device: `examples/uart_device` (simulated on a PC by `examples/uart`), and the UART firmware of
+  `examples_mcu/usb_stm32h725ig`.
+- Host: `examples/uart` (the generated client, `uart_bridge`) and `examples/stdlib_py` (`uart.py`).
 
-This crate is `#![no_std]` by default, but if owned types that use alloc are desired, you can enable them via `std`
-feature.
+The crate is `no_std`; its `std` feature turns on the owned types for host code.

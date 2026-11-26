@@ -1,10 +1,9 @@
-# blinky_api
+# all_gpio_api
 
-> API for an examply blinky device.
+API of the GPIO expander example: every GPIO bank of a board as a standard `ww_gpio::Bank`, in one line.
 
-This crate is used by several example firmwares in `examples_mcu/` folder.
-Client code for Rust is generated from this crate in `../blinky`.
-Python wheel using the Rust client and this crate is in `../blinky_py`.
+- Device: `examples/all_gpio_device` (simulated on a PC by `examples/all_gpio`), and the all-GPIO firmware of
+  `examples_mcu/nucleo_h743zi2` and `examples_mcu/usb_stm32h725ig`.
+- Host: `examples/all_gpio` (the generated client, `all_gpio_blink`) and `examples/stdlib_py` (`gpio.py`).
 
-This crate is `#![no_std]` by default, but if owned types that use alloc are desired, you can enable them via `std`
-feature.
+The crate is `no_std`; its `std` feature turns on the owned types for host code.

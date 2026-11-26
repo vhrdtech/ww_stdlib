@@ -1,0 +1,32 @@
+[package]
+name = "uart_device"
+version = "0.1.0"
+description = "The UART bridge example device: one server for the device simulated on a PC and the firmware of a board"
+publish = false
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[features]
+# build against std: owned API types, for a device simulated on a PC
+std = [
+    "uart_api/std",
+    "wire_weaver/std",
+    "ww_client_server/std",
+    "ww_uart/std",
+    "ww_stream/std",
+]
+
+[dependencies]
+embassy-futures.workspace = true
+uart_api.workspace = true
+wire_weaver.workspace = true
+ww_client_server = { workspace = true, features = ["streams"] }
+ww_device.workspace = true
+ww_si.workspace = true
+ww_stream = { workspace = true, features = ["streams"] }
+ww_uart.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,30 @@
+$ ww --websocket ws://127.0.0.1:8083/ww introspect -d
+trait Node node_api@0.1.0
+├─ 0 impl device: node_api::Device
+│  ├─ 0 impl firmware: ww_firmware_info::FirmwareInfo
+│  │  ├─ 0 const property FIRMWARE: FirmwareSummary = FirmwareSummary { name: "node_sim", version: Version { major: 0, minor: 1, patch: 0, pre: None, build: None }, git: None, built: None, profile: Debug }
+│  │  ├─ 1 const property BUILD_ID: MaxLen<Vec<u8>, 32> = []
+│  │  └─ 2 #[optional] const property BUILD_RECORD: MaxLen<Vec<u8>, 512> (left out by this device)
+│  ├─ 1 impl board: ww_board_info::BoardInfo
+│  │  ├─ 0 const property BOARD: BoardSummary = BoardSummary { name: "sensor node", revision: "A", revision_source: Assumed, variant: "simulated", bom_variant: "", serial: "SN-0001", build_date: None }
+│  │  ├─ 1 #[optional] const property REWORKS: MaxLen<Vec<Rework>, 16> since w1.2 (left out by this device)
+│  │  └─ 2 #[optional] #[effect(persist)] fn set_reworks(changes: MaxLen<Vec<ReworkState>, 16>, program: bool) -> Result<ReworkChange, ReworkError> since w1.2 (left out by this device)
+│  ├─ 2 impl uid: ww_uid::Uid
+│  │  └─ 0 const property IDS: MaxLen<Vec<UniqueId>, 4> = [UniqueId { kind: ChipUnique, source: InternalIc, value: 0x4e4f444500000001 }]
+│  ├─ 3 impl label: ww_user_info::UserInfo
+│  │  ├─ 0 const property CAPABILITIES: UserInfoCaps = UserInfoCaps { name_max: 32 B, notes_max: 0 B, persistent: false }
+│  │  ├─ 1 #[effect(persist)] #[errors(TooLong, CommonError(Busy, Fault))] rw property name: MaxLen<String, 32>, write error: UserInfoError
+│  │  └─ 2 #[optional] #[effect(persist)] #[errors(TooLong, CommonError(Busy, Fault))] rw property notes: MaxLen<String, 256>, write error: UserInfoError (left out by this device)
+│  ├─ 4 impl log: ww_log::LogText
+│  │  ├─ 0 #[errors(CommonError(Busy, Unsupported))] #[reliable] stream records(): LogRecord
+│  │  └─ 1 #[effect(edit)] #[errors(CommonError(Unsupported))] rw property level: LevelFilter
+│  └─ 5 impl indication: ww_indication::Indication
+│     ├─ 0 #[effect(actuate)] rw property mode: Mode
+│     ├─ 1 #[optional] #[effect(actuate)] rw property brightness: Brightness (left out by this device)
+│     ├─ 2 #[optional] #[effect(actuate)] #[errors(CommonError(Unsupported, Busy))] fn identify(duration: Quantity<Second, Unbounded>)
+│     └─ 3 #[optional] const property NAMES: Vec<String> (left out by this device)
+└─ 1 #[effect(actuate)] fn measure()
+
+24 resources, 7 traits, 56 types, 40220 bytes full, 574 bytes sent
+crates: node_api@0.1.0, ww_firmware_info@0.1.0, ww_board_info@0.3.0, ww_uid@0.1.0, ww_user_info@0.1.0, ww_log@0.1.0, ww_indication@0.1.0, ww_si@0.5.0, exact_units@0.1.0, ww_version@0.2.0, ww_date_time@0.1.0, ww_numeric@0.3.0
+api hash: c12a1fa123a8b694

@@ -1,0 +1,9 @@
+$ ww --websocket ws://127.0.0.1:8083/ww info
+API        node_api@0.1.0 (wire w1.0)
+Hello      framer=1 link=1 shrink_wrap=1 api_model=2
+Firmware   node_sim 0.1.0, debug
+Build id   none (the firmware keeps no build id note)
+Board      sensor node rev A (assumed), variant simulated, serial SN-0001
+Ids        chip 4e4f444500000001 (internal, primary)
+Label      "" (lost at power off)
+Last reset not implemented by this device

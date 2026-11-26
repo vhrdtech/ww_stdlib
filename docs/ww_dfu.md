@@ -1,5 +1,5 @@
 ---
-level: basic
+level: advanced
 ---
 
 # ww_dfu: firmware updates
